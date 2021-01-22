@@ -1,0 +1,56 @@
+Step 1a
+
+IF local enviroment is already setup, go to http://localhost/phpmyadmin/ and Run SQL command: 
+DROP table accounts (Or, Add column userrole with type int (1) and not null property, then delete original user.)
+Proceed to step 4
+
+Otherwise Proceed to step 1b
+___________
+Step 1b:
+
+Install XAMPP on local machine from 
+https://www.apachefriends.org/index.html
+
+Proceed to Step 2a to Place project directly in xampp directory
+PRoceed to step 2b to place in other location
+___________
+Step 2a: 
+
+Clone our Github repository to XAMPP/htdocs/AccountingProject
+Proceed to step 3
+___________
+Step 2b:
+
+Clone Github repository to location of choice
+Create Symbolic Link (mklink for windows) with cloned repository as source and XAMPP/htdocs/AccountingProject as target
+Proceed to step 3
+___________
+Step 3: 
+Launch XAMPP and start apache and mySQL modules
+proceed to step 4:
+___________
+Step 4:
+Go To http://localhost/phpmyadmin/
+
+Run the following SQL commands:
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+  	`username` varchar(50) NOT NULL,
+  	`password` varchar(255) NOT NULL,
+  	`email` varchar(100) NOT NULL,
+	`userrole` int(1) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `userrole`) VALUES (1, 'testadmn', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'test@test.com', 1);
+INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `userrole`) VALUES (2, 'testmngr', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'tes2t@test.com', 2);
+INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `userrole`) VALUES (3, 'testuser', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'test3@test.com', 3);
+
+Proceed TO STEP 5
+___________
+Step 5:
+Go To http://localhost/AccountingProject/index.html
+Attemp to login. accounts created will be: 
+
+testadmn, testmngr, testuser. password for each should be test.
