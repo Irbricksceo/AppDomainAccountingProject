@@ -22,6 +22,16 @@ $stmt->execute();
 $stmt->bind_result($password, $email);
 $stmt->fetch();
 $stmt->close();
+
+if ($_SESSION['userrole'] == '1'):
+	$role = "Administrator";
+elseif ($_SESSION['userrole'] == '2'):
+	$role = "Manager";
+elseif ($_SESSION['userrole'] == '3'):
+	$role = "User";
+else:
+	$role = "Undefined";
+endif;
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +66,10 @@ $stmt->close();
 					<tr>
 						<td>Email:</td>
 						<td><?=$email?></td>
+					</tr>
+					<tr>
+						<td>Role:</td>
+						<td><?=$role?></td>
 					</tr>
 				</table>
 			</div>
