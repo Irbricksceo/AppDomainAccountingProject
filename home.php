@@ -27,6 +27,19 @@ if (!isset($_SESSION['loggedin'])) {
 		<div class="content">
 			<h2>Home Page</h2>
 			<p>Welcome back, <?=$_SESSION['name']?>!</p>
+
+			<?php 
+			if ($_SESSION['userrole'] == '1'):
+				?><h1> Big Letters For Big People</h1><?php 
+			elseif ($_SESSION['userrole'] == '2'):
+				?><h2> Letters are smaller but you're still important</h2><?php 
+			elseif ($_SESSION['userrole'] == '3'):
+				?><h3> One day you'll get big letters too</h3><?php 
+			else:
+				?><h4> This should never show up</h4><?php 
+			endif;
+			?>
+
 		</div>
 	</body>
 </html>
