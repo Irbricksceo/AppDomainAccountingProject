@@ -20,8 +20,14 @@ if (!isset($_SESSION['loggedin'])) {
 		<nav class="navtop">
 			<div>
 				<h1>Website Title</h1>
+				<?php
+					if ($_SESSION['userrole'] == '1'):
+						?><a href="Users.php"><i class="fas fa-user-circle"></i>Users</a><?php 
+					endif;
+				?>
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+
 			</div>
 		</nav>
 		<div class="content">
