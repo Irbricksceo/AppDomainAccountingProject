@@ -56,8 +56,8 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, userrole) VALUES (?, ?, ?, ?)')) {
 	        // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            //Userrole set to 1(user) on default for registration
-            $userrole = 1;
+            //Userrole set to 3(user) on default for registration
+            $userrole = 3;
 	        $stmt->bind_param('sssi', $_POST['username'], $password, $_POST['email'], $userrole);
 	        $stmt->execute();
             echo 'You have successfully registered, you can now login!';
