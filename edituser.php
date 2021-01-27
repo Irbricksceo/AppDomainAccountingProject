@@ -6,20 +6,25 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-?>
+$DATABASE_HOST = 'localhost';
+$DATABASE_USER = 'root';
+$DATABASE_PASS = '';
+$DATABASE_NAME = 'accountingprojectlogin';
 
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>Profile Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
+	
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
-				<h1>Accounting Pro</h1>
+            <h1>Accounting Pro</h1>
 				<?php
 					if ($_SESSION['userrole'] == '1'):
 						?><a href="Users2.php"><i class="fas fa-user-circle"></i>Users</a><?php 
@@ -28,25 +33,14 @@ if (!isset($_SESSION['loggedin'])) {
 				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
-
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Home Page</h2>
-			<p>Welcome back, <?=$_SESSION['name']?>!</p>
+			<h2>Editing User</h2>
+			<div>
+               
 
-			<?php 
-			if ($_SESSION['userrole'] == '1'):
-				?><h1> Big Letters For Big People</h1><?php 
-			elseif ($_SESSION['userrole'] == '2'):
-				?><h2> Letters are smaller but you're still important</h2><?php 
-			elseif ($_SESSION['userrole'] == '3'):
-				?><h3> One day you'll get big letters too</h3><?php 
-			else:
-				?><h4> This should never show up</h4><?php 
-			endif;
-			?>
-
+			</div>
 		</div>
 	</body>
 </html>
