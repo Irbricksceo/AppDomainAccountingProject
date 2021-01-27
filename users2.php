@@ -55,10 +55,9 @@ if (mysqli_connect_errno()) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Profile Page</h2>
+			<h2>Users</h2>
 			<div>
-                <p>Users:</p>
-                
+              
 				<?php
                     // Attempt select query execution
                     $sql = "SELECT * FROM accounts";
@@ -72,17 +71,19 @@ if (mysqli_connect_errno()) {
                                         echo "<th>Password</th>";
                                         echo "<th>Email</th>";
                                         echo "<th>UserRole</th>";
+                                        echo "<th>Edit</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
                                     echo "<tr>";
-                                        echo "<td>" . $row['id'] . "</td>";
+                                        echo "<td>" . $row['ID'] . "</td>";
                                         echo "<td>" . $row['username'] . "</td>";
                                         echo "<td>" . $row['password'] . "</td>";
-                                        echo "<td>" . $row['email'] . "</td>";
+                                        echo "<td>" . $row['Email'] . "</td>";
                                         echo "<td>" . $row['userrole'] . "</td>";
-                                    echo "</tr>";
+                                        echo "<td><a href='edituser.php?r=1&u=".$row['ID']."'>Edit</a></td>";
+                                        echo "</tr>";
                                 }
                                 echo "</tbody>";                            
                             echo "</table>";
