@@ -6,10 +6,28 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+
+
+//Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
+if(isset($_GET['u'])) {
+	$editu = $_GET['u'];
+} else {
+	$editu = $_SESSION['id'];
+}
+
+if(isset($_GET['r'])) {
+	$return = $_GET['r'];
+} else {
+	$return = 2;
+}
+
+
+
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'accountingprojectlogin';
+
 
 ?>
 <!DOCTYPE html>
@@ -26,20 +44,21 @@ $DATABASE_NAME = 'accountingprojectlogin';
 			<div>
             <h1>Accounting Pro</h1>
 				<?php
-					if ($_SESSION['userrole'] == '1'):
-						?><a href="Users2.php"><i class="fas fa-user-circle"></i>Users</a><?php 
+					if ($return == 1):
+						?><a href="Users2.php"></i>Back</a><?php 
+					elseif ($return == 2):
+						?><a href="profile.php"></i>Back</a><?php 
 					endif;
 				?>
-				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
-				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+
 			</div>
 		</nav>
 		<div class="content">
 			<h2>Editing User</h2>
 			<div>
-               
-
+			   <?php
+			   echo "<h3> Editing User " . $editu . "</h3>"
+			   ?>
 			</div>
 		</div>
 	</body>

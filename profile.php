@@ -78,6 +78,7 @@ endif;
 						<td><?=$role?></td>
 					</tr>
 				</table>
+				<a href="edituser.php"></i>Edit</a>
 			</div>
 		</div>
 	</body>
