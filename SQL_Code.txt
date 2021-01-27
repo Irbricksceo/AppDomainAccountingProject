@@ -1,0 +1,49 @@
+CREATE TABLE IF NOT EXISTS `accounts` (
+    `ID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `username` varchar(50) NOT NULL UNIQUE,
+    `password` varchar(255) NOT NULL,
+    `Fname` varchar(50) NOT NULL,
+    `Lname` varchar(50) NOT NULL,
+    `StreetAddress` varchar(50) NOT NULL,
+    `City` varchar(50) NOT NULL,
+    `State`  varchar(50) NOT NULL,
+    `Zip` int(5) NOT NULL,
+    `DOB` date NOT NULL,
+    `SecurityQ1` int(1) NOT NULL,
+    `SecurityA1` varchar(50) NOT NULL,
+    `SecurityQ2` int(1) NOT NULL,
+    `SecurityA2` varchar(50) NOT NULL,
+    `picture` blob,
+    `DateCreated` datetime default current_timestamp NOT NULL,
+    `userrole`int(1) NOT NULL,
+    `PasswordExpire` datetime NOT NULL,
+    `Active` int(1) NOT NULL,
+    `SuspendStart` datetime NOT NULL,
+    `SuspendEnd` datetime NOT NULL,
+    `Email` varchar(50) NOT NULL UNIQUE,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `accounts` (`ID`, `username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`, `DateCreated`, `userrole`, `PasswordExpire`, `Active`, `SuspendStart`, `SuspendEnd`, `Email`) 
+    VALUES (1, 'Tadmin0121', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'Test', 'Admin', '123TestST', 'Marietta', 'GA', 30060, '2000-01-01',  1, 'testanswerA1', 2, 'testanswerA2', '2021-01-01 11:59:59', 1, '2022-01-01 11:59:59', 1, '2000-01-01 11:59:59', '2000-01-01 11:59:59', 'test@test.com');
+
+INSERT INTO `accounts` (`ID`, `username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`, `DateCreated`, `userrole`, `PasswordExpire`, `Active`, `SuspendStart`, `SuspendEnd`, `Email`)
+    VALUES (2, 'Tmngr0121', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'Test', 'Admin', '123TestST', 'Marietta', 'GA', 30060, '2000-01-01',  1, 'testanswerM1', 2, 'testanswerM2', '2021-01-01 11:59:59', 2, '2022-01-01 11:59:59', 1, '2000-01-01 11:59:59', '2000-01-01 11:59:59', 'test1@test.com');
+
+INSERT INTO `accounts` (`ID`, `username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`, `DateCreated`, `userrole`, `PasswordExpire`, `Active`, `SuspendStart`, `SuspendEnd`, `Email`) 
+    VALUES (3, 'Tuser0121', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'Test', 'Admin', '123TestST', 'Marietta', 'GA', 30060, '2000-01-01',  '1', 'testanswerU1', 2, 'testanswerU2', '2021-01-01 11:59:59', 3, '2022-01-01 11:59:59', 1, '2000-01-01 11:59:59', '2000-01-01 11:59:59', 'test2@test.com');
+
+
+CREATE TABLE IF NOT EXISTS `pastpassword` (
+    `ID` int(11) NOT NULL AUTO_INCREMENT,
+    `Password` varchar(255) NOT NULL,
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-----------------------------------
+columns of type "date" are in the format YYYY-MM-DD
+columns of type "datetime" are in the format YYYY-MM-DD HH:MM:SS
+security questions are singular ints with the number corosponding to a question
+I dont know how we are going to implement the pictures yet so for right now its varchar
+active is a boolean 1-active 0-inactive
+
