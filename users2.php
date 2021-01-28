@@ -68,9 +68,12 @@ if (mysqli_connect_errno()) {
                                     echo "<tr>";
                                         echo "<th>#</th>";
                                         echo "<th>Username</th>";
-                                        echo "<th>Password</th>";
+                                        echo "<th>Role</th>";
+                                        echo "<th>Name</th>";
                                         echo "<th>Email</th>";
-                                        echo "<th>UserRole</th>";
+                                        echo "<th>Created</th>";
+                                        echo "<th>Password Expires</th>";
+                                        echo "<th>Status</th>";
                                         echo "<th>Edit</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -79,9 +82,12 @@ if (mysqli_connect_errno()) {
                                     echo "<tr>";
                                         echo "<td>" . $row['ID'] . "</td>";
                                         echo "<td>" . $row['username'] . "</td>";
-                                        echo "<td>" . $row['password'] . "</td>";
-                                        echo "<td>" . $row['Email'] . "</td>";
                                         echo "<td>" . $row['userrole'] . "</td>";
+                                        echo "<td>" . $row['Fname'] . " " . $row['Lname'] ."</td>";
+                                        echo "<td>" . $row['Email'] . "</td>";
+                                        echo "<td>" . $row['DateCreated'] . "</td>";
+                                        echo "<td>" . $row['PasswordExpire'] . "</td>";
+                                        echo "<td>" . ($row['Active'] == 1 ? "Active" : "Inactive") . "</td>";
                                         echo "<td><a href='edituser.php?r=1&u=".$row['ID']."'>Edit</a></td>";
                                         echo "</tr>";
                                 }
