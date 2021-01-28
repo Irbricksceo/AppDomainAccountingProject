@@ -15,11 +15,11 @@ if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 // We don't have the password or email info stored in sessions so instead we can get the results from the database.
-$stmt = $con->prepare('SELECT password, email FROM accounts WHERE id = ?');
+$stmt = $con->prepare('SELECT password, email, DOB, Fname, Lname, StreetAddress, City, State, Zip, PasswordExpire, DateCreated FROM accounts WHERE id = ?');
 // In this case we can use the account ID to get the account info.
 $stmt->bind_param('i', $_SESSION['id']);
 $stmt->execute();
-$stmt->bind_result($password, $email);
+$stmt->bind_result($password, $email, $DOB, $Fname, $Lname, $Street, $City, $State, $Zip, $Passexp, $Join);
 $stmt->fetch();
 $stmt->close();
 
@@ -76,6 +76,34 @@ endif;
 					<tr>
 						<td>Role:</td>
 						<td><?=$role?></td>
+					</tr>
+					<tr>
+						<td>DOB::</td>
+						<td><?=$DOB?></td>
+					</tr>
+					<tr>
+						<td>Member Since:</td>
+						<td><?=$Join?></td>
+					</tr>
+					<tr>
+						<td>Name:</td>
+						<td><?=$Fname?> " " <?=$Lname?></td>
+					</tr>
+					<tr>
+						<td>Address:</td>
+						<td><?=$Street?></td>
+					</tr>
+					<tr>
+						<td>City:</td>
+						<td><?=$City?></td>
+					</tr>
+					<tr>
+						<td>State:</td>
+						<td><?=$State?></td>
+					</tr>
+					<tr>
+						<td>Zip:</td>
+						<td><?=$Zip?></td>
 					</tr>
 				</table>
 				<a href="edituser.php"></i>Edit</a>
