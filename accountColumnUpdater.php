@@ -14,6 +14,7 @@ function connectDB()
     return $con;
 }
 
+
 //Password expiration logic
 //Context: A password was changed by a user or admin from the editUser.php page
 //Context2: An account was just created and activation email was sent to admin
@@ -52,6 +53,7 @@ function setPasswordExpire($id)
 
     $con->close();
 }
+
 
 //Username generator (fName initial + lName + MM date created + YY date created)
 //Context: An account was just created and activation email was sent to admin
@@ -115,8 +117,53 @@ function generateUsername($id)
 
 
 //Storing password entries into pastpassword table
-function storePassword()
+//Context: An account was just created and activation email was sent to admin
+//Context: An account has just changed its password
+//Parameter: Accepts an id to be used to search for account in accounts table 
+function storePassword($id)
 {
+    // Try to establish connection to DB
+    $con = connectDB();
 
+    // Check if the account with that username exists.
+    if ($stmt = $con->prepare('SELECT * FROM accounts WHERE ID = ?')) {
+	    // Bind parameters (s = string, i = int, b = blob, etc)
+    	$stmt->bind_param('i', $id);
+	    $stmt->execute();
+        $stmt->store_result();
+	    // Store the result so we can check if the account exists in the database.
+    	if ($stmt->num_rows > 0) {
+	    	// Account exists
+            // Pull hashed password from account
+            if ($stmt = $con->prepare('SELECT password FROM accounts WHERE ID = ?')) {
+                $stmt->bind_param('i', $id);
+                $stmt->execute();
+                $stmt->bind_result($password);
+                $stmt->fetch();
+                $stmt->close();
+                
+                // Store hashed password into pastpasswords table
+                if($stmt = $con->prepare('INSERT INTO pastpassword (ID, Password) VALUES (?, ?)')) {
+                    $stmt->bind_param("is", $id, $password);
+                    $stmt->execute();
+
+                    echo ("Account password has been stored into pastpassword table!");
+                }
+                else{
+                    // Problem with SQL statement
+                    echo ('Could not prepare statement to store hashed password!');
+                }
+            }
+            else{
+                // Problem with SQL statement
+                echo ('Could not prepare statement to pull account values!');
+            }
+        } 
+        else {
+            // Account not found
+            echo ("Account was not found with supplied ID!");
+        } 
+    }
+    $con->close();
 }
 ?>
