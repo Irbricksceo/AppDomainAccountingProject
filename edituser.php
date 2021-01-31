@@ -38,6 +38,7 @@ $sql = "SELECT * FROM accounts WHERE id='$editu'";
 //Gets current user data
 $qry = mysqli_query($link, $sql);
 $data = mysqli_fetch_array($qry);
+$newDate = date("Y-m-d", strtotime($data['DOB']));
 
 //Fires update query when form is submitted
 if(isset($_POST['update'])) {
@@ -111,14 +112,14 @@ if(isset($_POST['updateADMN'])) {
 			<div>
 				<h3> Personal Information </h3>
 				<form action="" method="post">
-					<input type="text" name="email" placeholder="Email" value="<?php echo $data['Email'];?> "><br>
-					<input type="text" name="firstname" placeholder="First Name" value="<?php echo $data['Fname'];?> "><br>
-					<input type="text" name="lastname" placeholder="Last Name" value="<?php echo $data['Lname'];?> "><br>
-					<input type="text" name="street" placeholder="Street Address" value="<?php echo $data['StreetAddress'];?> "><br>
-					<input type="text" name="city" placeholder="City" value="<?php echo $data['City'];?> "><br>
-					<input type="text" name="state" placeholder="State" value="<?php echo $data['State'];?> "><br>
-					<input type="text" name="zip" placeholder="Zip" value="<?php echo $data['Zip'];?> "><br>
-					<input type="date" name="dob" placeholder="1970-01-01" value="<?php echo $data['DOB'];?> "><br>
+					<input type="text" name="email" placeholder="Email" value="<?php echo $data['Email'];?>"><br>
+					<input type="text" name="firstname" placeholder="First Name" value="<?php echo $data['Fname'];?>"><br>
+					<input type="text" name="lastname" placeholder="Last Name" value="<?php echo $data['Lname'];?>"><br>
+					<input type="text" name="street" placeholder="Street Address" value="<?php echo $data['StreetAddress'];?>"><br>
+					<input type="text" name="city" placeholder="City" value="<?php echo $data['City'];?>"><br>
+					<input type="text" name="state" placeholder="State" value="<?php echo $data['State'];?>"><br>
+					<input type="text" name="zip" placeholder="Zip" value="<?php echo $data['Zip'];?>"><br>
+					<input type="date" name="dob" value="<?php echo $newDate;?>"><br>
 					<input type="submit" value="Update" name="update" >
 				</form>
 				<?php 
