@@ -78,7 +78,7 @@ endif;
 						<td><?=$role?></td>
 					</tr>
 					<tr>
-						<td>DOB::</td>
+						<td>DOB:</td>
 						<td><?=$DOB?></td>
 					</tr>
 					<tr>
@@ -87,7 +87,7 @@ endif;
 					</tr>
 					<tr>
 						<td>Name:</td>
-						<td><?=$Fname?> " " <?=$Lname?></td>
+						<td><?=$Fname?> <?=$Lname?></td>
 					</tr>
 					<tr>
 						<td>Address:</td>
