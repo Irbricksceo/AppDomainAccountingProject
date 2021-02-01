@@ -105,7 +105,8 @@ if (mysqli_connect_errno()) {
                     // Close connection
                     mysqli_close($link);
                     ?>
-			</div>
+                    <a href="adduser.php"></i>Add User</a>
+            </div>
 		</div>
 	</body>
 </html>
