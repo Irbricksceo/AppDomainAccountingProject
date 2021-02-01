@@ -52,9 +52,23 @@ if(isset($_POST['Create'])) {
 	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`, `userrole`, `Active`, `Email`) 
     VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB',  $q1, '$a1', $q2, '$a2', 3,  0, '$newEmail')";
     */
+
     $edit = mysqli_query($link, $sqlupd);
     if($edit)
     {
+        if ($stmt = $link->prepare('SELECT id FROM accounts WHERE username = ?')) {
+            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+            $stmt->bind_param('s', $generatedUser);
+            $stmt->execute();
+            // Store the result so we can check if the account exists in the database.
+            $stmt->store_result();
+        
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($qry);
+                $stmt->fetch();
+            }}
+        setPasswordExpire($qry);
+        storePassword($qry);
         header("location:users2.php"); // return to users page
         exit;
     }
