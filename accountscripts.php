@@ -115,8 +115,6 @@ function generateUsername($id)
     $con->close();
 }
 
-generateUsernameByName("Test", "Users");
-
 //Username generator (fName initial + lName + MM date created + YY date created)
 //Context: An account was just created and activation email was sent to admin
 //Parameter: Accepts two strings for first name and last name
