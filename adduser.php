@@ -28,7 +28,7 @@ if ($_SESSION['userrole'] != 1) {
 
 //Fires update query when form is submitted
 if(isset($_POST['Create'])) {
-    $generatedUser = "temp";
+    $generatedUser = generateUsernameByName($_POST['firstname'], $_POST['lastname']);
     $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	$newEmail = $_POST['email'];
 	$newFname = $_POST['firstname'];
