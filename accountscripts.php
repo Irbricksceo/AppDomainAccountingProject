@@ -115,6 +115,66 @@ function generateUsername($id)
     $con->close();
 }
 
+generateUsernameByName("Test", "Users");
+
+//Username generator (fName initial + lName + MM date created + YY date created)
+//Context: An account was just created and activation email was sent to admin
+//Parameter: Accepts two strings for first name and last name
+function generateUsernameByName($fName, $lName)
+{
+    //Get current date
+    $currentDate = date("Y-m-d");
+
+    //Build new username
+    //Assign Fname initial to username
+    $username = substr($fName, 0, 1);
+    //Concatenate Lname to username
+    $username .= $lName;
+    //Concatenate MM date created to username
+    $username .= substr($currentDate, 5, 2);
+    //Concatenate YY date created to username
+    $username .= substr($currentDate, 2, 2);  
+    
+    //Concatenate wildcard character for SQL
+    $username .= '%';
+    
+    //Establish connection with DB
+    $con = connectDB();
+
+    // Check if the account with a matching username exists.
+    if ($stmt = $con->prepare('SELECT * FROM accounts WHERE username LIKE ?')) {
+	    // Bind parameters (s = string, i = int, b = blob, etc)
+        $stmt->bind_param('s', $username);
+	    $stmt->execute();
+        $stmt->store_result();
+	    // Check if query returned a row indicating username exists
+    	if ($stmt->num_rows == 0) {
+            //Username does not already exist
+            
+            //Remove SQL wildcard char
+            $username = substr($username, 0, -1);
+            //Close DB connection
+            $con->close();
+            //Return username
+            return ($username);
+        }
+        else {
+            //Username already exists
+
+            //Get number of rows, to be used for concatenating number
+            $num = $stmt->num_rows;
+            //Remove SQL wildcard char 
+            $username = substr($username, 0, -1);
+            //Concatenate num to end of username
+            $username .= $num;
+            //Close DB connection
+            $con->close();
+            //Return username
+            return ($username);
+        }
+    }
+}
+
 
 //Storing password entries into pastpassword table
 //Context: An account was just created and activation email was sent to admin
