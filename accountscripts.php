@@ -58,7 +58,7 @@ function setPasswordExpire($id)
 //Username generator (fName initial + lName + MM date created + YY date created)
 //Context: An account was just created and activation email was sent to admin
 //Paramter: Accepts an id to be used to search for account in accounts table
-function generateUsername($id)
+function generateUsernameByID($id)
 {
     // Try to establish connection to DB
     $con = connectDB();
