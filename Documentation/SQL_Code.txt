@@ -44,6 +44,5 @@ CREATE TABLE IF NOT EXISTS `pastpassword` (
 columns of type "date" are in the format YYYY-MM-DD
 columns of type "datetime" are in the format YYYY-MM-DD HH:MM:SS
 security questions are singular ints with the number corosponding to a question
-I dont know how we are going to implement the pictures yet so for right now its varchar
-active is a boolean 1-active 0-inactive
+
 
