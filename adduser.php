@@ -46,12 +46,12 @@ if(isset($_POST['Create'])) {
 
     $date = date("Y/m/d");
 
-	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`) 
-    VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail')";
-    /*
-	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`, `userrole`, `Active`, `Email`) 
-    VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB',  $q1, '$a1', $q2, '$a2', 3,  0, '$newEmail')";
-    */
+	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`) 
+    VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail', '$q1', '$a1', '$q2', '$a2')";
+
+	//$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`) 
+	//VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail', '$q1', '$a1', $q2, '$a2')";
+
 
     $edit = mysqli_query($link, $sqlupd);
     if($edit)
@@ -117,10 +117,10 @@ if(isset($_POST['Create'])) {
 					<input type="text" name="city" placeholder="City" ><br>
 					<input type="text" name="state" placeholder="State" ><br>
                     <input type="text" name="zip" placeholder="Zip" ><br>
-                    <input type="textarea" name="q1" placeholder="Security Question 1"><br>
-                    <input type="textarea" name="a1" placeholder="Security Answer 1"><br>
-                    <input type="textarea" name="q2" placeholder="Security Question 2"><br>
-                    <input type="textarea" name="a2" placeholder="Security Answer 2"><br>
+                    <input type="text" name="q1" placeholder="Security Question 1"><br>
+                    <input type="text" name="a1" placeholder="Security Answer 1"><br>
+                    <input type="text" name="q2" placeholder="Security Question 2"><br>
+                    <input type="text" name="a2" placeholder="Security Answer 2"><br>
 					<input type="date" name="dob"><br>
 					<input type="submit" value="Create" name="Create" >
 				</form>
