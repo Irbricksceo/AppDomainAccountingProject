@@ -74,6 +74,7 @@ if(isset($_POST['Change'])) {
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
 	<body>
+		<div class = "alter">
    		<form action="" method="post">
 			<h1> Forgot Password? Don't Worry <?php echo $email; ?>, Reset It Here! </h1>
 			<input type="hidden" name = email value="<?php echo $email; ?>">
@@ -87,6 +88,7 @@ if(isset($_POST['Change'])) {
 			<label for= "answer2"> <?php echo $data['SecurityQ2']; ?></label> <br>
 			<input type= "text" name="answer2">	<br>   
 			<input type="submit" value="Change" name="Change" >
- 		</form>
+		 </form>
+		</div>
 	</body>
 </html>
