@@ -59,7 +59,7 @@ body {
     transition: background-color 0.2s;
 }
 .alter {
-    width: 400px;
+    width: 500px;
     background-color: #ffffff;
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
     margin: 100px auto;
@@ -72,8 +72,6 @@ body {
     border-bottom: 1px solid #dee0e4;
 }
 .alter form {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     padding-top: 20px;
 }
@@ -86,6 +84,7 @@ body {
     color: #ffffff;
 }
 .alter form input[type="submit"] {
+    justify-content: center;
     width: 100%;
     padding: 15px;
    margin-top: 20px;
@@ -97,7 +96,8 @@ body {
     transition: background-color 0.2s;
 }
 .alter form input[type="submit"]:hover {
-  background-color: #2868c7;
+    justify-content: center;
+    background-color: #2868c7;
     transition: background-color 0.2s;
 }
 
