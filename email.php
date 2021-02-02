@@ -35,4 +35,21 @@ function sendPasswordReminderEmail($to_email)
         echo "Email sending failed...";
     }
 }
+
+function sendActivationEmail($emailToBeActivated)
+{
+    //Question: Are we sending this activation email to the server email (to act as an admin) or sending to all emails with 
+    //a userrole of 1(admin)?
+}
+
+function sendEmailFromAdmin()
+{
+    //Question: How is this differentiated from the sendEmailFromServer function?  With the current setup for the mail function, it will
+    //only send emails from the provided email we set the mail server up with (server.acctpro@gmail.com).  Cannot send an email on behalf
+    //of a totally different email unless we build out an SMTP server to manage emails for our domain.
+    //
+    //Possible solution(kinda jank tho): Just have a farewell message included in the body stating the message came from an admin.
+    //Possible solution(building on top of the above suggesetion): Pass into function or pull from DB the admin credentials and leave 
+    //
+}
 ?>
