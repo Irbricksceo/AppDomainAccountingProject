@@ -12,11 +12,13 @@
 <h1> Regisration Page</h1>
 
 <!-- Registration form -->
-<form action="sendToDatabase.php" method="post">
+<form action="register2.php" method="post">
   First Name:<input type="text" name="fName" required>
   
   Last Name:<input type="text" name="lName" required>
-
+ 
+  Password:<input type="text" name="Password" required>
+    
   Street Address:<input type="text" name="Address" required> <br> 
   
   City: <input type="text" name="City" required>
@@ -25,10 +27,16 @@
   
   Zipcode:<input type="text" name="Zip" required> <br>
   
-  DOB:<input type="text" name="DOB" required>
+  DOB:<input type="date" name="DOB" required>
  
   Email:<input type= "text" name="Email" required> <br>
 
+  Security Question 1:<input type="text" name="SecurityQ1">
+  Security Answer 1:<input type="text" name="SecurityA1"> <br>
+
+  Security Question 2:<input type="text" name="SecurityQ2">
+  Security Answer 2:<input type="text" name="SecurityA2"> <br>
+  
   <input type="Submit">
 
 
