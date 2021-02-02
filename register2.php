@@ -1,5 +1,5 @@
 <?php 
-include 'acountscripts.php';
+include 'accountscripts.php';
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
