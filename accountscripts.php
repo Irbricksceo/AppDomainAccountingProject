@@ -54,7 +54,7 @@ function setPasswordExpire($id)
     $con->close();
 }
 
-
+//**FUNCTION DOES NOT CHECK FOR DUPLICATE USERNAMES, USE FUNCTION generateUsernameByName() **
 //Username generator (fName initial + lName + MM date created + YY date created)
 //Context: An account was just created and activation email was sent to admin
 //Paramter: Accepts an id to be used to search for account in accounts table
@@ -222,6 +222,44 @@ function storePassword($id)
             echo ("Account was not found with supplied ID!");
         } 
     }
+    $con->close();
+}
+
+//Context: Admin calls this function from user management page to set suspension dates for user
+//Parameters: Accepts an int for account ID and two strings for starting and ending dates
+//Date/Time Format: YYYY-MM-DD HH:MM:SS
+function setSuspensionDates($id, $startDate, $endDate)
+{
+    // Try to establish connection to DB
+    $con = connectDB();
+
+    // Check if the account with that username exists.
+    if ($stmt = $con->prepare('SELECT * FROM accounts WHERE ID = ?')) {
+	    // Bind parameters (s = string, i = int, b = blob, etc)
+    	$stmt->bind_param('i', $id);
+	    $stmt->execute();
+	    $stmt->store_result();
+	    // Store the result so we can check if the account exists in the database.
+    	if ($stmt->num_rows > 0) {
+	    	// Account exists
+            // Prepare statement with suspension dates
+            if ($stmt = $con->prepare('UPDATE accounts SET SuspendStart = ?, SuspendEnd = ? WHERE ID = ?')) {
+                $stmt->bind_param('ssi', $startDate, $endDate, $id);
+                $stmt->execute();
+
+                echo ('Account suspension dates have been set!');
+            }
+            else{
+                // Problem with SQL statement
+                echo 'Could not prepare statement!';
+            }
+        } 
+        else {
+            // Account not found
+            echo ("Account was not found with supplied ID!");
+        }
+    }
+
     $con->close();
 }
 ?>
