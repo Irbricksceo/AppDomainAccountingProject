@@ -8,6 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 include "email.php";
+include "accountscripts.php";
 
 //Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {
@@ -66,9 +67,6 @@ if(isset($_POST['update'])) {
 //Separate Script To Fire For Admin Updates
 if(isset($_POST['updateADMN'])) {
 
-
-
-
 	$primeMSG = false;
 	$newRole = $_POST['role'];
 	$newStatus = $_POST['status'];
@@ -85,12 +83,19 @@ if(isset($_POST['updateADMN'])) {
 			$subject = 'Accounting Pro Account Activated';
 			sendEmailFromServer($to_email, $subject, $body);
 		}
-		//header("location:edituser.php?r=$return&u=$editu"); // reload page	
+		header("location:edituser.php?r=$return&u=$editu"); // reload page	
     }
     else
     {
         echo mysqli_error();
 	} 
+} 
+//script for updating suspension windows
+if(isset($_POST['updateSuspension'])) {
+	$susStart = $_POST['start'];
+	$susEnd = $_POST['end'];
+	setSuspensionDates($editu, $susStart, $susEnd);
+	header("location:edituser.php?r=$return&u=$editu"); // reload page	
 } 
 ?>
 <!DOCTYPE html>
@@ -159,18 +164,29 @@ if(isset($_POST['updateADMN'])) {
 				if ($_SESSION['userrole'] == 1 && $editu != $_SESSION['id']) {
 				?>
 				<h3> Administrative Functions </h3>
-				<form action="" method="post">
-					<h4> Role </h4>
-					<input type="radio" name="role" value = 1 <?php if($data['userrole']==1) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '1'): ?>checked='checked'<?php endif; ?>>Administrator<br>
-					<input type="radio" name="role" value = 2 <?php if($data['userrole']==2) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '2'): ?>checked='checked'<?php endif; ?>>Manager<br>
-					<input type="radio" name="role" value = 3 <?php if($data['userrole']==3) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '3'): ?>checked='checked'<?php endif; ?>>User<br>
-					</br>
-					<h4> Status </h4>
-					<input type="radio" name="status" value = 1 <?php if($data['Active']==1) { echo "checked";} if (isset($_POST['status']) && $_POST['status'] ==  '1'): ?>checked='checked'<?php endif; ?>>Active<br>
-					<input type="radio" name="status" value = 0 <?php if($data['Active']!=1) { echo "checked";} if (isset($_POST['status']) && $_POST['status'] ==  '0'): ?>checked='checked'<?php endif; ?>>Disabled<br>
-					</br>
-					<input type="submit" value="Update Role/Status" name="updateADMN" >
-				</form>
+				<div> 
+					<form action="" method="post">
+						<h4> Role </h4>
+						<input type="radio" name="role" value = 1 <?php if($data['userrole']==1) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '1'): ?>checked='checked'<?php endif; ?>>Administrator<br>
+						<input type="radio" name="role" value = 2 <?php if($data['userrole']==2) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '2'): ?>checked='checked'<?php endif; ?>>Manager<br>
+						<input type="radio" name="role" value = 3 <?php if($data['userrole']==3) { echo "checked";} if (isset($_POST['role']) && $_POST['role'] ==  '3'): ?>checked='checked'<?php endif; ?>>User<br>
+						</br>
+						<h4> Status </h4>
+						<input type="radio" name="status" value = 1 <?php if($data['Active']==1) { echo "checked";} if (isset($_POST['status']) && $_POST['status'] ==  '1'): ?>checked='checked'<?php endif; ?>>Active<br>
+						<input type="radio" name="status" value = 0 <?php if($data['Active']!=1) { echo "checked";} if (isset($_POST['status']) && $_POST['status'] ==  '0'): ?>checked='checked'<?php endif; ?>>Disabled<br>
+						</br>
+						<input type="submit" value="Update Role/Status" name="updateADMN" >
+					</form>
+				</div> 
+				<hr>
+				<div> 
+					<h3> Set Suspension Window </h3>
+					<form action="" method="post">
+						<input type="datetime-local" name='start'> <br>
+						<input type="datetime-local" name='end'> <br>
+						<input type="submit" value="Confirm" name="updateSuspension" >
+					</form>
+				</div> 
 				<?php
 				}
 				?>
