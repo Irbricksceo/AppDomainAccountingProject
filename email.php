@@ -16,13 +16,13 @@ function sendEmailFromServer($to_email, $subject, $body)
     $headers = "From: server.acctpro@gmail.com";
 
     if (mail($to_email, $subject, $body, $headers)) {
-        echo "Email successfully sent";
+        echo "Email successfully sent to: " .$to_email;
     } else {
-        echo "Email sending failed...";
+        echo "Email could not be sent to: " .$to_email;
     }
 }
 
-//Helper function for when we will need to write a script to check the DB for upcoming password expiration
+//Helper function to be used for DB nightly script that checks for expired or close to expiring passwords
 function sendPasswordReminderEmail($to_email)
 {
     $headers = "From: server.acctpro@gmail.com";
@@ -30,9 +30,23 @@ function sendPasswordReminderEmail($to_email)
     $body = "Your password for AccountingPro will expire within the next 3 days.  Please change your password now or contact an administrator for help.";
 
     if (mail($to_email, $subject, $body, $headers)) {
-        echo "Email successfully sent";
+        echo "Email successfully sent to: " .$to_email;
     } else {
-        echo "Email sending failed...";
+        echo "Email could not be sent to: " .$to_email;
+    }
+}
+
+//Helper function to be used for DB nightly script that checks for expired or close to expiring passwords
+function sendPasswordExpiredEmail($to_email)
+{
+    $headers = "From: server.acctpro@gmail.com";
+    $subject = "Password Expired!";
+    $body = "Your password for AccountingPro has expired!  Please click 'Forgot Password' on the login screen or contact an administrator for help.";
+
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Email successfully sent to: " .$to_email;
+    } else {
+        echo "Email could not be sent to: " .$to_email;
     }
 }
 
