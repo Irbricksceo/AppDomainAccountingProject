@@ -6,18 +6,6 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-if(isset($_POST['Email'])) {
-	$to_email = 'Irbricksceo@gmail.com';
-	$body = 'Test Email';
-	$subject = 'Test Email';
-	$headers = "From: server.acctpro@gmail.com";
-
-    if (mail($to_email, $subject, $body, $headers)) {
-        echo "Email successfully sent";
-    } else {
-        echo "Email sending failed...";
-    }
-} 
 ?>
 
 <!DOCTYPE html>
@@ -47,23 +35,19 @@ if(isset($_POST['Email'])) {
 			<h2>Home Page</h2>
 			<p>Welcome back, <?=$_SESSION['name']?>!</p>
 
+			<p>Welcome to Accounting Pro, your online tool for managing accounts. We're still under construction.</p>
+
 			<?php 
 			if ($_SESSION['userrole'] == '1'):
-				?><h1> Big Letters For Big People</h1><?php 
+				?><h3> As an administrator, you currently have access to tools for managing users on the platform. Try it out in the users tab!</h3><?php 
 			elseif ($_SESSION['userrole'] == '2'):
-				?><h2> Letters are smaller but you're still important</h2><?php 
+				?><h3> As a manager, you do not currently have much functionality, but its coming soon!</h3><?php 
 			elseif ($_SESSION['userrole'] == '3'):
-				?><h3> One day you'll get big letters too</h3><?php 
+				?><h3> As a normal user, you do not currently have much functionality, but its coming soon!</h3><?php 
 			else:
-				?><h4> This should never show up</h4><?php 
+				?><h3> Unable to retrieve role, please logout and login again. If this problem persists, please contact your administrator.</h3><?php 
 			endif;
 			?>
-
-			
-			<form action="" method="post">
-				<input type="submit" value="Test Email" name="Email" >
-			</form>
-
 		</div>
 	</body>
 </html>
