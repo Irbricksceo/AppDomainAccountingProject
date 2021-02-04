@@ -72,6 +72,7 @@ if(isset($_POST['Change'])) {
 		<meta charset="utf-8">
 		<title>Forgot Password</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<link rel="icon" href="images/favicon.ico">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
 	<body>

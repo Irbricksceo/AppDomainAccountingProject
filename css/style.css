@@ -129,6 +129,12 @@ body {
 	display: inline-flex;
 	align-items: center;
 }
+
+.navtop div img {
+	padding: 0;
+	margin: 5px;
+	background-color: #eaebed;
+}
 .navtop div h1 {
 	flex: 1;
 	font-size: 24px;

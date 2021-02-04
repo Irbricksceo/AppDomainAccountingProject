@@ -24,7 +24,8 @@ if (mysqli_connect_errno()) {
 		<title>Profile Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+        <link rel="icon" href="images/favicon.ico">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 		<style type="text/css">
@@ -43,6 +44,7 @@ if (mysqli_connect_errno()) {
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
+            <img src="images/logo.png" width="60" alt="Logo">
             <h1>Accounting Pro</h1>
 				<?php
 					if ($_SESSION['userrole'] == '1'):

@@ -60,11 +60,13 @@ if(isset($_POST['sendemail'])) {
 		<title>Profile Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+        <link rel="icon" href="images/favicon.ico">
 	</head>
 	
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
+            <img src="images/logo.png" width="60" alt="Logo">
             <h1>Accounting Pro</h1>
 				<?php
 					?><a href="users2.php"></i>Back</a><?php 

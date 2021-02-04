@@ -15,10 +15,12 @@ if (!isset($_SESSION['loggedin'])) {
 		<title>Home Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+
 	</head>
 	<body class="loggedin">
 		<nav class="navtop">
 			<div>
+				<img src="images/logo.png" width="60" alt="Logo">
 				<h1>Accounting Pro</h1>
 				<?php
 					if ($_SESSION['userrole'] == '1'):
