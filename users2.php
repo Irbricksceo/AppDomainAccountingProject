@@ -64,6 +64,13 @@ if (mysqli_connect_errno()) {
 				<?php
                     // Attempt select query execution
                     $sql = "SELECT * FROM accounts";
+                    if (isset($_POST['filterroleexpired'])) {
+                        $date = date('Y-m-d H:i:s');
+                        $sql = $sql . " WHERE PasswordExpire < '$date'";
+                    }
+                    if (isset($_POST['filterroleactive'])) {
+                        $sql = $sql . " WHERE active = 1";
+                    }
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo "<table class='table table-bordered table-striped'>";
@@ -111,6 +118,16 @@ if (mysqli_connect_errno()) {
                     mysqli_close($link);
                     ?>
                     <a href="adduser.php"></i>Add User</a>
+                    <hr>
+                    <div class = "filters">
+                    <form action="" method="post">
+						<input type="submit" value="Show Only Active Users" name="filterroleactive" >
+                    </form>
+                    
+                    <form action="" method="post">
+						<input type="submit" value="Show Users With Expired Passwords" name="filterroleexpired" >
+                    </form>
+                    </div>
             </div>
 		</div>
 	</body>

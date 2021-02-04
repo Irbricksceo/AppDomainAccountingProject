@@ -261,3 +261,7 @@ body.loggedin {
     float: left;
     padding: 20px;
 }  
+
+.filters form {
+    display: inline;
+}
