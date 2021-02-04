@@ -7,6 +7,7 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+include "email.php";
 
 //Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {
@@ -64,14 +65,27 @@ if(isset($_POST['update'])) {
 }
 //Separate Script To Fire For Admin Updates
 if(isset($_POST['updateADMN'])) {
+
+
+
+
+	$primeMSG = false;
 	$newRole = $_POST['role'];
 	$newStatus = $_POST['status'];
+	if($data['active']!=1) {
+		$primeMSG = true;
+	}
 	$sqlupd = "UPDATE accounts SET userrole = '$newRole', active = '$newStatus' WHERE id='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
-        header("location:edituser.php?r=$return&u=$editu"); // reload page
-        exit;
+		if ($primeMSG == true && $newStatus == 1) {
+			$to_email = $data['Email'];
+			$body = 'An Administrator Has Activated Your Accounting Pro Account, Sign In Today!';
+			$subject = 'Accounting Pro Account Activated';
+			sendEmailFromServer($to_email, $subject, $body);
+		}
+		//header("location:edituser.php?r=$return&u=$editu"); // reload page	
     }
     else
     {
