@@ -112,14 +112,31 @@ if(isset($_POST['updateADMN'])) {
 			<div>
 				<h3> Personal Information </h3>
 				<form action="" method="post">
+					<?php echo "Email:" ?><br>
 					<input type="text" name="email" placeholder="Email" value="<?php echo $data['Email'];?>"><br>
+					<?php echo "First Name:" ?><br>
 					<input type="text" name="firstname" placeholder="First Name" value="<?php echo $data['Fname'];?>"><br>
+					<?php echo "Last Name:" ?><br>
 					<input type="text" name="lastname" placeholder="Last Name" value="<?php echo $data['Lname'];?>"><br>
+					<?php echo "Street Address:" ?><br>
 					<input type="text" name="street" placeholder="Street Address" value="<?php echo $data['StreetAddress'];?>"><br>
+					<?php echo "City:" ?><br>
 					<input type="text" name="city" placeholder="City" value="<?php echo $data['City'];?>"><br>
+					<?php echo "State:" ?><br>
 					<input type="text" name="state" placeholder="State" value="<?php echo $data['State'];?>"><br>
+					<?php echo "Zip Code:" ?><br>
 					<input type="text" name="zip" placeholder="Zip" value="<?php echo $data['Zip'];?>"><br>
+					<?php echo "Date of Birth:" ?><br>
 					<input type="date" name="dob" value="<?php echo $newDate;?>"><br>
+					<?php echo "Security Question 1:" ?><br>
+					<input type="text" name="SecurityQ1" placeholder="SecurityQ1" value="<?php echo $data['SecurityQ1'];?>"><br>
+					<?php echo "Security Answer 1:" ?><br>
+					<input type="text" name="SecurityA1" placeholder="SecurityA1" value="<?php echo $data['SecurityA1'];?>"><br>
+					<?php echo "Security Question 2:" ?><br>
+					<input type="text" name="SecurityQ2" placeholder="SecurityQ2" value="<?php echo $data['SecurityQ2'];?>"><br>
+					<?php echo "Security Answer 2:" ?><br>
+					<input type="text" name="SecurityA2" placeholder="SecurityA2" value="<?php echo $data['SecurityA2'];?>"><br>
+					<br>
 					<input type="submit" value="Update" name="update" >
 				</form>
 				<?php 
