@@ -19,22 +19,32 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
 }
 
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $con->prepare('SELECT id, password, userrole, active FROM accounts WHERE username = ?')) {
+if ($stmt = $con->prepare('SELECT id, password, userrole, active, SuspendStart, SuspendEnd FROM accounts WHERE username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['username']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
 	$stmt->store_result();
 
+    //Check if row was returned (account exists)
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $password, $userrole, $status);
+        $stmt->bind_result($id, $password, $userrole, $status, $suspendStart, $suspendEnd);
         $stmt->fetch();
-        // Account exists, now we verify the password.
         // Note: remember to use password_hash in your registration file to store the hashed passwords.
         if (password_verify($_POST['password'], $password)) {
+            
+            //Setup currentDateTime and suspension dates as DateTime objects to be used to check for account suspension
+            $currentDateTime = new DateTime();
+            $suspendStart = DateTime::createFromFormat("Y-m-d H:i:s", $suspendStart);
+            $suspendEnd = DateTime::createFromFormat("Y-m-d H:i:s", $suspendEnd);
+            
             //checks for inactive users
             if ($status != 1) {
-                echo 'This account is currenly disabled, please contact your administrator.';
+                echo 'This account is currently disabled, please contact your administrator.';
+            } 
+            //Check if account is currently in a suspension period
+            elseif ($suspendStart < $currentDateTime && $currentDateTime < $suspendEnd){
+                echo ('This account is currently suspended please contact your admninistrator for help.  Account will be unsuspended on: ' . $suspendEnd->format("Y-m-d H:i:s"));
             } else {
                 if ($stmt = $con->prepare('UPDATE accounts SET attempts = 0 WHERE username = ?')) {
                     $stmt->bind_param('s', $_POST['username']);
