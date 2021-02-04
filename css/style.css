@@ -64,6 +64,12 @@ body {
   background-color: #2868c7;
     transition: background-color 0.2s;
 }
+
+.login a {
+    flex: 1;
+    font-size: 12px;
+  }
+
 .alter {
     width: 500px;
     background-color: #ffffff;
