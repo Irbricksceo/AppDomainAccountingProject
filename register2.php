@@ -11,8 +11,8 @@ if ($conn ->connect_error) {
 	// If there is an error with the connection, stop the script and display the error.
 	die ('Failed to connect to MySQL: ' . $conn ->connect_error);
 }
-    $generatedUser = generateUsernameByName($_POST['fName'], $_POST['lName']); //this inst allowing me to continue through the php script
-    $password= password_hash($_POST['password'], PASSWORD_DEFAULT); 
+    $generatedUser = generateUsernameByName($_POST['fName'], $_POST['lName']); 
+    $unHashedPass= $_POST['password'];
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $address= $_POST['Address'];
@@ -25,6 +25,54 @@ if ($conn ->connect_error) {
     $sq2= $_POST['SecurityQ2'];
     $sa2=$_POST['SecurityA2'];
     $email= $_POST['Email'];
+
+     //boolean that indicates if password starts with a letter
+     $startsWithLetter= false;
+     $longEnough= false;
+     $containsNumber= false;
+     $containsSC= false;
+
+
+       //Array that containts letters A-Z 
+       $validLetters= array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+      
+       //substr function grabs first character in password string
+       $firstPassCharacter= substr($unHashedPass,0,1);
+       /* For loop checks $validLetters array to see if  if any letter matches with the password substring.
+       If it does, $startsWithLetter becomes true and the for loop is exitied. 
+       strcasecmp() is case insensitive
+       
+       */
+       for($x=0; $x < count($validLetters) ; $x++ ){
+           if(strcasecmp($firstPassCharacter,$validLetters[$x]) == 0){
+           
+           $startsWithLetter= true;
+           break;
+          }
+      }
+   // Checks password length
+      if(strlen($unHashedPass) >= 8){
+          $longEnough= true;
+      }
+      //Checks for number
+      if(preg_match("#[0-9]+#",$unHashedPass)){
+          $containsNumber= true;
+      }
+    //Checks for special characters
+      if(preg_match('/[^a-zA-Z\d]/', $unHashedPass)){
+        $containsSC= true;
+    }
+
+
+if($startsWithLetter==false|| $longEnough==false || $containsNumber==false || $containsSC==false){
+
+    exit("Your password did not meet the requirements");
+}
+
+$password= password_hash($unHashedPass, PASSWORD_DEFAULT); 
+
+
+   
     
     $query1 = "INSERT INTO accounts (username, password, Fname, Lname, StreetAddress, City, State, Zip, DOB, SecurityQ1, SecurityA1, SecurityQ2,
     SecurityA2, Email)
@@ -54,41 +102,7 @@ if ($conn ->connect_error) {
     } 
 
 
-  //  $stmnt= $conn->prepare('UPDATE accounts SET UserID= ? WHERE ID = '); // How to grab userID?
-  //  $stmnt->bind_param('s',$generatedUser);
-     
-   
-    //$query3="UPDATE accounts SET UserID=$generatedUser WHERE Fname= '$fName' AND Lname='$lName' ";
-    //retrieves most recent record entered in accounts table
-    //$query3= "SELECT * FROM Table ORDER BY ID DESC LIMIT 1";
-    
-     //gets the entire row from query3
-     //$row= $query3 -> fetch_row();
-    
-     //call function and insert first column in $row array which is the ID value
-     //$generatedUser = generateUsernameByID($row['id']);
 
-    // $generatedUser = generateUsernameByName($fName,$lName);
-
-     // $query4= "UPDATE accounts SET UserID= $generatedUser WHERE ID = $row[0]";
-
-    
-
-    /*
-
-    if (mysqli_query($conn, $query1) && mysqli_query($conn, $query2))  {
-     echo "New record created successfully !";
-    } else {
-     echo "Error: " . $sql . " " . mysqli_error($conn);
-    }
-
-    mysqli_close($conn);
-
-
-
-
-  $mysqli ->close();
-  */
 
 ?>
 
