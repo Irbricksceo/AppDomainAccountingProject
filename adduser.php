@@ -96,7 +96,7 @@ if(isset($_POST['Create'])) {
 				<?php
 						?><a href="users2.php"></i>Back</a><?php 
 				?>
-
+			<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
 		<div class="content">

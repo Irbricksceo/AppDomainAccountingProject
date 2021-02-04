@@ -99,7 +99,7 @@ if(isset($_POST['updateADMN'])) {
 						?><a href="profile.php"></i>Back</a><?php 
 					endif;
 				?>
-
+			<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
 		<div class="content">
