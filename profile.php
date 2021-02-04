@@ -48,7 +48,7 @@ endif;
 			<h1>Accounting Pro</h1>
 				<?php
 					if ($_SESSION['userrole'] == '1'):
-						?><a href="Users2.php"><i class="fas fa-user-circle"></i>Users</a><?php 
+						?><a href="users2.php"><i class="fas fa-user-circle"></i>Users</a><?php 
 					endif;
 				?>
 				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>

@@ -94,7 +94,7 @@ if(isset($_POST['Create'])) {
 			<div>
             <h1>Accounting Pro</h1>
 				<?php
-						?><a href="Users2.php"></i>Back</a><?php 
+						?><a href="users2.php"></i>Back</a><?php 
 				?>
 
 			</div>
