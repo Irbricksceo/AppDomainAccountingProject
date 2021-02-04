@@ -6,6 +6,18 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+if(isset($_POST['Email'])) {
+	$to_email = 'Irbricksceo@gmail.com';
+	$body = 'Test Email';
+	$subject = 'Test Email';
+	$headers = "From: server.acctpro@gmail.com";
+
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Email successfully sent";
+    } else {
+        echo "Email sending failed...";
+    }
+} 
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +58,11 @@ if (!isset($_SESSION['loggedin'])) {
 				?><h4> This should never show up</h4><?php 
 			endif;
 			?>
+
+			
+			<form action="" method="post">
+				<input type="submit" value="Test Email" name="Email" >
+			</form>
 
 		</div>
 	</body>

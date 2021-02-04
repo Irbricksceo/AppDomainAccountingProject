@@ -15,12 +15,13 @@ CREATE TABLE IF NOT EXISTS `accounts` (
     `SecurityA2` varchar(50),
     `picture` blob,
     `DateCreated` datetime default current_timestamp,
-    `userrole`int(1) default 1 ,
+    `userrole`int(1) default 3 ,
     `PasswordExpire` datetime,
     `Active` int(1) default 0,
     `SuspendStart` datetime default current_timestamp,
     `SuspendEnd` datetime default current_timestamp,
     `Email` varchar(50) UNIQUE,
+    `attempts` int(1),
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
