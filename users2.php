@@ -76,6 +76,7 @@ if (mysqli_connect_errno()) {
                                         echo "<th>Password Expires</th>";
                                         echo "<th>Status</th>";
                                         echo "<th>Edit</th>";
+                                        echo"<th>Send Message</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -90,6 +91,7 @@ if (mysqli_connect_errno()) {
                                         echo "<td>" . $row['PasswordExpire'] . "</td>";
                                         echo "<td>" . ($row['Active'] == 1 ? "Active" : "Inactive") . "</td>";
                                         echo "<td><a href='edituser.php?r=1&u=".$row['ID']."'>Edit</a></td>";
+                                        echo "<td><a href='emailuser.php?u=".$row['ID']."'>MSG</a></td>";
                                         echo "</tr>";
                                 }
                                 echo "</tbody>";                            
