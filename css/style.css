@@ -248,3 +248,16 @@ body.loggedin {
   background-color: #2868c7;
     transition: background-color 0.2s;
 }
+
+.float-container {
+	padding: 5px;
+    margin: 0 0 10px 0;
+    height: 750px;
+        
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+}  
