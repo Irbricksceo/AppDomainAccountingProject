@@ -23,6 +23,7 @@ $data = mysqli_fetch_array($qry);
 //Fires update query when form is submitted
 if(isset($_POST['Change'])) {
 	$newpass = $_POST['newPass'];
+	passwordRequirements($newpass);
 	$hashed = password_hash($_POST['newPass'], PASSWORD_DEFAULT);
 	$a1 = $_POST['answer1'];
 	$a2 = $_POST['answer2'];
