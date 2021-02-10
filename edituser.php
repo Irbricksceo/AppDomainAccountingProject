@@ -7,8 +7,8 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
-include "email.php";
-include "accountscripts.php";
+include "scripts/email.php";
+include "scripts/accountscripts.php";
 
 //Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {

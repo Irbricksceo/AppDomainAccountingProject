@@ -48,7 +48,7 @@ $password= password_hash($unHashedPass, PASSWORD_DEFAULT);
             }}
         setPasswordExpire($qry);
         storePassword($qry);
-        echo 'Registered successfully, please wait for administrator approval';
+        echo 'Registered successfully, please wait for administrator approval ';
         exit;
     }
     else

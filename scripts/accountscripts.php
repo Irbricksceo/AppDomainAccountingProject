@@ -38,16 +38,16 @@ function setPasswordExpire($id)
                 $stmt->bind_param('i', $id);
                 $stmt->execute();
 
-                echo ('Account password expiration date has been updated!');
+                echo ('Account password expiration date has been updated! ');
             }
             else{
                 // Problem with SQL statement
-                echo 'Could not prepare statement!';
+                echo 'Could not prepare statement! ';
             }
         } 
         else {
             // Account not found
-            echo ("Account was not found with supplied ID!");
+            echo ("Account was not found with supplied ID! ");
         }
     }
 
@@ -99,17 +99,17 @@ function generateUsernameByID($id)
                 }
                 else{
                     // Problem with SQL statement
-                    echo ('Could not prepare statement to update username!');
+                    echo ('Could not prepare statement to update username! ');
                 }
             }
             else{
                 // Problem with SQL statement
-                echo 'Could not prepare statement to pull account values!';
+                echo 'Could not prepare statement to pull account values! ';
             }
         } 
         else {
             // Account not found
-            echo ("Account was not found with supplied ID!");
+            echo ("Account was not found with supplied ID! ");
         } 
     }
     $con->close();
@@ -205,21 +205,21 @@ function storePassword($id)
                     $stmt->bind_param("is", $id, $password);
                     $stmt->execute();
 
-                    echo ("Account password has been stored into pastpassword table!");
+                    echo ("Account password has been stored into pastpassword table! ");
                 }
                 else{
                     // Problem with SQL statement
-                    echo ('Could not prepare statement to store hashed password!');
+                    echo ('Could not prepare statement to store hashed password! ');
                 }
             }
             else{
                 // Problem with SQL statement
-                echo ('Could not prepare statement to pull account values!');
+                echo ('Could not prepare statement to pull account values! ');
             }
         } 
         else {
             // Account not found
-            echo ("Account was not found with supplied ID!");
+            echo ("Account was not found with supplied ID! ");
         } 
     }
     $con->close();
@@ -247,7 +247,7 @@ function setSuspensionDates($id, $startDate, $endDate)
                 $stmt->bind_param('ssi', $startDate, $endDate, $id);
                 $stmt->execute();
 
-                echo ('Account suspension dates have been set!');
+                echo ('Account suspension dates have been set! ');
             }
             else{
                 // Problem with SQL statement
@@ -256,7 +256,7 @@ function setSuspensionDates($id, $startDate, $endDate)
         } 
         else {
             // Account not found
-            echo ("Account was not found with supplied ID!");
+            echo ("Account was not found with supplied ID! ");
         }
     }
 

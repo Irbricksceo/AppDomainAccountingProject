@@ -55,7 +55,7 @@ endif;
 				?>
 				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>

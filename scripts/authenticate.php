@@ -58,7 +58,7 @@ if ($stmt = $con->prepare('SELECT id, password, userrole, active, SuspendStart, 
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $id;
                 $_SESSION['userrole'] = $userrole;
-                header('Location: home.php');
+                header('Location: ../home.php');
             }}
         } else {
             if ($stmt2 = $con->prepare('UPDATE accounts SET attempts = attempts + 1 WHERE username = ?')) {

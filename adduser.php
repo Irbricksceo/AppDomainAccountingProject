@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
-include 'accountscripts.php';
+include 'scripts/accountscripts.php';
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
