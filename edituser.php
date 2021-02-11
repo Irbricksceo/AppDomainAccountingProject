@@ -29,12 +29,11 @@ $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'accountingprojectlogin';
-//Connect to the DB
 $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-//Primes the query to pull current data
+//Primes the query to pull user data based on the user being edited
 $sql = "SELECT * FROM accounts WHERE id='$editu'";
 
 //Gets current user data
@@ -52,11 +51,13 @@ if(isset($_POST['update'])) {
 	$newState = $_POST['state'];
 	$newZip = $_POST['zip'];
 	$newDOB = $_POST['dob'];
+
+	//primes, then fires, the update query
 	$sqlupd = "UPDATE accounts SET Email = '$newEmail', Fname = '$newFname', Lname = '$newLname', StreetAddress = '$newStreet', City = '$newCity', State = '$newState', Zip = '$newZip', DOB = '$newDOB' WHERE id='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
-        header("location:edituser.php?r=$return&u=$editu"); // reload page
+        header("location:edituser.php?r=$return&u=$editu"); // reload page to refresh the fields, preserves the URL parameters
         exit;
     }
     else

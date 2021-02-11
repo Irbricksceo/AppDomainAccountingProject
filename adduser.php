@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
-include 'scripts/accountscripts.php';
+include 'scripts/accountscripts.php'; 
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
@@ -28,6 +28,7 @@ if ($_SESSION['userrole'] != 1) {
 
 //Fires update query when form is submitted
 if(isset($_POST['Create'])) {
+	//this part assigns the variables from the form, and utilizes the provided functions to create Uname and Password
     $generatedUser = generateUsernameByName($_POST['firstname'], $_POST['lastname']);
     $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	$newEmail = $_POST['email'];
@@ -43,30 +44,29 @@ if(isset($_POST['Create'])) {
 	$q2 = $_POST['q2'];
     $a2 = $_POST['a2'];   
 
+	
+    $date = date("Y/m/d"); //grabs current date
 
-    $date = date("Y/m/d");
-
+	//creates the qry to add a user
 	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`) 
     VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail', '$q1', '$a1', '$q2', '$a2')";
 
-	//$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`) 
-	//VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail', '$q1', '$a1', $q2, '$a2')";
 
-
-    $edit = mysqli_query($link, $sqlupd);
-    if($edit)
+    $edit = mysqli_query($link, $sqlupd); //actually creates the user
+    if($edit) //entered if user created successfully to perform followup tasks 
     {
+		//uses the prepared statements method to pull down the ID of the newly created user via the username
         if ($stmt = $link->prepare('SELECT id FROM accounts WHERE username = ?')) {
-            // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
             $stmt->bind_param('s', $generatedUser);
             $stmt->execute();
-            // Store the result so we can check if the account exists in the database.
             $stmt->store_result();
         
             if ($stmt->num_rows > 0) {
                 $stmt->bind_result($qry);
                 $stmt->fetch();
-            }}
+			}}
+			
+		//call the functions from accountscripts to perform the final password actions using the pulled ID	
         setPasswordExpire($qry);
         storePassword($qry);
         header("location:users2.php"); // return to users page
