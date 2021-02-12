@@ -42,6 +42,25 @@ CREATE TABLE IF NOT EXISTS `pastpassword` (
     PRIMARY KEY (`EntryID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `faccount` (
+    `faccountID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `faccount` varchar(50) UNIQUE,
+    `fdescription` varchar(255),
+    `normalside` int(1),
+    `fcategory` varchar(50),
+    `fsubcategory` varchar(50),
+    `finitalbalance` double(2,8),
+    `debit`  int(1),
+    `credit` int(1),
+    `fbalance` double(2,8),
+    `fdatetime` datetime default current_timestamp,
+    `userID` varchar(50),
+    `forder` int(11),
+    `statement` varchar(50),
+    `comment` varchar(255),
+    PRIMARY KEY (`faccountID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 -----------------------------------
 columns of type "date" are in the format YYYY-MM-DD
 columns of type "datetime" are in the format YYYY-MM-DD HH:MM:SS
