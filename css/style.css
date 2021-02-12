@@ -6,6 +6,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 body {
+    margin: 0;
     background-color: #435165;
 }
 .login {
@@ -117,7 +118,8 @@ body {
 	background-color: #2f3947;
 	height: 60px;
 	width: 100%;
-	border: 0;
+    border: 0;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
 }
 .navtop div {
 	display: flex;
@@ -126,6 +128,8 @@ body {
 	height: 100%;
 }
 .navtop div h1, .navtop div a {
+    top: 0;
+    left: 0;
 	display: inline-flex;
 	align-items: center;
 }
@@ -168,9 +172,36 @@ body {
 body.loggedin {
 	background-color: #f3f4f7;
 }
+
+.navside {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 60px; /* Stay at the top */
+    left: 0;
+    background-color: #2f3947; 
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+  
+  .navside a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+  
+  .navside a:hover {
+    color: #f1f1f1;
+  }
+
 .content {
+    top: 60px;
 	width: 1000px;
-	margin: 0 auto;
+    margin: 0 auto;
+    margin-left: 160px;
 }
 .content h2 {
 	margin: 0;

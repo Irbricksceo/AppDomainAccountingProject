@@ -1,7 +1,7 @@
 <?php
 // We need to use sessions, so you should always start sessions using the below code.
 session_start();
-// If the user is not logged in redirect to the login page...
+//If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
@@ -31,6 +31,12 @@ if (!isset($_SESSION['loggedin'])) {
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
+			</div>
+		</nav>
+		<nav class="navside">
+			<div>
+				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
+				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 			</div>
 		</nav>
 		<div class="content">
