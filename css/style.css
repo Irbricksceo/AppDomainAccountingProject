@@ -123,8 +123,6 @@ body {
 }
 .navtop div {
 	display: flex;
-	margin: 0 auto;
-	width: 1000px;
 	height: 100%;
 }
 .navtop div h1, .navtop div a {
@@ -138,6 +136,7 @@ body {
 	padding: 0;
 	margin: 5px;
 	background-color: #eaebed;
+
 }
 .navtop div h1 {
 	flex: 1;
@@ -152,7 +151,7 @@ body {
     font-size: 12px;
     padding: 0;
     padding-top: 24px;
-	margin: 0;
+	margin: 0 10px 0;
 	color: #eaebed;
 	font-weight: normal;
 }
@@ -186,10 +185,10 @@ body.loggedin {
   }
   
   .navside a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+	padding: 5px 20px;
+	text-decoration: none;
+	color: #c1c4c8;
+	font-weight: bold;
     display: block;
   }
   
@@ -197,9 +196,16 @@ body.loggedin {
     color: #f1f1f1;
   }
 
+  .navside h2 {
+    font-size: 16px;
+	padding: 5px 20px;
+	margin: 0;
+	color: #eaebed;
+  }
+
 .content {
-    top: 60px;
-	width: 1000px;
+    padding-top: 60px;
+    padding-left: 60px;
     margin: 0 auto;
     margin-left: 160px;
 }
