@@ -6,6 +6,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 body {
+    margin: 0;
     background-color: #435165;
 }
 .login {
@@ -117,15 +118,16 @@ body {
 	background-color: #2f3947;
 	height: 60px;
 	width: 100%;
-	border: 0;
+    border: 0;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
 }
 .navtop div {
 	display: flex;
-	margin: 0 auto;
-	width: 1000px;
 	height: 100%;
 }
 .navtop div h1, .navtop div a {
+    top: 0;
+    left: 0;
 	display: inline-flex;
 	align-items: center;
 }
@@ -134,6 +136,7 @@ body {
 	padding: 0;
 	margin: 5px;
 	background-color: #eaebed;
+
 }
 .navtop div h1 {
 	flex: 1;
@@ -148,7 +151,7 @@ body {
     font-size: 12px;
     padding: 0;
     padding-top: 24px;
-	margin: 0;
+	margin: 0 10px 0;
 	color: #eaebed;
 	font-weight: normal;
 }
@@ -168,9 +171,43 @@ body {
 body.loggedin {
 	background-color: #f3f4f7;
 }
+
+.navside {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 60px; /* Stay at the top */
+    left: 0;
+    background-color: #2f3947; 
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+  
+  .navside a {
+	padding: 5px 20px;
+	text-decoration: none;
+	color: #c1c4c8;
+	font-weight: bold;
+    display: block;
+  }
+  
+  .navside a:hover {
+    color: #f1f1f1;
+  }
+
+  .navside h2 {
+    font-size: 16px;
+	padding: 5px 20px;
+	margin: 0;
+	color: #eaebed;
+  }
+
 .content {
-	width: 1000px;
-	margin: 0 auto;
+    padding-top: 60px;
+    padding-left: 60px;
+    margin: 0 auto;
+    margin-left: 160px;
 }
 .content h2 {
 	margin: 0;
