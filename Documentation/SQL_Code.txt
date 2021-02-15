@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `pastpassword` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `faccount` (
-    `faccountID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `faccountID` int(11) UNIQUE,
     `faccount` varchar(50) UNIQUE,
     `fdescription` varchar(255),
     `normalside` int(1),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `debit`  int(1),
     `credit` int(1),
     `fbalance` double(2,8),
-    `fdatetime` datetime default current_timestamp,
+    `fdatecreated` datetime default current_timestamp,
     `userID` varchar(50),
     `forder` int(11),
     `statement` varchar(50),
