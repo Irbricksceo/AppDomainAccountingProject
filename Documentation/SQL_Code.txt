@@ -61,6 +61,16 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     PRIMARY KEY (`faccountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `eventlog` (
+    `eventID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `userID` int(11) NOT NULL,
+    `datechanged` datetime default current_timestamp,
+    `faccountID` varchar(255) NOT NULL,
+    `pastversion` varchar(255),
+    `currentversion` varchar(255),
+    PRIMARY KEY (`eventID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 -----------------------------------
 columns of type "date" are in the format YYYY-MM-DD
 columns of type "datetime" are in the format YYYY-MM-DD HH:MM:SS
