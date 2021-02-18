@@ -143,6 +143,12 @@ if(isset($_POST['updateSuspension'])) {
 				?>
 			<h2>Account Management</h2>	
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
+			<?php
+				if ($_SESSION['userrole'] == '1'):
+					?><a href="addaccount.php"><i class="fas fa-user-circle"></i>Add An Account</a>
+					<?php 
+					endif;	
+				?>
 			</div>
 		</nav>
 		<div class="content">
