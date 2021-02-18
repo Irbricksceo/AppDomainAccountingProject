@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `faccount` varchar(50) UNIQUE,
     `fdescription` varchar(255),
     `normalside` int(1),
-    `fcategory` varchar(50),
+    `fcategory` int(1),
     `fsubcategory` varchar(50),
     `finitalbalance` double(9,2),
     `debit`  double(9,2),
