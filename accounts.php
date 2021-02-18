@@ -80,7 +80,83 @@ if (mysqli_connect_errno()) {
 			<h2>Chart Of Accounts</h2>
 			<div>
               
-             <!--Content Goes Here -->           
+				<?php
+					// Attempt select query execution
+					$sql = "SELECT * FROM faccount";
+
+					// Button logic would go below here
+
+                    if($result = mysqli_query($link, $sql)){
+                        if(mysqli_num_rows($result) > 0){
+                            echo "<table class='table table-bordered table-striped'>";
+                                echo "<thead>";
+                                    echo "<tr>";
+                                        echo "<th>#</th>";
+                                        echo "<th>Name</th>";
+                                        echo "<th>Category</th>";
+                                        echo "<th>Normal Side</th>";
+                                        echo "<th>Balance</th>";
+                                        echo "<th>Status</th>";
+                                        echo "<th>Edit</th>";
+                                    echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while($row = mysqli_fetch_array($result)){
+									// Displaying each row from faccounts
+                                    echo "<tr>";
+                                        echo "<td>" . $row['faccountID'] . "</td>";
+                                        echo "<td>" . $row['faccount'] . "</td>";
+										
+										// Convert fcategory int code to string name
+										switch ($row['fcategory']){
+											case 1:
+												echo "<td>" . "Asset" . "</td>";
+												break;
+											case 2: 
+												echo "<td>" . "Liability" . "</td>";
+												break;
+											case 3:
+												echo "<td>" . "Equity" . "</td>";
+												break;
+											case 4:
+												echo "<td>" . "Revenue" . "</td>";
+												break;
+											case 5:
+												echo "<td>" . "Expense" . "</td>";
+												break;
+										}
+
+										// Convert normalside int to string name
+										if ($row['normalside'] == 0)
+											echo "<td>" . "Debit" . "</td>";
+										else
+											echo "<td>" . "Credit" . "</td>";
+
+                                        echo "<td>" . $row['fbalance'] . "</td>";
+
+										// Convert active int to string name
+										if ($row['active'] == 0)
+											echo "<td>" . "Deactivated" . "</td>";
+										else
+											echo "<td>" . "Active" . "</td>";
+
+                                        echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
+                                        echo "</tr>";
+                                }
+                                echo "</tbody>";                            
+                            echo "</table>";
+                            // Free result set
+                            mysqli_free_result($result);
+                        } else{
+                            echo "<p class='lead'><em>No records were found.</em></p>";
+                        }
+                    } else{
+                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+                    }
+ 
+                    // Close connection
+                    mysqli_close($link);
+            	?>          
 
             </div>
 		</div>
