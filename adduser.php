@@ -129,12 +129,7 @@ if(isset($_POST['Create'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Editing User</h2>
-			<div>
-			   <?php
-			   echo "<h3> Creating New User</h3>"
-			   ?>
-			</div>	
+			<h2>Creating New User</h2>	
 			<div>
 				<h3> Personal Information </h3>
 				<form action="" method="post">
