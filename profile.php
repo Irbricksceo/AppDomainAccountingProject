@@ -44,19 +44,38 @@ endif;
 		<link rel="icon" href="images/favicon.ico">
 	</head>
 	<body class="loggedin">
-		<nav class="navtop">
+	<nav class="navtop">
 			<div>
-			<img src="images/logo.png" width="60" alt="Logo">
-			<h1>Accounting Pro</h1>
-				<?php
-					if ($_SESSION['userrole'] == '1'):
-						?><a href="users2.php"><i class="fas fa-user-circle"></i>Users</a><?php 
-					endif;
-				?>
-				<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
-				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
+				<img src="images/logo.png" width="60" alt="Logo">
+				<h1>Accounting Pro</h1>
 				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
+			</div>
+		</nav>
+		<nav class="navside">
+			<div>
+			<hr>
+			<h2>Navigation</h2>
+			<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
+			<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
+			<hr>
+			<?php
+				if ($_SESSION['userrole'] == '1'):
+					?><h2>User Management</h2>	
+					<a href="users2.php"><i class="fas fa-user-circle"></i>Users</a>
+					<a href="adduser.php"><i class="fas fa-user-circle"></i>Add A User</a>
+					<hr><?php 
+					endif;
+					
+				?>
+			<h2>Account Management</h2>	
+			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
+			<?php
+				if ($_SESSION['userrole'] == '1'):
+					?><a href="addaccount.php"><i class="fas fa-user-circle"></i>Add An Account</a>
+					<?php 
+					endif;	
+				?>
 			</div>
 		</nav>
 		<div class="content">
