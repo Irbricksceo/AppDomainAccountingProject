@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `forder` int(11),
     `statement` varchar(50),
     `comment` varchar(255),
-    'active' int(1)
+    'active' int(1),
     PRIMARY KEY (`faccountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
