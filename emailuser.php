@@ -7,6 +7,11 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+if ($_SESSION['userrole'] != 1) {
+    header("location:home.php"); // Kick Non Admins backl to home
+    exit;
+}
+
 //Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {
 	$editu = $_GET['u'];
