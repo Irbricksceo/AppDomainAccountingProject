@@ -7,6 +7,11 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+if ($_SESSION['userrole'] != 1) {
+    header("location:home.php"); // Kick Non Admins backl to home
+    exit;
+}
+
 include 'scripts/accountscripts.php'; 
 
 $DATABASE_HOST = 'localhost';
@@ -18,13 +23,6 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-
-if ($_SESSION['userrole'] != 1) {
-    header("location:home.php"); // Kick Non Admins backl to home
-    exit;
-}
-
-
 
 //Fires update query when form is submitted
 if(isset($_POST['Create'])) {
