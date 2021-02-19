@@ -100,6 +100,8 @@ if (mysqli_connect_errno()) {
                                         echo "<th>Normal Side</th>";
                                         echo "<th>Balance</th>";
                                         echo "<th>Status</th>";
+										echo "<th>Ledger</th>";
+										echo "<th>Details</th>";
 										
 										// Logic to only display edit column if userrole == 1 (admin)
 										if ($_SESSION['userrole'] == '1')
@@ -147,10 +149,15 @@ if (mysqli_connect_errno()) {
 										else
 											echo "<td>" . "Active" . "</td>";
 
+										// Provide link to view ledger for account
+										echo "<td><a href='ledger.php?u=".$row['faccountID']."'>Ledger</a></td>";
+
+										// Provide link to view details for account
+										echo "<td><a href='accountdetails.php?u=".$row['faccountID']."'>Details</a></td>";
+
 										// Logic to only display edit column if userrole == 1 (admin)
 										if ($_SESSION['userrole'] == '1')
                                         	echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
-
                                         echo "</tr>";
                                 }
                                 echo "</tbody>";                            
