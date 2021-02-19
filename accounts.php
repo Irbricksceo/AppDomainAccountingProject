@@ -97,7 +97,11 @@ if (mysqli_connect_errno()) {
                                         echo "<th>Normal Side</th>";
                                         echo "<th>Balance</th>";
                                         echo "<th>Status</th>";
-                                        echo "<th>Edit</th>";
+										
+										// Logic to only display edit column if userrole == 1 (admin)
+										if ($_SESSION['userrole'] == '1')
+                                        	echo "<th>Edit</th>";
+
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -140,7 +144,10 @@ if (mysqli_connect_errno()) {
 										else
 											echo "<td>" . "Active" . "</td>";
 
-                                        echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
+										// Logic to only display edit column if userrole == 1 (admin)
+										if ($_SESSION['userrole'] == '1')
+                                        	echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
+											
                                         echo "</tr>";
                                 }
                                 echo "</tbody>";                            
