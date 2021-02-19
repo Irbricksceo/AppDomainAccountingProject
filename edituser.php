@@ -7,6 +7,12 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+if ($_SESSION['userrole'] != 1) {
+    header("location:home.php"); // Kick Non Admins backl to home
+    exit;
+}
+
+
 include "scripts/email.php";
 include "scripts/accountscripts.php";
 
