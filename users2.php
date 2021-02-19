@@ -6,6 +6,12 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+
+if ($_SESSION['userrole'] != 1) {
+    header("location:home.php"); // Kick Non Admins backl to home
+    exit;
+}
+
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
