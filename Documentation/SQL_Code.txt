@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `normalside` int(1),
     `fcategory` int(1),
     `fsubcategory` varchar(50),
-    `finitalbalance` double(9,2),
+    `finitialbalance` double(9,2),
     `debit`  double(9,2),
     `credit` double(9,2),
     `fbalance` double(9,2),
@@ -62,19 +62,19 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     PRIMARY KEY (`faccountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitalbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
 VALUES ('101', 'Cash', 'Money, money, money!', '0', '1', NULL, NULL, NULL, NULL, '2000', current_timestamp(), '1', NULL, NULL, NULL, '1')
 
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitalbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
 VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', NULL, NULL, NULL, NULL, '275', current_timestamp(), '1', NULL, NULL, NULL, '1')
 
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitalbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
 VALUES ('310', 'Mary Smith, Capital', 'Amount owner has invested into company', '1', '3', NULL, NULL, NULL, NULL, '10000', current_timestamp(), '1', NULL, NULL, NULL, '1')
 
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitalbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
 VALUES ('401', 'Service Revenues', 'Amounts earned from services to clients', '1', '4', NULL, NULL, NULL, NULL, '1250', current_timestamp(), '1', NULL, NULL, NULL, '1')
 
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitalbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
 VALUES ('500', 'Salaries, Expense', 'Expenses incurred for salaried employees', '0', '5', NULL, NULL, NULL, NULL, '750', current_timestamp(), '1', NULL, NULL, NULL, '1')
 
 CREATE TABLE IF NOT EXISTS `eventlog` (
