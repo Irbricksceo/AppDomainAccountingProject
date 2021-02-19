@@ -24,59 +24,49 @@ if ($_SESSION['userrole'] != 1) {
     exit;
 }
 
-
-
 //Fires update query when form is submitted
 if(isset($_POST['Create'])) {
-	//this part assigns the variables from the form, and utilizes the provided functions to create Uname and Password
-    $generatedUser = generateUsernameByName($_POST['firstname'], $_POST['lastname']);
-    $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
-	$newEmail = $_POST['email'];
-	$newFname = $_POST['firstname'];
-	$newLname = $_POST['lastname'];
-	$newStreet = $_POST['street'];
-	$newCity = $_POST['city'];
-	$newState = $_POST['state'];
-	$newZip = $_POST['zip'];
-    $newDOB = $_POST['dob'];
-    $q1 = $_POST['q1'];
-	$a1 = $_POST['a1'];
-	$q2 = $_POST['q2'];
-    $a2 = $_POST['a2'];   
+    //will actually run the sql
+    $AcctName = $_POST['Name'];
+    $Category = $_POST['Category'];
+    $subCategory = $_POST['Subcategory'];
+    $Comment = $_POST['Comment'];
+    $Desc = $_POST['Description'];
+    $startBal = $_POST['StartingBalance'];
+    $createdBy = $_SESSION['id'];
 
-	
-    $date = date("Y/m/d"); //grabs current date
+    //find number of rows in current category, increments, and *10 it to get the acct number portion
+    $query = "SELECT * FROM faccount WHERE fcategory = $Category"; 
+    $result = mysqli_query($link, $query);  
+    if ($result) 
+    { 
+        $row = mysqli_num_rows($result);
+        $row ++;
+        $row = $row*10;
+    }
+    //concat category with above number to create account ID number
+    $acctID = $Category . $row;
+    // Sets normal Side based on category
+    if ($Category == 1 || $Category == 5) {
+        $normalSide = 0;
+    } else {
+        $normalSide = 1;
+    }
 
-	//creates the qry to add a user
-	$sqlupd = "INSERT INTO `accounts` (`username`, `password`, `Fname`, `Lname`, `StreetAddress`, `City`, `State`, `Zip`, `DOB`, `Email`, `SecurityQ1`, `SecurityA1`, `SecurityQ2`, `SecurityA2`) 
-    VALUES ('$generatedUser', '$hashed', '$newFname', '$newLname', '$newStreet', '$newCity', '$newState', $newZip, '$newDOB', '$newEmail', '$q1', '$a1', '$q2', '$a2')";
+	//creates the qry to add an acct
+	$sqlupd = "INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `userID`, 'comment`, 'active') 
+    VALUES ('$acctID', '$AcctName', '$Desc', '$normalSide', '$Category', '$subCategory', $startBal, '0.00', '0.00', '$startBal', '$createdBy', '$Comment', '1')";
 
-
-    $edit = mysqli_query($link, $sqlupd); //actually creates the user
-    if($edit) //entered if user created successfully to perform followup tasks 
+    $edit = mysqli_query($link, $sqlupd); //runs the qry
+    if($edit) //entered if acct created successfully
     {
-		//uses the prepared statements method to pull down the ID of the newly created user via the username
-        if ($stmt = $link->prepare('SELECT id FROM accounts WHERE username = ?')) {
-            $stmt->bind_param('s', $generatedUser);
-            $stmt->execute();
-            $stmt->store_result();
-        
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($qry);
-                $stmt->fetch();
-			}}
-			
-		//call the functions from accountscripts to perform the final password actions using the pulled ID	
-        setPasswordExpire($qry);
-        storePassword($qry);
-        header("location:users2.php"); // return to users page
+        header("location:accounts.php"); // return to users page
         exit;
     }
     else
     {
-        echo mysqli_error();
-    } 
-
+        echo "Could Not Add Account, SQL Returned Error";
+    }
 }
  
 ?>
@@ -84,7 +74,7 @@ if(isset($_POST['Create'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Profile Page</title>
+		<title>Create New Account</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 		<link rel="icon" href="images/favicon.ico">
@@ -120,31 +110,32 @@ if(isset($_POST['Create'])) {
 				?>
 			<h2>Account Management</h2>
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
+            <?php
+				if ($_SESSION['userrole'] == '1'):
+					?><a href="addaccount.php"><i class="fas fa-user-circle"></i>Add An Account</a>
+					<?php 
+					endif;	
+				?>
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Editing User</h2>
+			<h2>Create New Account</h2>	
 			<div>
-			   <?php
-			   echo "<h3> Creating New User</h3>"
-			   ?>
-			</div>	
-			<div>
-				<h3> Personal Information </h3>
+				<h3> Account Information </h3>
 				<form action="" method="post">
-                    <input type="text" name="email" placeholder="Email" ><br>
-                    <input type="text" name="password" placeholder="Password" ><br>
-					<input type="text" name="firstname" placeholder="First Name" ><br>
-					<input type="text" name="lastname" placeholder="Last Name" ><br>
-					<input type="text" name="street" placeholder="Street Address" ><br>
-					<input type="text" name="city" placeholder="City" ><br>
-					<input type="text" name="state" placeholder="State" ><br>
-                    <input type="text" name="zip" placeholder="Zip" ><br>
-                    <input type="text" name="q1" placeholder="Security Question 1"><br>
-                    <input type="text" name="a1" placeholder="Security Answer 1"><br>
-                    <input type="text" name="q2" placeholder="Security Question 2"><br>
-                    <input type="text" name="a2" placeholder="Security Answer 2"><br>
-					<input type="date" name="dob"><br>
+                    <input type="text" name="Name" placeholder="Account Name" ><br>
+                    <label for="Category">Category:</label>
+                    <select name="Category" id="Category">
+                        <option value="1">Assets</option>
+                        <option value="2">Liabilities</option>
+                        <option value="3">Equity</option>
+                        <option value="4">Revenues</option>
+                        <option value="5">Expenses</option>
+                    </select> <br>
+                    <input type="text" name="Subcategory" placeholder="Subcategory" ><br>
+                    <input type="text" name="Comment" placeholder="Comment" ><br>
+                    <input type="text" name="Description" placeholder="Description" ><br>
+                    <input type="number" name="StartingBalance" placeholder="Starting Balance" ><br>
 					<input type="submit" value="Create" name="Create" >
 				</form>
 			</div>
