@@ -54,8 +54,8 @@ if(isset($_POST['Create'])) {
     }
 
 	//creates the qry to add an acct
-	$sqlupd = "INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `userID`, 'comment`, 'active') 
-    VALUES ('$acctID', '$AcctName', '$Desc', '$normalSide', '$Category', '$subCategory', $startBal, '0.00', '0.00', '$startBal', '$createdBy', '$Comment', '1')";
+	$sqlupd = "INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `userID`, `comment`, `active`) 
+    VALUES ('$acctID', '$AcctName', '$Desc', '$normalSide', '$Category', '$subCategory', $startBal, 0.00, 0.00, '$startBal', '$createdBy', '$Comment', '1')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
