@@ -81,10 +81,13 @@ if (mysqli_connect_errno()) {
 			<div>
               
 				<?php
+					// Display add account button only if userrole == 1(admin)
+					if ($_SESSION['userrole'] == '1'):
+						echo "<a href='addaccount.php'>Add Account</a>";
+					endif;
+
 					// Attempt select query execution
 					$sql = "SELECT * FROM faccount";
-
-					// Button logic would go below here
 
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -147,7 +150,7 @@ if (mysqli_connect_errno()) {
 										// Logic to only display edit column if userrole == 1 (admin)
 										if ($_SESSION['userrole'] == '1')
                                         	echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
-											
+
                                         echo "</tr>";
                                 }
                                 echo "</tbody>";                            
