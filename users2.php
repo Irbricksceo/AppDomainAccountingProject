@@ -80,6 +80,7 @@ if (mysqli_connect_errno()) {
 					<?php 
 					endif;	
 				?>
+            <a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">

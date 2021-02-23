@@ -16,20 +16,12 @@ if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
-//Gets Account to view from the URL
-if(isset($_GET['u'])) {
-	$acct = $_GET['u'];
-} else {
-	$acct = 000; //defaults ID to prevent breaking when accessed without a value.
-}
-
-
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Account Ledger</title>
+		<title>Page Title</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -54,7 +46,6 @@ if(isset($_GET['u'])) {
 			<div>
 				<img src="images/logo.png" width="60" alt="Logo">
 				<h1>Accounting Pro</h1>
-                <a href="accounts.php"></i>Back</a>
 				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
@@ -83,16 +74,44 @@ if(isset($_GET['u'])) {
 					<?php 
 					endif;	
 				?>
-			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
+            <a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Ledger For Account Number <?php echo "$acct" ?> </h2>
+			<h2>Event Log</h2>
 			<div>
-              
-             <!--Content Goes Here -->           
+              <?php
+//             $sql = "SELECT * FROM eventlog";
+
+// if($result = mysqli_query($link, $sql)){
+//     if(mysqli_num_rows($result) > 0){
+        echo "<table class='table table-bordered table-striped'>";
+            echo "<thead>";
+                echo "<tr>"; 
+                    echo "<th> EventID</th>";
+                    echo "<th> UserID</th>";
+                    echo "<th> Date Changed</th>";
+                    echo "<th> FaccountID</th>";
+                    echo "<th> Past Version</th>";
+                    echo "<th> Current Version</th>";
+                echo "</tr>";
+            echo "</thead>";
+        echo "<tbody>";
+         echo "<tr>";
+            echo "<td> Stuff goes here </td>";
+            echo "<td> Stuff goes here </td>";
+            echo "<td> Stuff goes here </td>";
+            echo "<td> Stuff goes here </td>";
+            echo "<td> Stuff goes here </td>";
+            echo "<td> Stuff goes here </td>";
+
+         echo"</tr>";
+        echo "</tbody>";                            
+     echo "</table>";           
+                ?>     
 
             </div>
 		</div>
 	</body>
 </html>
+
