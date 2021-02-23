@@ -101,7 +101,6 @@ if (mysqli_connect_errno()) {
                                         echo "<th>Normal Side</th>";
                                         echo "<th>Balance</th>";
                                         echo "<th>Status</th>";
-										echo "<th>Ledger</th>";
 										echo "<th>Details</th>";
 										
 										// Logic to only display edit column if userrole == 1 (admin)
@@ -115,7 +114,9 @@ if (mysqli_connect_errno()) {
 									// Displaying each row from faccounts
                                     echo "<tr>";
                                         echo "<td>" . $row['faccountID'] . "</td>";
-                                        echo "<td>" . $row['faccount'] . "</td>";
+
+										// Clicking account name brings user to ledger for account name	
+                                        echo "<td><a href='ledger.php?u=".$row['faccountID']."'>" . $row['faccount'] . "</a></td>";
 										
 										// Convert fcategory int code to string name
 										switch ($row['fcategory']){
@@ -149,9 +150,6 @@ if (mysqli_connect_errno()) {
 											echo "<td>" . "Deactivated" . "</td>";
 										else
 											echo "<td>" . "Active" . "</td>";
-
-										// Provide link to view ledger for account
-										echo "<td><a href='ledger.php?u=".$row['faccountID']."'>Ledger</a></td>";
 
 										// Provide link to view details for account
 										echo "<td><a href='accountdetails.php?u=".$row['faccountID']."'>Details</a></td>";
