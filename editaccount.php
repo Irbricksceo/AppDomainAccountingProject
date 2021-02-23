@@ -22,14 +22,9 @@ include "scripts/accountscripts.php";
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {
 	$editu = $_GET['u'];
 } else {
-	$editu = $_SESSION['id'];
+	$editu = 0;
 }
 
-if(isset($_GET['r'])&& $_SESSION['userrole'] == 1) {
-	$return = $_GET['r'];
-} else {
-	$return = 2;
-}
 //--------------------
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
@@ -42,12 +37,11 @@ if (mysqli_connect_errno()) {
 }
 //-----------------
 //Primes the query to pull user data based on the user being edited
-$sql = "SELECT * FROM faccount WHERE id='$editu'";
+$sql = "SELECT * FROM faccount WHERE faccountID='$editu'";
 
 //Gets current user data
 $qry = mysqli_query($link, $sql);
 $data = mysqli_fetch_array($qry);
-$newDate = date("Y-m-d", strtotime($data['DOB']));
 
 //Fires update query when form is submitted
 if(isset($_POST['update'])) {
@@ -60,7 +54,7 @@ if(isset($_POST['update'])) {
 
 
 	//primes, then fires, the update query
-	$sqlupd = "UPDATE faccount SET Account = '$newfaccount', Fdescription = '$newfdescription', Normalside = '$newnormalside', Fcategory ='$newfcategory',Comment = '$newcomment' WHERE id='$editu'";
+	$sqlupd = "UPDATE faccount SET faccount = '$newfaccount', Fdescription = '$newfdescription', Normalside = '$newnormalside', Fcategory ='$newfcategory',Comment = '$newcomment' WHERE faccountID='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
@@ -69,7 +63,7 @@ if(isset($_POST['update'])) {
     }
     else
     {
-        echo mysqli_error();
+        echo mysqli_error($link);
 	}   	
 }
 //Separate Script To Fire For Admin Updates
@@ -80,7 +74,7 @@ if(isset($_POST['updateADMN'])) {
 	if($data['active']!=1) {
 		$primeMSG = true;
 	}
-	$sqlupd = "UPDATE accounts SET active = '$newStatus' WHERE id='$editu'";
+	$sqlupd = "UPDATE accounts SET active = '$newStatus' WHERE faccountID='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
@@ -169,19 +163,20 @@ if(isset($_POST['updateADMN'])) {
 			</div>	
 			<div class = "float-container"> 
 				<div class = "float-child"> 
-					<h3> Personal Information </h3>
+					<h3> Account Information </h3>
 					<form action="" method="post">
 						<?php echo "Name:" ?><br>
 						<input type="text" name="faccount" placeholder="faccount" value="<?php echo $data['faccount'];?>"><br>
-						<?php echo "Category:" ?><br>
-						<!--This should work as a dropdown I believe-->
+						<?php echo "Description:" ?><br>
+						<input type="text" name="fdescription" placeholder="Description" value="<?php echo $data['fdescription'];?>"><br>
 						<label for="Category">Category:</label><br>
-						<select name="Category" id="Category">
+						<select name="fcategory" id="fcategory">
                         	<option value="1">Assets</option>
                         	<option value="2">Liabilities</option>
                         	<option value="3">Equity</option>
                         	<option value="4">Revenues</option>
-                        	<option value="5">Expenses</option> <br>
+                        	<option value="5">Expenses</option>
+							</select> <br>
 						<?php echo "Normal Side:" ?><br>
 						<input type="text" name="normalside" placeholder="Normal Side" value="<?php echo $data['normalside'];?>"><br>
 						<?php echo "Comment:" ?><br>
