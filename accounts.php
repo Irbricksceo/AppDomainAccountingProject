@@ -85,6 +85,7 @@ if (mysqli_connect_errno()) {
 					// Display add account button only if userrole == 1(admin)
 					if ($_SESSION['userrole'] == '1'):
 						echo "<a href='addaccount.php'>Add Account</a>";
+						echo "<hr>";
 					endif;
 
 					// Attempt select query execution
