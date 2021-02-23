@@ -58,24 +58,24 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `forder` int(11),
     `statement` varchar(50),
     `comment` varchar(255),
-    'active' int(1),
+    `active` int(1),
     PRIMARY KEY (`faccountID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('101', 'Cash', 'Money, money, money!', '0', '1', NULL, NULL, NULL, NULL, '2000', current_timestamp(), '1', NULL, NULL, NULL, '1')
+VALUES ('101', 'Cash', 'Money, money, money!', '0', '1', NULL, NULL, NULL, NULL, '2000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', NULL, NULL, NULL, NULL, '275', current_timestamp(), '1', NULL, NULL, NULL, '1')
+VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', NULL, NULL, NULL, NULL, '275', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('310', 'Mary Smith, Capital', 'Amount owner has invested into company', '1', '3', NULL, NULL, NULL, NULL, '10000', current_timestamp(), '1', NULL, NULL, NULL, '1')
+VALUES ('310', 'Mary Smith, Capital', 'Amount owner has invested into company', '1', '3', NULL, NULL, NULL, NULL, '10000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('401', 'Service Revenues', 'Amounts earned from services to clients', '1', '4', NULL, NULL, NULL, NULL, '1250', current_timestamp(), '1', NULL, NULL, NULL, '1')
+VALUES ('401', 'Service Revenues', 'Amounts earned from services to clients', '1', '4', NULL, NULL, NULL, NULL, '1250', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('500', 'Salaries, Expense', 'Expenses incurred for salaried employees', '0', '5', NULL, NULL, NULL, NULL, '750', current_timestamp(), '1', NULL, NULL, NULL, '1')
+VALUES ('500', 'Salaries, Expense', 'Expenses incurred for salaried employees', '0', '5', NULL, NULL, NULL, NULL, '750', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 CREATE TABLE IF NOT EXISTS `eventlog` (
     `eventID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
