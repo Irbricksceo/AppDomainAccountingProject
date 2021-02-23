@@ -1,6 +1,6 @@
 <?php
 
-include 'scripts/accountscripts.php';
+include 'scripts/userscripts.php';
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';

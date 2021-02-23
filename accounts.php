@@ -157,7 +157,7 @@ if (mysqli_connect_errno()) {
 
 										// Logic to only display edit column if userrole == 1 (admin)
 										if ($_SESSION['userrole'] == '1')
-                                        	echo "<td><a href='editaccount.php?r=1&u=".$row['faccountID']."'>Edit</a></td>";
+                                        	echo "<td><a href='editaccount.php?u=".$row['faccountID']."'>Edit</a></td>";
                                         echo "</tr>";
                                 }
                                 echo "</tbody>";                            
