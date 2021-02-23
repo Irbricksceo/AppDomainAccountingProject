@@ -45,6 +45,7 @@ $data = mysqli_fetch_array($qry);
 
 //Fires update query when form is submitted
 if(isset($_POST['update'])) {
+	$newfaccountID = $_POST['faccountID'];
 	$newfaccount = $_POST['faccount'];
 	$newfdescription = $_POST['fdescription'];
 	$newnormalside = $_POST['normalside'];
@@ -54,11 +55,11 @@ if(isset($_POST['update'])) {
 
 
 	//primes, then fires, the update query
-	$sqlupd = "UPDATE faccount SET faccount = '$newfaccount', Fdescription = '$newfdescription', Normalside = '$newnormalside', Fcategory ='$newfcategory',Comment = '$newcomment' WHERE faccountID='$editu'";
+	$sqlupd = "UPDATE faccount SET faccountID = '$newfaccountID', faccount = '$newfaccount', Fdescription = '$newfdescription', Normalside = '$newnormalside', Fcategory ='$newfcategory',Comment = '$newcomment' WHERE faccountID='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
-        header("location:editaccount.php?r=$return&u=$editu"); // reload page to refresh the fields, preserves the URL parameters
+        header("location:editaccount.php?u=$newfaccountID"); // reload page to refresh the fields, preserves the URL parameters
         exit;
     }
     else
@@ -165,6 +166,8 @@ if(isset($_POST['updateADMN'])) {
 				<div class = "float-child"> 
 					<h3> Account Information </h3>
 					<form action="" method="post">
+						<?php echo "ID:" ?><br>
+						<input type="text" name="faccountID" placeholder="faccountID" value="<?php echo $data['faccountID'];?>"><br>
 						<?php echo "Name:" ?><br>
 						<input type="text" name="faccount" placeholder="faccount" value="<?php echo $data['faccount'];?>"><br>
 						<?php echo "Description:" ?><br>
