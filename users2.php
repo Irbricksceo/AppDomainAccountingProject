@@ -87,6 +87,19 @@ if (mysqli_connect_errno()) {
 			<h2>Users</h2>
 			<div>
               
+                <a href="adduser.php"></i>Add User</a>
+                <hr>
+                <div class = "filters">
+                <form action="" method="post">
+                    <input type="submit" value="Show Only Active Users" name="filterroleactive" >
+                </form>
+                
+                <form action="" method="post">
+                    <input type="submit" value="Show Users With Expired Passwords" name="filterroleexpired" >
+                </form>
+                <hr>
+                </div>
+
 				<?php
                     // Attempt select query execution
                     $sql = "SELECT * FROM accounts";
@@ -143,17 +156,6 @@ if (mysqli_connect_errno()) {
                     // Close connection
                     mysqli_close($link);
                     ?>
-                    <a href="adduser.php"></i>Add User</a>
-                    <hr>
-                    <div class = "filters">
-                    <form action="" method="post">
-						<input type="submit" value="Show Only Active Users" name="filterroleactive" >
-                    </form>
-                    
-                    <form action="" method="post">
-						<input type="submit" value="Show Users With Expired Passwords" name="filterroleexpired" >
-                    </form>
-                    </div>
             </div>
 		</div>
 	</body>
