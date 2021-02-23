@@ -12,7 +12,7 @@ if ($_SESSION['userrole'] != 1) {
     exit;
 }
 
-include 'scripts/accountscripts.php'; 
+include 'scripts/userscripts.php'; 
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
