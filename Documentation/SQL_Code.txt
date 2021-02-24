@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `eventlog` (
     `faccountID` varchar(255) NOT NULL,
     `pastversion` varchar(255),
     `currentversion` varchar(255),
+    `changed` varchar(50),
     PRIMARY KEY (`eventID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
