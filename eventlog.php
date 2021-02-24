@@ -97,7 +97,7 @@ $query1 = "SELECT * FROM eventlog";
 //Filter button doesn't produce proper result atm
 if(isset($_POST['submit'])){
 	$accountID = $_POST['accountID'];
-	$query1 = $query1 . "WHERE faccountID = '$accountID' ";
+	$query1 = $query1 . " WHERE faccountID = '$accountID' ";
      
 	 }
 
@@ -133,7 +133,9 @@ if(isset($_POST['submit'])){
 		}
         echo "</tbody>";                            
      echo "</table>";  
-	 } 
+	 }  else{ 
+		echo "<p class='lead'><em>No records were found.</em></p>";
+	}
  } 
        
                 ?>     
