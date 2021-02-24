@@ -19,7 +19,7 @@ if ($stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory,
 	// In this case we can use the account ID to get the account info.
 	$stmt->bind_param('i', $_GET['u']);
 	$stmt->execute();
-	$stmt->bind_result($faccount, $fdescription, $normalside, $fcategory, $fsubcategory, $debit, $credit, $fdatecreated, $userID, $comment, $active, $Join);
+	$stmt->bind_result($faccount, $fdescription, $normalside, $fcategory, $fsubcategory, $debit, $credit, $fdatecreated, $userID, $comment, $active);
 	$stmt->fetch();
 	$stmt->close();
 }
@@ -87,7 +87,7 @@ endif;
 				<table>
 					<tr>
 						<td>Account name:</td>
-						<td><?=$_SESSION['faccount']?></td>
+						<td><?=$_GET['u']?></td>
 					</tr>
 					<tr>
 						<td>description:</td>
@@ -115,7 +115,7 @@ endif;
 					</tr>
 					<tr>
 						<td>Date Created:</td>
-						<td><?=$Join?></td>
+						<td><?=$fdatecreated?></td>
 					</tr>
 					<tr>
 						<td>created by:</td>
