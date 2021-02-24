@@ -80,11 +80,29 @@ if (mysqli_connect_errno()) {
 		<div class="content">
 			<h2>Event Log</h2>
 			<div>
+				<hr>
+				
+				<form action="" method="post"> 
+				<input type= "text" name="accountID" placeholder="Account ID">	
+				<input type="submit" value="Filter By Account ID" name="submit" >
+				</form>
+            	<hr>
               <?php
-//             $sql = "SELECT * FROM eventlog";
 
-// if($result = mysqli_query($link, $sql)){
-//     if(mysqli_num_rows($result) > 0){
+
+
+
+$query1 = "SELECT * FROM eventlog";
+
+//Filter button doesn't produce proper result atm
+if(isset($_POST['submit'])){
+	$accountID = $_POST['accountID'];
+	$query1 = $query1 . "WHERE faccountID = '$accountID' ";
+     
+	 }
+
+ if($result = mysqli_query($link, $query1)){
+     if(mysqli_num_rows($result) > 0){
         echo "<table class='table table-bordered table-striped'>";
             echo "<thead>";
                 echo "<tr>"; 
@@ -94,20 +112,30 @@ if (mysqli_connect_errno()) {
                     echo "<th> FaccountID</th>";
                     echo "<th> Past Version</th>";
                     echo "<th> Current Version</th>";
+					echo "<th> What Changed </th>";
                 echo "</tr>";
             echo "</thead>";
         echo "<tbody>";
-         echo "<tr>";
-            echo "<td> Stuff goes here </td>";
-            echo "<td> Stuff goes here </td>";
-            echo "<td> Stuff goes here </td>";
-            echo "<td> Stuff goes here </td>";
-            echo "<td> Stuff goes here </td>";
-            echo "<td> Stuff goes here </td>";
+		while($row = mysqli_fetch_array($result)){
+        echo "<tr>";
+		 	echo "<td>" . $row['eventID'] . "</td>";
+			echo "<td>" . $row['userID'] . "</td>";
+			echo "<td>" . $row['datechanged'] . "</td>";
+			echo "<td>" . $row['faccountID'] . "</td>";
+			echo "<td>" . $row['pastversion'] . "</td>";
+			echo "<td>" . $row['currentversion'] . "</td>";
+			echo "<td>" . $row['changed'] . "</td>";
+			
+			
+
 
          echo"</tr>";
+		}
         echo "</tbody>";                            
-     echo "</table>";           
+     echo "</table>";  
+	 } 
+ } 
+       
                 ?>     
 
             </div>
