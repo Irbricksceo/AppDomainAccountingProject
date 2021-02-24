@@ -10,50 +10,44 @@ $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'accountingprojectlogin';
-
-$link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
-    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
+// We don't have the password or email info stored in sessions so instead we can get the results from the database.
+$stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory, fsubcategory, debit, credit, fdatecreated, userID, comment, active FROM faccounts WHERE faccountID = ?');
+// In this case we can use the account ID to get the account info.
+$stmt->bind_param('i', $_SESSION['faccountID']);
+$stmt->execute();
+$stmt->bind_result($faccount, $fdescription, $normalside, $fcategory, $fsubcategory, $debit, $credit, $fdatecreated, $userID, $comment, $active, $Join);
+$stmt->fetch();
+$stmt->close();
 
-//Gets Account to view from the URL
-if(isset($_GET['u'])) {
-	$acct = $_GET['u'];
-} else {
-	$acct = 000; //defaults ID to prevent breaking when accessed without a value.
-}
+if ($_SESSION['userrole'] == '1'):
+	$role = "Administrator";
+elseif ($_SESSION['userrole'] == '2'):
+	$role = "Manager";
+elseif ($_SESSION['userrole'] == '3'):
+	$role = "User";
+else:
+	$role = "Undefined";
+endif;
 
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Account Details</title>
+		<title>Profile Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-        <link rel="icon" href="images/favicon.ico">
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-		<style type="text/css">
-        .wrapper{
-            width: 650px;
-            margin: 0 auto;
-        }
-        .page-header h2{
-            margin-top: 0;
-        }
-        table tr td:last-child a{
-            margin-right: 15px;
-        }
-    	</style>
+		<link rel="icon" href="images/favicon.ico">
 	</head>
 	<body class="loggedin">
-    <nav class="navtop">
+	<nav class="navtop">
 			<div>
 				<img src="images/logo.png" width="60" alt="Logo">
 				<h1>Accounting Pro</h1>
-                <a href="accounts.php"></i>Back</a>
 				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
@@ -86,12 +80,57 @@ if(isset($_GET['u'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Details For Account Number <?php echo "$acct" ?> </h2>
+			<h2>Profile Page</h2>
 			<div>
-              
-             <!--Content Goes Here -->           
-
-            </div>
+				<p>Your account details are below:</p>
+				<table>
+					<tr>
+						<td>Account name:</td>
+						<td><?=$_SESSION['faccount']?></td>
+					</tr>
+					<tr>
+						<td>description:</td>
+						<td><?=$fdescription?></td>
+					</tr>
+					<tr>
+						<td>Normal Side:</td>
+						<td><?=$normalside?></td>
+					</tr>
+					<tr>
+						<td>Category:</td>
+						<td><?=$fcategory?></td>
+					</tr>
+					<tr>
+						<td>subcategory:</td>
+						<td><?=$fsubcategory?></td>
+					</tr>
+					<tr>
+						<td>debit:</td>
+						<td><?=$debit?></td>
+					</tr>
+					<tr>
+						<td>credit:</td>
+						<td><?=$credit?></td>
+					</tr>
+					<tr>
+						<td>Date Created:</td>
+						<td><?=$Join?></td>
+					</tr>
+					<tr>
+						<td>created by:</td>
+						<td><?=$userID?></td>
+					</tr>
+					<tr>
+						<td>comment:</td>
+						<td><?=$comment?></td>
+					</tr>
+					<tr>
+						<td>Active:</td>
+						<td><?=$active?></td>
+					</tr>
+				</table>
+				<a href="editaccount.php"></i>Edit</a>
+			</div>
 		</div>
 	</body>
 </html>
