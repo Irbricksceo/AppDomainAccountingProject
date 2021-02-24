@@ -15,7 +15,7 @@ if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 // We don't have the password or email info stored in sessions so instead we can get the results from the database.
-if ($stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory, fsubcategory, debit, credit, fdatecreated, userID, comment, active FROM faccounts WHERE faccountID = ?')){
+if ($stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory, fsubcategory, debit, credit, fdatecreated, userID, comment, active FROM faccount WHERE faccountID = ?')){
 	// In this case we can use the account ID to get the account info.
 	$stmt->bind_param('i', $_GET['u']);
 	$stmt->execute();
@@ -130,7 +130,6 @@ endif;
 						<td><?=$active?></td>
 					</tr>
 				</table>
-				<a href="editaccount.php"></i>Edit</a>
 			</div>
 		</div>
 	</body>
