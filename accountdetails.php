@@ -15,13 +15,14 @@ if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 // We don't have the password or email info stored in sessions so instead we can get the results from the database.
-$stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory, fsubcategory, debit, credit, fdatecreated, userID, comment, active FROM faccounts WHERE faccountID = ?');
-// In this case we can use the account ID to get the account info.
-$stmt->bind_param('i', $_SESSION['faccountID']);
-$stmt->execute();
-$stmt->bind_result($faccount, $fdescription, $normalside, $fcategory, $fsubcategory, $debit, $credit, $fdatecreated, $userID, $comment, $active, $Join);
-$stmt->fetch();
-$stmt->close();
+if ($stmt = $con->prepare('SELECT faccount, fdescription, normalside, fcategory, fsubcategory, debit, credit, fdatecreated, userID, comment, active FROM faccounts WHERE faccountID = ?')){
+	// In this case we can use the account ID to get the account info.
+	$stmt->bind_param('i', $_GET['u']);
+	$stmt->execute();
+	$stmt->bind_result($faccount, $fdescription, $normalside, $fcategory, $fsubcategory, $debit, $credit, $fdatecreated, $userID, $comment, $active, $Join);
+	$stmt->fetch();
+	$stmt->close();
+}
 
 if ($_SESSION['userrole'] == '1'):
 	$role = "Administrator";
