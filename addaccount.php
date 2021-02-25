@@ -121,6 +121,9 @@ if(isset($_POST['Create'])) {
 		</nav>
 		<div class="content">
 			<h2>Create New Account</h2>	
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">Make Sure All Fields Are Filled And Press Submit To Add Accounts.</span>
+			</div>
 			<div>
 				<h3> Account Information </h3>
 				<form action="" method="post">

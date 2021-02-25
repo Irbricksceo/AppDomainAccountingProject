@@ -86,6 +86,9 @@ if (mysqli_connect_errno()) {
 		</nav>
 		<div class="content">
 			<h2>Chart Of Accounts</h2>
+            <div class="tooltip">Hover For Help
+  				<span class="tooltiptext">Click On Columns To Sort, Or Use The Search Feature.</span>
+			</div>
 			<div>
               
 				<?php

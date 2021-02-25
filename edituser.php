@@ -109,7 +109,7 @@ if(isset($_POST['updateSuspension'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Profile Page</title>
+		<title>Edit User</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 		<link rel="icon" href="images/favicon.ico">
@@ -159,6 +159,9 @@ if(isset($_POST['updateSuspension'])) {
 		</nav>
 		<div class="content">
 			<h2>Editing User</h2>
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">Make Changes To User Accounts.</span>
+			</div>
 			<div>
 			   <?php
 			   echo "<h3> Editing User " . $data['username'] . "</h3>"

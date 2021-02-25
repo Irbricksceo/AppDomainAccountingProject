@@ -82,7 +82,7 @@ if(isset($_POST['Create'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Profile Page</title>
+		<title>Add User</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 		<link rel="icon" href="images/favicon.ico">
@@ -129,6 +129,9 @@ if(isset($_POST['Create'])) {
 		</nav>
 		<div class="content">
 			<h2>Creating New User</h2>	
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">Make Sure All Fields Are Filled And Press Submit To Add Users.</span>
+			</div>
 			<div>
 				<h3> Personal Information </h3>
 				<form action="" method="post">

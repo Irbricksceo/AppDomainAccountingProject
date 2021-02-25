@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedin'])) {
 					endif;
 					
 				?>
-			<h2>Account Management</h2>	
+			<h2>Account Management</h2>	 			
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
 			<?php
 				if ($_SESSION['userrole'] == '1'):
@@ -54,11 +54,14 @@ if (!isset($_SESSION['loggedin'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Home Page</h2>
+			<h2>Home Page</h2> 
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">Use the navigation bars to access features.</span>
+			</div>
 			<p>Welcome back, <?=$_SESSION['name']?>!</p>
-
+			
+			<div>
 			<p>Welcome to Accounting Pro, your online tool for managing accounts. We're still under construction.</p>
-
 			<?php 
 			if ($_SESSION['userrole'] == '1'):
 				?><h3> As an administrator, you currently have access to tools for managing users on the platform. Try it out in the users tab!</h3><?php 
@@ -70,6 +73,7 @@ if (!isset($_SESSION['loggedin'])) {
 				?><h3> Unable to retrieve role, please logout and login again. If this problem persists, please contact your administrator.</h3><?php 
 			endif;
 			?>
+			</div>
 		</div>
 	</body>
 </html>

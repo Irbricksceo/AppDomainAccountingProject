@@ -21,13 +21,11 @@ if (mysqli_connect_errno()) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Page Title</title>
-		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<title>Event Log</title>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+		<link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="icon" href="images/favicon.ico">
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 		<style type="text/css">
         .wrapper{
             width: 650px;
@@ -42,12 +40,15 @@ if (mysqli_connect_errno()) {
     	</style>
 	</head>
 	<body class="loggedin">
-    <nav class="navtop">
+	<nav class="navtop">
 			<div>
-				<img src="images/logo.png" width="60" alt="Logo">
-				<h1>Accounting Pro</h1>
-				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
-				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
+			<img src="images/logo.png" width="60" alt="Logo">
+            <h1>Accounting Pro</h1>
+				<?php
+						?><a href="users2.php"></i>Back</a><?php 
+				?>
+			<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+			<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
 		<nav class="navside">
@@ -66,7 +67,7 @@ if (mysqli_connect_errno()) {
 					endif;
 					
 				?>
-			<h2>Account Management</h2>	
+			<h2>Account Management</h2>
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
 			<?php
 				if ($_SESSION['userrole'] == '1'):
@@ -74,69 +75,66 @@ if (mysqli_connect_errno()) {
 					<?php 
 					endif;	
 				?>
-            <a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
+			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">
 			<h2>Event Log</h2>
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">List of all entries in the account event log.</span>
+			</div>
+			
 			<div>
 				<hr>
-				
 				<form action="" method="post"> 
 				<input type= "text" name="accountID" placeholder="Account ID">	
 				<input type="submit" value="Filter By Account ID" name="submit" >
 				</form>
             	<hr>
               <?php
+				$query1 = "SELECT * FROM eventlog";
 
+				//Filter button doesn't produce proper result atm
+				if(isset($_POST['submit'])){
+					$accountID = $_POST['accountID'];
+					$query1 = $query1 . " WHERE faccountID = '$accountID' ";
+					
+					}
 
+				if($result = mysqli_query($link, $query1)){
+					if(mysqli_num_rows($result) > 0){
+						echo "<table class='table table-bordered table-striped'>";
+							echo "<thead>";
+								echo "<tr>"; 
+									echo "<th> Event ID</th>";
+									echo "<th> User ID</th>";
+									echo "<th> Date Changed</th>";
+									echo "<th> Altered Account</th>";
+									echo "<th> What Changed </th>";
+									echo "<th> From</th>";
+									echo "<th> To</th>";
+								echo "</tr>";
+							echo "</thead>";
+						echo "<tbody>";
+						while($row = mysqli_fetch_array($result)){
+						echo "<tr>";
+							echo "<td>" . $row['eventID'] . "</td>";
+							echo "<td>" . $row['userID'] . "</td>";
+							echo "<td>" . $row['datechanged'] . "</td>";
+							echo "<td>" . $row['faccountID'] . "</td>";
+							echo "<td>" . $row['changed'] . "</td>";
+							echo "<td>" . $row['pastversion'] . "</td>";
+							echo "<td>" . $row['currentversion'] . "</td>";
 
-
-$query1 = "SELECT * FROM eventlog";
-
-//Filter button doesn't produce proper result atm
-if(isset($_POST['submit'])){
-	$accountID = $_POST['accountID'];
-	$query1 = $query1 . " WHERE faccountID = '$accountID' ";
-     
-	 }
-
- if($result = mysqli_query($link, $query1)){
-     if(mysqli_num_rows($result) > 0){
-        echo "<table class='table table-bordered table-striped'>";
-            echo "<thead>";
-                echo "<tr>"; 
-                    echo "<th> Event ID</th>";
-                    echo "<th> User ID</th>";
-                    echo "<th> Date Changed</th>";
-                    echo "<th> Altered Account</th>";
-					echo "<th> What Changed </th>";
-                    echo "<th> From</th>";
-                    echo "<th> To</th>";
-                echo "</tr>";
-            echo "</thead>";
-        echo "<tbody>";
-		while($row = mysqli_fetch_array($result)){
-        echo "<tr>";
-		 	echo "<td>" . $row['eventID'] . "</td>";
-			echo "<td>" . $row['userID'] . "</td>";
-			echo "<td>" . $row['datechanged'] . "</td>";
-			echo "<td>" . $row['faccountID'] . "</td>";
-			echo "<td>" . $row['changed'] . "</td>";
-			echo "<td>" . $row['pastversion'] . "</td>";
-			echo "<td>" . $row['currentversion'] . "</td>";
-
-         echo"</tr>";
-		}
-        echo "</tbody>";                            
-     echo "</table>";  
-	 }  else{ 
-		echo "<p class='lead'><em>No records were found.</em></p>";
-	}
- } 
-       
-                ?>     
-
+						echo"</tr>";
+						}
+						echo "</tbody>";                            
+					echo "</table>";  
+					}  else{ 
+						echo "<p class='lead'><em>No records were found.</em></p>";
+					}
+				} 	
+				?>  
             </div>
 		</div>
 	</body>

@@ -88,6 +88,9 @@ if(isset($_GET['u'])) {
 		</nav>
 		<div class="content">
 			<h2>Ledger For Account Number <?php echo "$acct" ?> </h2>
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">This page shows transactions for the selected account.</span>
+			</div>
 			<div>
               
              <!--Content Goes Here -->           

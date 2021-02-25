@@ -198,6 +198,7 @@ if(isset($_POST['updateADMN'])) {
 					<?php 
 					endif;	
 				?>
+				<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">

@@ -27,7 +27,7 @@ if (mysqli_connect_errno()) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Profile Page</title>
+		<title>Users Page</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -85,8 +85,10 @@ if (mysqli_connect_errno()) {
 		</nav>
 		<div class="content">
 			<h2>Users</h2>
+            <div class="tooltip">Hover For Help
+  				<span class="tooltiptext">This page lists all users and allows administrators to edit/add users.</span>
+			</div>
 			<div>
-              
                 <a href="adduser.php"></i>Add User</a>
                 <hr>
                 <div class = "filters">
