@@ -121,7 +121,7 @@ if (mysqli_connect_errno()) {
                             "sAjaxSource": "accountsFetchData.php",
                             "aoColumns": [
                                 { mData: 'faccountID' } ,
-                                { mData: 'faccount' },
+                                { mData: 'faccount', 'sWidth': '25%' },
                                 { mData: 'fcategory' },
                                 { mData: 'normalside' },
                                 { mData: 'fbalance' },
