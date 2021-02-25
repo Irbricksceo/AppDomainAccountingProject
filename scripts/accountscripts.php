@@ -1,22 +1,10 @@
 <?php
 
-function connectDB()
-{
-    // Change this to your connection info.
-    $DATABASE_HOST = 'localhost';
-    $DATABASE_USER = 'root';
-    $DATABASE_PASS = '';
-    $DATABASE_NAME = 'accountingprojectlogin';
-
-    // Try and establish connection to DB
-    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-
-    return $con;
-}
-
 //Script for adding to event log:
-function logEvent ($) {
-
+function logEvent($acct, $changed, $oldData, $newData, $user) {
+	$sqlupd = "INSERT INTO `eventlog` (`userID`, `faccountID`, `pastversion`, `currentversion`, `changed`) 
+    VALUES ('$user', '$acct', '$oldData', '$newData', '$changed)";
+    $edit = mysqli_query($link, $sqlupd);
 }
 
 

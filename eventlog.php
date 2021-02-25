@@ -106,13 +106,13 @@ if(isset($_POST['submit'])){
         echo "<table class='table table-bordered table-striped'>";
             echo "<thead>";
                 echo "<tr>"; 
-                    echo "<th> EventID</th>";
-                    echo "<th> UserID</th>";
+                    echo "<th> Event ID</th>";
+                    echo "<th> User ID</th>";
                     echo "<th> Date Changed</th>";
-                    echo "<th> FaccountID</th>";
-                    echo "<th> Past Version</th>";
-                    echo "<th> Current Version</th>";
+                    echo "<th> Altered Account</th>";
 					echo "<th> What Changed </th>";
+                    echo "<th> From</th>";
+                    echo "<th> To</th>";
                 echo "</tr>";
             echo "</thead>";
         echo "<tbody>";
@@ -122,12 +122,9 @@ if(isset($_POST['submit'])){
 			echo "<td>" . $row['userID'] . "</td>";
 			echo "<td>" . $row['datechanged'] . "</td>";
 			echo "<td>" . $row['faccountID'] . "</td>";
+			echo "<td>" . $row['changed'] . "</td>";
 			echo "<td>" . $row['pastversion'] . "</td>";
 			echo "<td>" . $row['currentversion'] . "</td>";
-			echo "<td>" . $row['changed'] . "</td>";
-			
-			
-
 
          echo"</tr>";
 		}

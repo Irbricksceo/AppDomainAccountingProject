@@ -14,9 +14,7 @@ if ($_SESSION['userrole'] != 1) {
     exit;
 }
 
-
-include "scripts/email.php";
-include "scripts/userscripts.php";
+include "scripts/accountscripts.php";
 
 //Set a page variable based on if page was entered via profile or users page and parses for a person to be editing. Forces to default for non admins
 if(isset($_GET['u'])&& $_SESSION['userrole'] == 1) {
@@ -55,11 +53,65 @@ if(isset($_POST['update'])) {
 
 
 	//primes, then fires, the update query
-	$sqlupd = "UPDATE faccount SET faccountID = '$newfaccountID', faccount = '$newfaccount', Fdescription = '$newfdescription', Normalside = '$newnormalside', Fcategory ='$newfcategory',Comment = '$newcomment' WHERE faccountID='$editu'";
+	$sqlupd = "UPDATE faccount SET faccountID = '$newfaccountID', faccount = '$newfaccount', fdescription = '$newfdescription', normalside = '$newnormalside', fcategory ='$newfcategory',comment = '$newcomment' WHERE faccountID='$editu'";
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
-        header("location:editaccount.php?u=$newfaccountID"); // reload page to refresh the fields, preserves the URL parameters
+		//The below chunk of code creates the event log for the change
+		$sql2 = "SELECT * FROM faccount WHERE faccountID='$newfaccountID'";
+		$qry2 = mysqli_query($link, $sql2);
+		$data2 = mysqli_fetch_array($qry2); //First we create a new array containing the updated values
+		
+		$changed = "";
+		$oldData = "";
+		$newData = "";
+		$user = $_SESSION['id'];
+
+		//now we scan fields for changes. I feel like thsi should be loopable, but damn if I could figure out how. Each block adds any paramaters that changed
+		if (strcmp($data['faccountID'] , $data2['faccountID']) != 0) {
+			$changed = $changed . "ID" . "<br> ";
+			$oldData = $oldData . $data['faccountID'] . "<br> ";
+			$newData = $newData . $data2['faccountID'] . "<br> ";
+		}
+
+		if (strcmp($data['faccount'] , $data2['faccount']) != 0) {
+			$changed = $changed . "Account Name" . "<br> ";
+			$oldData = $oldData . $data['faccount'] . "<br> ";
+			$newData = $newData . $data2['faccount'] . "<br> ";
+		}
+
+		if (strcmp($data['fdescription'] , $data2['fdescription']) != 0) {
+			$changed = $changed . "Description" . "<br> ";
+			$oldData = $oldData . $data['fdescription'] . "<br> ";
+			$newData = $newData . $data2['fdescription'] . "<br> ";
+		}
+
+		if (strcmp($data['normalside'] , $data2['normalside']) != 0) {
+			$changed = $changed . "normalside" . "<br> ";
+			$oldData = $oldData . $data['normalside'] . "<br> ";
+			$newData = $newData . $data2['normalside'] . "<br> ";
+		}
+
+		if (strcmp($data['fcategory'] , $data2['fcategory']) != 0) {
+			$changed = $changed . "Category" . "<br> ";
+			$oldData = $oldData . $data['fcategory'] . "<br> ";
+			$newData = $newData . $data2['fcategory'] . "<br> ";
+		}
+
+		if (strcmp($data['comment'] , $data2['comment']) != 0) {
+			$changed = $changed . "Comment" . "<br> ";
+			$oldData = $oldData . $data['comment'] . "<br> ";
+			$newData = $newData . $data2['comment'] . "<br> ";
+		}
+		//finally, we use the completed strings for the log
+		$sqllog = "INSERT INTO `eventlog` (`userID`, `faccountID`, `pastversion`, `currentversion`, `changed`) 
+		VALUES ('$user', '$newfaccountID', '$oldData', '$newData', '$changed')";
+		$log = mysqli_query($link, $sqllog);
+        //Finally, update the "account ID" for every entry in the log from the old ID to the new ID to maintain tracability
+		$sqllog = "UPDATE eventlog SET faccountID = '$newfaccountID' WHERE faccountID='$editu'";
+		$log = mysqli_query($link, $sqllog);
+
+		header("location:accounts.php");
         exit;
     }
     else
@@ -79,13 +131,7 @@ if(isset($_POST['updateADMN'])) {
 	$edit = mysqli_query($link, $sqlupd);
 	if($edit)
     {
-		if ($primeMSG == true && $newStatus == 1) {
-			$to_email = $data['Email'];
-			$body = 'An Administrator Has Activated Your Accounting Pro Account, Sign In Today!';
-			$subject = 'Accounting Pro Account Activated';
-			sendEmailFromServer($to_email, $subject, $body);
-		}
-		header("location:editaccount.php?r=$return&u=$editu"); // reload page	
+		header("location:accounts.php"); 
     }
     else
     {
