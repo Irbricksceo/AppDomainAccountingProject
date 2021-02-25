@@ -28,7 +28,14 @@ if (mysqli_connect_errno()) {
         <link rel="icon" href="images/favicon.ico">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-		<style type="text/css">
+		
+        <!-- DataTables scripts and styling -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+        
+        <style type="text/css">
         .wrapper{
             width: 650px;
             margin: 0 auto;
@@ -87,94 +94,47 @@ if (mysqli_connect_errno()) {
 						echo "<a href='addaccount.php'>Add Account</a>";
 						echo "<hr>";
 					endif;
+                ?>
+				
+                <table id="accountsTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Normal Side</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <?php 
+                        if ($_SESSION['userrole'] == 1) 
+                            echo '<th>Edit</th>'
+                        ?>
+                    </tr>
+                    </thead>
+                </table>
 
-					// Attempt select query execution
-					$sql = "SELECT * FROM faccount";
-
-                    if($result = mysqli_query($link, $sql)){
-                        if(mysqli_num_rows($result) > 0){
-                            echo "<table class='table table-bordered table-striped'>";
-                                echo "<thead>";
-                                    echo "<tr>";
-                                        echo "<th>#</th>";
-                                        echo "<th>Name</th>";
-                                        echo "<th>Category</th>";
-                                        echo "<th>Normal Side</th>";
-                                        echo "<th>Balance</th>";
-                                        echo "<th>Status</th>";
-										echo "<th>Details</th>";
-										
-										// Logic to only display edit column if userrole == 1 (admin)
-										if ($_SESSION['userrole'] == '1')
-                                        	echo "<th>Edit</th>";
-
-                                    echo "</tr>";
-                                echo "</thead>";
-                                echo "<tbody>";
-                                while($row = mysqli_fetch_array($result)){
-									// Displaying each row from faccounts
-                                    echo "<tr>";
-                                        echo "<td>" . $row['faccountID'] . "</td>";
-
-										// Clicking account name brings user to ledger for account name	
-                                        echo "<td><a href='ledger.php?u=".$row['faccountID']."'>" . $row['faccount'] . "</a></td>";
-										
-										// Convert fcategory int code to string name
-										switch ($row['fcategory']){
-											case 1:
-												echo "<td>" . "Asset" . "</td>";
-												break;
-											case 2: 
-												echo "<td>" . "Liability" . "</td>";
-												break;
-											case 3:
-												echo "<td>" . "Equity" . "</td>";
-												break;
-											case 4:
-												echo "<td>" . "Revenue" . "</td>";
-												break;
-											case 5:
-												echo "<td>" . "Expense" . "</td>";
-												break;
-										}
-
-										// Convert normalside int to string name
-										if ($row['normalside'] == 0)
-											echo "<td>" . "Debit" . "</td>";
-										else
-											echo "<td>" . "Credit" . "</td>";
-
-                                        echo "<td>" . $row['fbalance'] . "</td>";
-
-										// Convert active int to string name
-										if ($row['active'] == 0)
-											echo "<td>" . "Deactivated" . "</td>";
-										else
-											echo "<td>" . "Active" . "</td>";
-
-										// Provide link to view details for account
-										echo "<td><a href='accountdetails.php?u=".$row['faccountID']."'>Details</a></td>";
-
-										// Logic to only display edit column if userrole == 1 (admin)
-										if ($_SESSION['userrole'] == '1')
-                                        	echo "<td><a href='editaccount.php?u=".$row['faccountID']."'>Edit</a></td>";
-                                        echo "</tr>";
-                                }
-                                echo "</tbody>";                            
-                            echo "</table>";
-                            // Free result set
-                            mysqli_free_result($result);
-                        } else{
-                            echo "<p class='lead'><em>No records were found.</em></p>";
-                        }
-                    } else{
-                        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-                    }
- 
-                    // Close connection
-                    mysqli_close($link);
-            	?>          
-
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $('#accountsTable').dataTable({
+                            "bProcessing": true,
+                            "sAjaxSource": "accountsFetchData.php",
+                            "aoColumns": [
+                                { mData: 'faccountID' } ,
+                                { mData: 'faccount' },
+                                { mData: 'fcategory' },
+                                { mData: 'normalside' },
+                                { mData: 'fbalance' },
+                                { mData: 'active' },
+                                { mData: 'details' },
+                                <?php
+                                if ($_SESSION['userrole'] == 1)
+                                    echo "{ mData: 'edit'},";
+                                ?>
+                            ]
+                        });  
+                    });
+                </script>
             </div>
 		</div>
 	</body>
