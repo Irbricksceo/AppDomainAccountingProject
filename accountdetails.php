@@ -34,6 +34,28 @@ else:
 	$role = "Undefined";
 endif;
 
+if ($normalside == 0)
+	$normalside = "Debit";
+else
+	$normalside	 = "Credit";
+
+switch ($fcategory){
+    case 1:
+	    $fcategory = "Asset";
+        break;
+    case 2: 
+        $fcategory = "Liability";
+        break;
+    case 3:
+        $fcategory = "Equity";
+        break;
+    case 4:
+        $fcategory = "Revenue";
+        break;
+    case 5:
+        $fcategory = "Expense";
+        break;
+    }
 ?>
 <!DOCTYPE html>
 <html>
