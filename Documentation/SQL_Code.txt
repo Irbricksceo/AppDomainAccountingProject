@@ -88,6 +88,24 @@ CREATE TABLE IF NOT EXISTS `eventlog` (
     PRIMARY KEY (`eventID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `transactions` (
+    `transactionID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `accountantID` int(11) NOT NULL,
+    `managerID` int(11) NOT NULL,
+    `datecreated` datetime default current_timestamp,
+    `datechanged` datetime default current_timestamp,
+    `faccountID` varchar(255) NOT NULL,
+    `status` int(1),
+    PRIMARY KEY (`transactionID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `errortable` (
+    `errorID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
+    `name` varchar(255) NOT NULL,
+    `description` varchar(255) NOT NULL,
+    `active` int(1),
+    PRIMARY KEY (`errorID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 -----------------------------------
 columns of type "date" are in the format YYYY-MM-DD
 columns of type "datetime" are in the format YYYY-MM-DD HH:MM:SS
