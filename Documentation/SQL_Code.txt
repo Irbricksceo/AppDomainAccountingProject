@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `eventlog` (
 CREATE TABLE IF NOT EXISTS `transactions` (
     `transactionID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
     `accountantID` int(11) NOT NULL,
+    `batchID` int(11) NOT NULL,
     `managerID` int(11) NOT NULL,
     `datecreated` datetime default current_timestamp,
     `datechanged` datetime default current_timestamp,
