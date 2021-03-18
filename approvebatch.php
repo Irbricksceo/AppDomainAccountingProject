@@ -81,6 +81,12 @@ if (mysqli_connect_errno()) {
 			<div>
             <?php
             if(!isset($_GET['b'])) {
+                $sqlSelect="SELECT id FROM accounts";
+                $result = mysqli_query($link, $sqlSelect);
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                }
+
             ?>
             <h3> This is the batch selector </h3>
             <?php
