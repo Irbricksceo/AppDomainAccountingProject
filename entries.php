@@ -92,6 +92,9 @@ if (!isset($_SESSION['loggedin'])) {
                         <th>Status</th>
                         <th>Submitted By</th>
                         <th>Date Created</th>
+                        <th>Approved By</th>
+                        <th>Assessed On</th>
+                        <th>Details</th>
                     </tr>
                     </thead>
                 </table>
@@ -107,7 +110,10 @@ if (!isset($_SESSION['loggedin'])) {
                                 { mData: 'accountsAffected' },
                                 { mData: 'amountMoved' },
                                 { mData: 'status' },
-                                { mData: 'active' },
+                                { mData: 'submitterID' },
+                                { mData: 'datecreated' },
+                                { mData: 'approverID' },
+                                { mData: 'dateassessed' },
                                 { mData: 'details' },
                             ]
                         });  
