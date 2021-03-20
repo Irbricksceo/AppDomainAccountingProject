@@ -91,10 +91,10 @@ CREATE TABLE IF NOT EXISTS `eventlog` (
 CREATE TABLE IF NOT EXISTS `transactions` (
     `lineID` int(11) NOT NULL AUTO_INCREMENT UNIQUE,
     `transactionID` int(11) NOT NULL,
-    `batchID` int(11) NOT NULL,
+    `batchID` int(11) ,
     `accountID` int(11) NOT NULL,
     `submitterID` int(11) NOT NULL,
-    `approverID` int(11) NOT NULL,
+    `approverID` int(11) ,
     `datecreated` datetime default current_timestamp,
     `dateassessed` datetime default current_timestamp,
     `debit`  double(9,2),
