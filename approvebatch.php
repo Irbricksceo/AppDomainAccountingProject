@@ -16,6 +16,17 @@ if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
+if(isset($_POST['Review'])) {
+    $batch = $_POST['Batch'];
+	header("location:approvebatch.php?b=$batch"); // reload page	
+} 
+
+if(isset($_POST['UpdateStatus'])) {
+    $newstatus = $_POST['Action'];
+	//TODO: ADD SCRIPT TO PROCESS BATCH WITH STATUS 1 OR 2
+    header("location:approvebatch.php");	
+} 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,18 +92,36 @@ if (mysqli_connect_errno()) {
 			<div>
             <?php
             if(!isset($_GET['b'])) {
-                $sqlSelect="SELECT id FROM accounts";
+                $sqlSelect="SELECT DISTINCT BatchID FROM transactions";
                 $result = mysqli_query($link, $sqlSelect);
-                while ($row = mysqli_fetch_array($result)) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
-                }
 
-            ?>
-            <h3> This is the batch selector </h3>
+                echo "<p> There are " . mysqli_num_rows($result) . " batches awaitng approval </p>"; 
+                ?>
+                <hr>
+				<form action="" method="post">
+                    <select name="Batch" id="Batch">
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['BatchID'] . "'>" . $row['BatchID'] . "</option>";
+                        }
+                        ?>
+                    </select> 
+					<input type="submit" value="Review Selected" name="Review" >
+                </form>
             <?php
             } else {
+            $batch = $_GET['b'];
+            echo "<p> Reviewing Batch " . $batch . ".</p>"
+
+            //ADD TABLE TO VIEW BATCH DETAILS
+
             ?>
-            <h3> This is where batch details go </h3>
+            <form action="" method="post">
+                    <select name="Action" id="Action">
+                        <option value="1">Approve</option>
+                        <option value="2">Decline</option>
+                    </select> 
+					<input type="submit" value="Update Status" name="UpdateStatus" >
             <?php
             } ?>
             </div>
