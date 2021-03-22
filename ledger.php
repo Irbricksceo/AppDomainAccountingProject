@@ -36,6 +36,12 @@ if(isset($_GET['u'])) {
         <link rel="icon" href="images/favicon.ico">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+		<!-- DataTables scripts and styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+		
 		<style type="text/css">
         .wrapper{
             width: 650px;
@@ -92,8 +98,58 @@ if(isset($_GET['u'])) {
   				<span class="tooltiptext">This page shows transactions for the selected account.</span>
 			</div>
 			<div>
-              
-             <!--Content Goes Here -->           
+			
+				<?php
+				$sql = "SELECT fbalance FROM faccount WHERE faccountID = $acct";
+				$result = mysqli_query($link, $sql);
+				
+				if ($stmt = $link->prepare('SELECT fbalance FROM faccount WHERE faccountID = ?')){
+					// In this case we can use the account ID to get the account info.
+					$stmt->bind_param('i', $_GET['u']);
+					$stmt->execute();
+					$stmt->bind_result($fbalance);
+					$stmt->fetch();
+					$stmt->close();
+				}
+				echo "<h3>Balance: " . $fbalance . "</h3>"
+				?>
+				<hr>
+
+
+
+				<table id="ledgerTable">
+						<thead>
+						<tr>
+							<th>Date Created</th>
+							<th>Description</th>
+							<th>Debit</th>
+							<th>Credit</th>
+							<th>PR</th>
+						</tr>
+						</thead>
+					</table>
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$('#ledgerTable').dataTable({
+								"processing": true,
+								"ajax": {
+									url: "ledgerFetchData.php",
+									data: {
+										"accountID": "<?php echo $acct ?>",
+									}
+								},
+								"columns": [
+									{ data: 'datecreated' },
+									{ data: 'description', 'sWidth': '45%'  },
+									{ data: 'debit' },
+									{ data: 'credit' },
+									{ data: 'postReference' },
+								]
+							});  
+						});
+					</script>
+					         
 
             </div>
 		</div>
