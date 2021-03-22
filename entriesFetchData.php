@@ -14,9 +14,6 @@ $sql = "SELECT * FROM transactions";
 $result = mysqli_query($link, $sql);
 
 while($row = mysqli_fetch_array($result)){
-
-    
-    
     $data[] = $row;
 }
 
@@ -60,7 +57,7 @@ for ($i=0; $i<$length; $i++)
 
 
 
-    //Find rows with matching transactionID to aggregate accountsAffect and amountMoved
+    //Find rows with matching transactionID to aggregate accountsAffected and amountMoved
     while ($i < $length)
     {
         if ($ID == $data[$i]['transactionID'])
