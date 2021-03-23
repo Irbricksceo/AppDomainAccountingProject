@@ -6,6 +6,9 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+
+include "scripts/batchscripts.php";
+
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
@@ -22,9 +25,10 @@ if(isset($_POST['Review'])) {
 } 
 
 if(isset($_POST['UpdateStatus'])) {
+    $batch = $_GET['b'];
     $newstatus = $_POST['Action'];
-	//TODO: ADD SCRIPT TO PROCESS BATCH WITH STATUS 1 OR 2
-    header("location:approvebatch.php");	
+	processBatch($link, $batch, $newstatus);
+    //header("location:approvebatch.php");	
 } 
 
 ?>
@@ -92,7 +96,7 @@ if(isset($_POST['UpdateStatus'])) {
 			<div>
             <?php
             if(!isset($_GET['b'])) {
-                $sqlSelect="SELECT DISTINCT BatchID FROM transactions";
+                $sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
                 $result = mysqli_query($link, $sqlSelect);
 
                 echo "<p> There are " . mysqli_num_rows($result) . " batches awaitng approval </p>"; 
@@ -111,8 +115,9 @@ if(isset($_POST['UpdateStatus'])) {
             <?php
             } else {
             $batch = $_GET['b'];
-            echo "<p> Reviewing Batch " . $batch . ".</p>"
-
+            echo "<p> Reviewing Batch " . $batch . ".</p>";
+            $sqlSelect="SELECT * FROM transactions WHERE batchID = $batch";
+            $result = mysqli_query($link, $sqlSelect);
             //ADD TABLE TO VIEW BATCH DETAILS
 
             ?>
