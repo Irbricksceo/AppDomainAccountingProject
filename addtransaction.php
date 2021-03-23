@@ -158,7 +158,21 @@ if(isset($_POST['Create'])) {
 			<div>
 				<h3> Transaction Information </h3>
 				<form action="" method="post">
-                    <!--
+                    
+				<input type="text" name="lineID" placeholder="lineID" ><br>
+				<input type="text" name="transactionID" placeholder="transactionID" ><br>
+				<input type="text" name="BatchID" placeholder="BatchID" ><br>
+				<input type="text" name="AccountID" placeholder="AccountID" ><br>
+				<input type="text" name="SubmitterID" placeholder="SubmitterID" ><br>
+				<input type="text" name="ApproverID" placeholder="ApproverID" ><br>
+				<input type="text" name="Datecreated" placeholder="Datecreated" ><br>
+				<input type="text" name="dateassessed" placeholder="dateassessed" ><br>
+				<input type="number" name="credit" placeholder="credit" ><br>
+				<input type="number" name="debit" placeholder="debit" ><br>
+				<input type="text" name="sourceDocument" placeholder="sourceDocument" ><br>
+				<input type="text" name="status" placeholder="status" ><br>
+
+					<!--
 					<input type="text" name="Name" placeholder="Account Name" ><br>
                     <label for="Category">Category:</label>
                     <select name="Category" id="Category">
@@ -173,6 +187,8 @@ if(isset($_POST['Create'])) {
                     <input type="text" name="Description" placeholder="Description" ><br>
                     <input type="number" name="StartingBalance" placeholder="Starting Balance" ><br>
 					-->
+					
+					
 					<input type="submit" value="Create" name="Create" >
 				</form>
 			</div>
