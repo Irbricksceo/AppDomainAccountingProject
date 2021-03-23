@@ -6,9 +6,6 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-
-include "scripts/batchscripts.php";
-
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
@@ -19,30 +16,32 @@ if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
-if(isset($_POST['Review'])) {
-    $batch = $_POST['Batch'];
-	header("location:approvebatch.php?b=$batch"); // reload page	
-} 
+//Gets Account to view from the URL
+if(isset($_GET['u'])) {
+	$transactionID = $_GET['u'];
+} else {
+	$transactionID = 000; //defaults ID to prevent breaking when accessed without a value.
+}
 
-if(isset($_POST['UpdateStatus'])) {
-    $batch = $_GET['b'];
-    $newstatus = $_POST['Action'];
-	processBatch($link, $batch, $newstatus);
-    //header("location:approvebatch.php");	
-} 
 
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Batch Review</title>
+		<title>Account Ledger</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
         <link rel="icon" href="images/favicon.ico">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+		<!-- DataTables scripts and styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+		
 		<style type="text/css">
         .wrapper{
             width: 650px;
@@ -61,6 +60,7 @@ if(isset($_POST['UpdateStatus'])) {
 			<div>
 				<img src="images/logo.png" width="60" alt="Logo">
 				<h1>Accounting Pro</h1>
+                <a href="accounts.php"></i>Back</a>
 				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
@@ -89,46 +89,64 @@ if(isset($_POST['UpdateStatus'])) {
 					<?php 
 					endif;	
 				?>
+			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Batch Review</h2>
+			<h2>Transaction Details For Transaction Number <?php echo "$transactionID" ?> </h2>
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">This page shows transactions for the selected account.</span>
+			</div>
 			<div>
-            <?php
-            if(!isset($_GET['b'])) {
-                $sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
-                $result = mysqli_query($link, $sqlSelect);
 
-                echo "<p> There are " . mysqli_num_rows($result) . " batches awaitng approval </p>"; 
-                ?>
-                <hr>
-				<form action="" method="post">
-                    <select name="Batch" id="Batch">
-                        <?php
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<option value='" . $row['BatchID'] . "'>" . $row['BatchID'] . "</option>";
-                        }
-                        ?>
-                    </select> 
-					<input type="submit" value="Review Selected" name="Review" >
-                </form>
-            <?php
-            } else {
-            $batch = $_GET['b'];
-            echo "<p> Reviewing Batch " . $batch . ".</p>";
-            $sqlSelect="SELECT * FROM transactions WHERE batchID = $batch";
-            $result = mysqli_query($link, $sqlSelect);
-            //ADD TABLE TO VIEW BATCH DETAILS
+				<table id="entryDetailsTable">
+						<thead>
+						<tr>
+							<th>Account Code</th>
+							<th>Account Name</th>
+							<th>Debit</th>
+							<th>Credit</th>
+						</tr>
+						</thead>
+					</table>
 
-            ?>
-            <form action="" method="post">
-                    <select name="Action" id="Action">
-                        <option value="1">Approve</option>
-                        <option value="2">Decline</option>
-                    </select> 
-					<input type="submit" value="Update Status" name="UpdateStatus" >
-            <?php
-            } ?>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$('#entryDetailsTable').dataTable({
+								"processing": true,
+								"ajax": {
+									url: "entryDetailsFetchData.php",
+									data: {
+										"transactionID": "<?php echo $transactionID ?>",
+									}
+								},
+								"columns": [
+									{ data: 'accountID', sWidth: '10%' },
+									{ data: 'faccount' },
+									{ data: 'debit' },
+									{ data: 'credit' },
+								]
+							});  
+						});
+					</script>
+
+                <?php
+                    //NEED TO ADD DESCRIPTION AND SOURCE FILE
+                    /*
+                    if ($stmt = $link->prepare('SELECT description, sourceDocument FROM transactions WHERE transactionID = ?')){
+                        $stmt->bind_param('i', $transactionID);
+                        $stmt->execute();
+                        $stmt->bind_result($description, $sourceDocument);
+                        $stmt->fetch();
+                        $stmt->close();
+                    }*/
+				?>
+
+                    <hr>
+                    <p>Description: </th>
+                    <br>
+                    <p>Files Attatched: </th>         
+
             </div>
 		</div>
 	</body>
