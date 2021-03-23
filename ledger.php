@@ -100,9 +100,6 @@ if(isset($_GET['u'])) {
 			<div>
 			
 				<?php
-				$sql = "SELECT fbalance FROM faccount WHERE faccountID = $acct";
-				$result = mysqli_query($link, $sql);
-				
 				if ($stmt = $link->prepare('SELECT fbalance FROM faccount WHERE faccountID = ?')){
 					// In this case we can use the account ID to get the account info.
 					$stmt->bind_param('i', $_GET['u']);
