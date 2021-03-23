@@ -18,9 +18,9 @@ if (mysqli_connect_errno()) {
 
 //Gets Account to view from the URL
 if(isset($_GET['u'])) {
-	$acct = $_GET['u'];
+	$transactionID = $_GET['u'];
 } else {
-	$acct = 000; //defaults ID to prevent breaking when accessed without a value.
+	$transactionID = 000; //defaults ID to prevent breaking when accessed without a value.
 }
 
 
@@ -93,60 +93,59 @@ if(isset($_GET['u'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Ledger For Account Number <?php echo "$acct" ?> </h2>
+			<h2>Transaction Details For Transaction Number <?php echo "$transactionID" ?> </h2>
 			<div class="tooltip">Hover For Help
   				<span class="tooltiptext">This page shows transactions for the selected account.</span>
 			</div>
 			<div>
-			
-				<?php
-				if ($stmt = $link->prepare('SELECT fbalance FROM faccount WHERE faccountID = ?')){
-					// In this case we can use the account ID to get the account info.
-					$stmt->bind_param('i', $_GET['u']);
-					$stmt->execute();
-					$stmt->bind_result($fbalance);
-					$stmt->fetch();
-					$stmt->close();
-				}
-				echo "<h3>Balance: " . $fbalance . "</h3>"
-				?>
-				<hr>
 
-
-
-				<table id="ledgerTable">
+				<table id="entryDetailsTable">
 						<thead>
 						<tr>
-							<th>Date Created</th>
-							<th>Description</th>
+							<th>Account Code</th>
+							<th>Account Name</th>
 							<th>Debit</th>
 							<th>Credit</th>
-							<th>PR</th>
 						</tr>
 						</thead>
 					</table>
 
 					<script type="text/javascript">
 						$(document).ready(function() {
-							$('#ledgerTable').dataTable({
+							$('#entryDetailsTable').dataTable({
 								"processing": true,
 								"ajax": {
-									url: "ledgerFetchData.php",
+									url: "entryDetailsFetchData.php",
 									data: {
-										"accountID": "<?php echo $acct ?>",
+										"transactionID": "<?php echo $transactionID ?>",
 									}
 								},
 								"columns": [
-									{ data: 'datecreated' },
-									{ data: 'description', 'sWidth': '45%'  },
+									{ data: 'accountID', sWidth: '10%' },
+									{ data: 'faccount' },
 									{ data: 'debit' },
 									{ data: 'credit' },
-									{ data: 'postReference' },
 								]
 							});  
 						});
 					</script>
-					         
+
+                <?php
+                    //NEED TO ADD DESCRIPTION AND SOURCE FILE
+                    /*
+                    if ($stmt = $link->prepare('SELECT description, sourceDocument FROM transactions WHERE transactionID = ?')){
+                        $stmt->bind_param('i', $transactionID);
+                        $stmt->execute();
+                        $stmt->bind_result($description, $sourceDocument);
+                        $stmt->fetch();
+                        $stmt->close();
+                    }*/
+				?>
+
+                    <hr>
+                    <p>Description: </th>
+                    <br>
+                    <p>Files Attatched: </th>         
 
             </div>
 		</div>
