@@ -41,23 +41,18 @@ if(isset($_POST['Create'])) {
 	$transactionID = $_POST['transactionID'];
 
 	//This should  set $result to 0 if there is an entry in transactions where the status is 3 then set $maxtrans to either the highest transaction num or 1 higher
-	/*			
-	$result = mysql_query("SELECT id FROM transactions WHERE status = '3'");
-	if(mysql_num_rows($result) == 0) 
-		{
-			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
-		}
-	else 
+				
+	$result = mysqli_query($link, "SELECT transactionID FROM transactions WHERE status = '3'");
+	if(mysqli_num_rows($result) == 0) 
 		{
 			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
 			$maxtrans += 1;
 		}
-	*/
-
+	else 
+		{
+			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
+		}
 	
-
-	
-
 
 	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `BatchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
     VALUES ('$lineID', '$maxtrans', '$Batch', '$account', '$submitter', $debit, '$credit', '3')";
@@ -136,7 +131,7 @@ if(isset($_POST['Create'])) {
 				<form action="" method="post">
                     
 
-				<input type="text" name="AccountID" placeholder="AccountID" ><br>
+				<input type="text" name="accountID" placeholder="accountID" ><br>
 				<input type="number" name="credit" placeholder="credit" ><br>
 				<input type="number" name="debit" placeholder="debit" ><br>
 
