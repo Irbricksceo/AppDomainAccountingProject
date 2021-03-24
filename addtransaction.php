@@ -7,7 +7,6 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
-//include 'scripts/userscripts.php'; 										//WHAT IS THIS USED FOR
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
@@ -18,21 +17,50 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
+/*
+$rowSQL = mysql_query( "SELECT MAX(transactionID) AS max FROM `transactions`;" );
+$row = mysql_fetch_array( $rowSQL );
+$largestNumber = $row['max'] + '1';
+
+$rowbSQL = mysql_query( "SELECT MAX(batchID) AS max FROM `transactions`;" );
+$rowb = mysql_fetch_array( $rowbSQL );
+$largestNumberb = $rowb['max'] + '1';
+*/
+
+
 
 //Fires update query when form is submitted
 if(isset($_POST['Create'])) {
     //will actually run the sql
-	$line = $_POST['lineID'];					//not null auto increment unique
-	$transactionID = $_POST['transactionID'];	//not null
-	//$batch = $_POST['batchID'];
-	$account = $_POST['accountID'];		//not null
-	$submitter = $_POST['submitterID'];	
-	$debit = $_POST['debit'];	//double
-	$credit = $_POST['credit'];	//double
+	$line = $_POST['lineID'];					
+	$account = $_POST['accountID'];		
+	$submitter = $_SESSION['id'];
+	$debit = $_POST['debit'];	
+	$credit = $_POST['credit'];	
 	$status = $_POST['status'];
+	$transactionID = $_POST['transactionID'];
+
+	//This should  set $result to 0 if there is an entry in transactions where the status is 3 then set $maxtrans to either the highest transaction num or 1 higher
+	/*			
+	$result = mysql_query("SELECT id FROM transactions WHERE status = '3'");
+	if(mysql_num_rows($result) == 0) 
+		{
+			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
+		}
+	else 
+		{
+			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
+			$maxtrans += 1;
+		}
+	*/
+
+	
+
+	
+
 
 	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `BatchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
-    VALUES ('$lineID', '$transactionID', '$Batch', '$account', '$submitter', $debit, '$credit', '3')";
+    VALUES ('$lineID', '$maxtrans', '$Batch', '$account', '$submitter', $debit, '$credit', '3')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
@@ -45,7 +73,7 @@ if(isset($_POST['Create'])) {
     {
         echo "Could Not Add Account, SQL Returned Error";
     }
-	//generate batch ID && transaction ID && submitter ID**********************************************************
+	//generate batch ID && transaction ID **********************************************************
 }
  
 ?>
@@ -107,9 +135,8 @@ if(isset($_POST['Create'])) {
 				<h3> Transaction Information </h3>
 				<form action="" method="post">
                     
-				<input type="text" name="transactionID" placeholder="transactionID" ><br>
+
 				<input type="text" name="AccountID" placeholder="AccountID" ><br>
-				<input type="text" name="ApproverID" placeholder="ApproverID" ><br>
 				<input type="number" name="credit" placeholder="credit" ><br>
 				<input type="number" name="debit" placeholder="debit" ><br>
 
