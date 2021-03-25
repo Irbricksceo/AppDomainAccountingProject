@@ -87,13 +87,17 @@ if(isset($_POST['sendemail'])) {
 			<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 			<hr>
 			<?php
-				if ($_SESSION['userrole'] == '1'):
+				if ($_SESSION['userrole'] == '1') {
 					?><h2>User Management</h2>	
 					<a href="users2.php"><i class="fas fa-user-circle"></i>Users</a>
 					<a href="adduser.php"><i class="fas fa-user-circle"></i>Add A User</a>
 					<hr><?php 
-					endif;
-					
+				} else {
+					?><h2>Transactions</h2>	
+					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<hr><?php
+				}	
 				?>
 			<h2>Account Management</h2>	
 			<hr>

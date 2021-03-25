@@ -6,8 +6,17 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-?>
 
+$DATABASE_HOST = 'localhost';
+$DATABASE_USER = 'root';
+$DATABASE_PASS = '';
+$DATABASE_NAME = 'accountingprojectlogin';
+
+$link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (mysqli_connect_errno()) {
+    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -34,13 +43,17 @@ if (!isset($_SESSION['loggedin'])) {
 			<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 			<hr>
 			<?php
-				if ($_SESSION['userrole'] == '1'):
+				if ($_SESSION['userrole'] == '1') {
 					?><h2>User Management</h2>	
 					<a href="users2.php"><i class="fas fa-user-circle"></i>Users</a>
 					<a href="adduser.php"><i class="fas fa-user-circle"></i>Add A User</a>
 					<hr><?php 
-					endif;
-					
+				} else {
+					?><h2>Transactions</h2>	
+					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<hr><?php
+				}	
 				?>
 			<h2>Account Management</h2>	 			
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
@@ -61,14 +74,18 @@ if (!isset($_SESSION['loggedin'])) {
 			<p>Welcome back, <?=$_SESSION['name']?>!</p>
 			
 			<div>
-			<p>Welcome to Accounting Pro, your online tool for managing accounts. We're still under construction.</p>
+			<p>Welcome to Accounting Pro, your online tool for all your accounting needs.</p>
 			<?php 
 			if ($_SESSION['userrole'] == '1'):
 				?><h3> As an administrator, you currently have access to tools for managing users on the platform. Try it out in the users tab!</h3><?php 
 			elseif ($_SESSION['userrole'] == '2'):
-				?><h3> As a manager, you do not currently have much functionality, but its coming soon!</h3><?php 
+				$sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
+                $result = mysqli_query($link, $sqlSelect);
+                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaitng approval </h3>"; 
 			elseif ($_SESSION['userrole'] == '3'):
-				?><h3> As a normal user, you do not currently have much functionality, but its coming soon!</h3><?php 
+				$sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
+                $result = mysqli_query($link, $sqlSelect);
+                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaitng approval </h3>"; 
 			else:
 				?><h3> Unable to retrieve role, please logout and login again. If this problem persists, please contact your administrator.</h3><?php 
 			endif;
