@@ -70,7 +70,7 @@ if(isset($_POST['Create'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Entry Details</title>
+		<title>Add Transaction</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -82,6 +82,8 @@ if(isset($_POST['Create'])) {
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
 		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
+		<script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js" type="text/javascript"></script>
 		
 		<style type="text/css">
         .wrapper{
@@ -138,46 +140,46 @@ if(isset($_POST['Create'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Details For Transaction Number: <?php echo "$transactionID" ?> </h2>
+			<h2>Add Transaction </h2>
 			<div class="tooltip">Hover For Help
-  				<span class="tooltiptext">This page shows the details for a transaction.</span>
+  				<span class="tooltiptext">This page allows users to make transactions to be insterted into a batch for approval.</span>
 			</div>
 			<div>
 
-				<table id="entryDetailsTable">
-						<thead>
-						<tr>
-							<th>Account Code</th>
-							<th>Account Name</th>
-							<th>Debit</th>
-							<th>Credit</th>
-						</tr>
-						</thead>
-					</table>
+			<table id="addtransactionTable">
+				<thead>
+				<tr>
+					<th>ID</th>
+					<th>Account Code</th>
+					<th>Account Name</th>
+					<th>Debit</th>
+					<th>Credit</th>
+				</tr>
+				</thead>
+			</table>
 
-					<script type="text/javascript">
-						$(document).ready(function() {
-							$('#entryDetailsTable').dataTable({
-								"processing": true,
-								"ajax": {
-									url: "entryDetailsFetchData.php",
-									data: {
-										"transactionID": "<?php echo $transactionID ?>",
-									}
-								},
-								"language": {
-									"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
-									"zeroRecords": "No data available in table."	//Used to display msg after filtering
-								},
-								"columns": [
-									{ data: 'accountID', sWidth: '10%' },
-									{ data: 'faccount' },
-									{ data: 'debit' },
-									{ data: 'credit' },
-								]
-							});  
-						});
-					</script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#addtransactionTable').dataTable({
+						"processing": true,
+						"ajax": "addtransactionFetchData.php",
+						"language": {
+							"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+							"zeroRecords": "No data available in table."	//Used to display msg after filtering
+						},
+						"rowGroup": {
+							"dataSrc": 0,								//0 is the index value for transactionID
+						},
+						"columns": [
+							{ data: 'transactionID', sWidth: '10%'},
+							{ data: 'accountID', sWidth: '10%' },
+							{ data: 'faccount' },
+							{ data: 'debit' },
+							{ data: 'credit' },
+						]
+					});  
+				});
+			</script>
 
 	
             </div>
