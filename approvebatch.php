@@ -33,7 +33,7 @@ if(isset($_POST['UpdateStatus'])) {
     $batch = $_GET['b'];
     $newstatus = $_POST['Action'];
 	processBatch($link, $batch, $newstatus);
-    //header("location:approvebatch.php");	
+    header("location:approvebatch.php");	
 } 
 
 ?>

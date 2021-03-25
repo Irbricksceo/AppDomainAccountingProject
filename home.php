@@ -82,11 +82,11 @@ if (mysqli_connect_errno()) {
 			elseif ($_SESSION['userrole'] == '2'):
 				$sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
                 $result = mysqli_query($link, $sqlSelect);
-                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaitng approval </h3>"; 
+                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaiting approval </h3>"; 
 			elseif ($_SESSION['userrole'] == '3'):
 				$sqlSelect="SELECT DISTINCT BatchID FROM transactions WHERE status = 0 ";
                 $result = mysqli_query($link, $sqlSelect);
-                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaitng approval </h3>"; 
+                echo "<h3> Notice: There are " . mysqli_num_rows($result) . " batches awaiting approval </h3>"; 
 			else:
 				?><h3> Unable to retrieve role, please logout and login again. If this problem persists, please contact your administrator.</h3><?php 
 			endif;
