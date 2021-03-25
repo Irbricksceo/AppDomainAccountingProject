@@ -27,29 +27,30 @@ if (mysqli_connect_errno()) {
 $gettrans = "SELECT MAX(transactionID) AS latestTransaction FROM transactions WHERE status <= 2";
 $transresult = mysqli_query($link, $gettrans); //runs the qry
 $currenttransID = mysqli_fetch_array($transresult);
-$transactionID = $currenttransID['latestTransaction'] + 1;
+$transactionID = $currenttransID['latestTransaction'];
 
 $gettrans = "SELECT MAX(batchID) AS latestBatch FROM transactions WHERE status <= 2";
 $batchresult = mysqli_query($link, $gettrans); //runs the qry
 $currentbatchID = mysqli_fetch_array($batchresult);
 $batchID = $currentbatchID['latestBatch'] + 1;
 
-echo $transactionID;
-echo $batchID;
 
 //Query to add a line from the form
 if(isset($_POST['Create'])) {
-    //will actually run the sql
-	$line = $_POST['lineID'];					
-	$account = $_POST['accountID'];		
+    //will actually run the sql	
+	
+	if(!isset($_SESSION['transcount'])) {
+		$_SESSION['transcount'] = 1;
+	}
+	$transactionID = $transactionID + $_SESSION['transcount'];
+
+	$account = $_POST['Account'];		
 	$submitter = $_SESSION['id'];
 	$debit = $_POST['debit'];	
 	$credit = $_POST['credit'];	
-	$status = $_POST['status'];
-	$transactionID = $_POST['transactionID'];
 
-	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
-    VALUES ('$lineID', '$transactionID', '$account', '$submitter', $debit, '$credit', '0')";
+	$sqlupd = "INSERT INTO `transactions` (`transactionID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
+    VALUES ('$transactionID', '$account', '$submitter', $debit, '$credit', '3')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
@@ -59,8 +60,30 @@ if(isset($_POST['Create'])) {
     }
     else
     {
-        echo "Could Not Add Account, SQL Returned Error";
+        echo "Could Not Add Line, SQL Returned Error";
     }
+}
+
+if(isset($_POST['SubmitBatch'])) {
+	$sqlupd = "UPDATE transactions SET status = 0, batchID = $batchID WHERE status = 3";
+
+    $edit = mysqli_query($link, $sqlupd); //runs the qry
+    if($edit) //entered if acct created successfully
+    {
+		echo "Batch Submitted";
+		unset($_SESSION['transcount']);
+		header("location:addtransaction.php"); //Reload page
+        exit;
+    }
+    else
+    {
+        echo "Could Not Add Batch, SQL Returned Error";
+		header("location:addtransaction.php"); //Reload page
+    }
+}
+
+if(isset($_POST['NextTransaction'])) {
+	$_SESSION['transcount'] = $_SESSION['transcount'] + 1;
 }
 
 //Add logic to post batch
@@ -70,7 +93,7 @@ if(isset($_POST['Create'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Add Transaction</title>
+		<title>Entry Details</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -82,8 +105,6 @@ if(isset($_POST['Create'])) {
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
 		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
-		<script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js" type="text/javascript"></script>
 		
 		<style type="text/css">
         .wrapper{
@@ -142,7 +163,7 @@ if(isset($_POST['Create'])) {
 		<div class="content">
 			<h2>Add Transaction </h2>
 			<div class="tooltip">Hover For Help
-  				<span class="tooltiptext">This page allows users to make transactions to be insterted into a batch for approval.</span>
+  			
 			</div>
 			<div>
 
@@ -184,33 +205,22 @@ if(isset($_POST['Create'])) {
 	
             </div>
 			<div>
-				<h3> Transaction Information </h3>
+			<h3> Transaction Information </h3>
 				<form action="" method="post">
-                    
-				<input type="text" name="TransactionID" placeholder="transactionID" ><br>
-				<input type="text" name="batchID" placeholder="batchID" ><br>
-				<input type="text" name="accountID" placeholder="accountID" ><br>
-				<input type="text" name="credit" placeholder="credit" ><br>
-				<input type="text" name="debit" placeholder="debit" ><br>
-
-					<!--
-					<input type="text" name="Name" placeholder="Account Name" ><br>
-                    <label for="Category">Category:</label>
-                    <select name="Category" id="Category">
-                        <option value="1">Assets</option>
-                        <option value="2">Liabilities</option>
-                        <option value="3">Equity</option>
-                        <option value="4">Revenues</option>
-                        <option value="5">Expenses</option>
-                    </select> <br>
-                    <input type="text" name="Subcategory" placeholder="Subcategory" ><br>
-                    <input type="text" name="Comment" placeholder="Comment" ><br>
-                    <input type="text" name="Description" placeholder="Description" ><br>
-                    <input type="number" name="StartingBalance" placeholder="Starting Balance" ><br>
-					-->
-					
-					
-					<input type="submit" value="Create" name="Create" >
+                <select name="Account" id="accountID">
+                        <?php
+						$sqlSelect="SELECT faccountID, faccount FROM faccount WHERE active = 1";
+						$accountlist = mysqli_query($link, $sqlSelect);
+                        while ($row = mysqli_fetch_array($accountlist)) {
+                            echo "<option value='" . $row['faccountID'] . "'>" . $row['faccount'] . ",  ID: " . $row['faccountID'] . "</option>";
+                        }
+                        ?>
+                    </select>     </br>
+				<label> Credit:</label><input type="number" name="credit" value = 0><br>
+				<label> Debit:</label><input type="number" name="debit" value = 0><br>				
+				<input type="submit" value="Add Line" name="Create" >
+				<input type="submit" value="Next Transaction" name="NextTransaction" >
+				<input type="submit" value="Submit Batch" name="SubmitBatch" >
 				</form>
 			</div>
 		</div>
