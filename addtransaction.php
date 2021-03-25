@@ -60,7 +60,7 @@ if(isset($_POST['Create'])) {
 	*/
 
 	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `batchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
-    VALUES ('$lineID', '$transactionID', '$batch', '$account', '$submitter', $debit, '$credit', '3')";
+    VALUES ('$lineID', '$transactionID', '$batch', '$account', '$submitter', $debit, '$credit', '0')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
