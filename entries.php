@@ -7,6 +7,11 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+if ($_SESSION['userrole'] == 1) {
+    header("location:home.php"); // Kick Admins back to home
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,6 +70,7 @@ if (!isset($_SESSION['loggedin'])) {
 					?><h2>Transactions</h2>	
 					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
 					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
 				}	
 				?>
