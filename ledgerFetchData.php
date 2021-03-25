@@ -19,7 +19,7 @@ if(isset($_GET['accountID'])) {
 
 $sql = "SELECT datecreated, debit, credit, transactionID FROM transactions WHERE accountID = $acct AND status = 1";
 $result = mysqli_query($link, $sql);
-
+$data = [];
 while($row = mysqli_fetch_array($result)){
     
     //Convert SQL dateTime to more concise format (ex: Jan-18-2021)
