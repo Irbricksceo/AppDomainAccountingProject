@@ -132,11 +132,11 @@ if(isset($_POST['Create'])) {
 					<hr><?php 
 				} else {
 					?><h2>Transactions</h2>	
-					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
-					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<a href="users2.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="adduser.php"><i class="fas fa-user-circle"></i>Review Batch</a>
 					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
-				}	
+				}
 				?>
 			<h2>Account Management</h2>	
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
@@ -146,7 +146,6 @@ if(isset($_POST['Create'])) {
 					<?php 
 					endif;	
 				?>
-			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
 			</div>
 		</nav>
 		<div class="content">
