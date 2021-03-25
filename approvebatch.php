@@ -43,6 +43,14 @@ if(isset($_POST['UpdateStatus'])) {
         <link rel="icon" href="images/favicon.ico">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+		
+		<!-- DataTables scripts and styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
+		<script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js" type="text/javascript"></script>
+
 		<style type="text/css">
         .wrapper{
             width: 650px;
@@ -118,9 +126,58 @@ if(isset($_POST['UpdateStatus'])) {
             echo "<p> Reviewing Batch " . $batch . ".</p>";
             $sqlSelect="SELECT * FROM transactions WHERE batchID = $batch";
             $result = mysqli_query($link, $sqlSelect);
-            //ADD TABLE TO VIEW BATCH DETAILS
-
             ?>
+			
+			<!-- Create HTML table with header columns -->
+			<table id="batchReviewTable">
+				<thead>
+				<tr>
+					<th>ID</th>
+					<th>Account Code</th>
+					<th>Account Name</th>
+					<th>Debit</th>
+					<th>Credit</th>
+					<th>Submitter</th>
+					<th>Date Created</th>
+				</tr>
+				</thead>
+			</table>
+
+			<!-- Setup DataTables and link with HTML table -->
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#batchReviewTable').dataTable({
+						//Setup DataTables with extra parameters
+						"processing": true,								//Displays a processing message while fetching data
+						"ajax": {
+							url: "approvebatchFetchData.php",			//Source of fetch data script
+							data: {
+								"batchID": "<?php echo $batch ?>",		//Pass parameters to fetch script
+							},
+						},
+						"language": {
+							"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+							"zeroRecords": "No data available in table."	//Used to display msg after filtering
+						},
+						"rowGroup": {
+							"dataSrc": 0,								//0 is the index value for transactionID
+						},
+						//Link row variables to be displayed with row variables from fetch script (need to match variable naming in fetch script)
+						//Note: Variables below will be placed into table sequentially according to order below,
+						//		ensure the order below matches order of listed HTML header columns.
+						"columns": [
+							{ data: 'transactionID', sWidth: '5%' },	//sWidth sets column width
+							{ data: 'accountID', sWidth: '10%' },
+							{ data: 'faccount' },
+							{ data: 'debit' },
+							{ data: 'credit' },
+							{ data: 'submitterID', sWidth: '10%' },
+							{ data: 'datecreated' },
+						]
+					});  
+				});
+			</script>
+            
             <form action="" method="post">
                     <select name="Action" id="Action">
                         <option value="1">Approve</option>
