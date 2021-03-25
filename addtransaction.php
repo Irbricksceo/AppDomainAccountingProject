@@ -7,6 +7,10 @@ if (!isset($_SESSION['loggedin'])) {
 	exit;
 }
 
+if ($_SESSION['userrole'] == 1) {
+    header("location:home.php"); // Kick Admins back to home
+    exit;
+}
 
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
@@ -39,9 +43,10 @@ if(isset($_POST['Create'])) {
 	$credit = $_POST['credit'];	
 	$status = $_POST['status'];
 	$transactionID = $_POST['transactionID'];
+	$batch = $_POST['batchID'];
 
 	//This should  set $result to 0 if there is an entry in transactions where the status is 3 then set $maxtrans to either the highest transaction num or 1 higher
-				
+	/*			
 	$result = mysqli_query($link, "SELECT transactionID FROM transactions WHERE status = '3'");
 	if(mysqli_num_rows($result) == 0) 
 		{
@@ -52,16 +57,16 @@ if(isset($_POST['Create'])) {
 		{
 			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
 		}
-	
+	*/
 
-	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `BatchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
-    VALUES ('$lineID', '$maxtrans', '$Batch', '$account', '$submitter', $debit, '$credit', '3')";
+	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `batchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
+    VALUES ('$lineID', '$transactionID', '$batch', '$account', '$submitter', $debit, '$credit', '3')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
     {
         //*header("location:accounts.php"); // return to users page
-		header("location:home.php"); // return to home page
+		header("location:addtransaction.php"); // return to home page
         exit;
     }
     else
@@ -76,22 +81,40 @@ if(isset($_POST['Create'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Create New Account</title>
+		<title>Entry Details</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-		<link rel="icon" href="images/favicon.ico">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+        <link rel="icon" href="images/favicon.ico">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+		<!-- DataTables scripts and styling -->
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
+		
+		<style type="text/css">
+        .wrapper{
+            width: 650px;
+            margin: 0 auto;
+        }
+        .page-header h2{
+            margin-top: 0;
+        }
+        table tr td:last-child a{
+            margin-right: 15px;
+        }
+    	</style>
 	</head>
-	
 	<body class="loggedin">
-		<nav class="navtop">
+    <nav class="navtop">
 			<div>
-			<img src="images/logo.png" width="60" alt="Logo">
-            <h1>Accounting Pro</h1>
-				<?php
-						?><a href="users2.php"></i>Back</a><?php 
-				?>
-			<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
-			<h4> Logged In As: <?=$_SESSION['name']?> </h4>
+				<img src="images/logo.png" width="60" alt="Logo">
+				<h1>Accounting Pro</h1>
+                <a href="accounts.php"></i>Back</a>
+				<a href="scripts/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
 		<nav class="navside">
@@ -102,17 +125,22 @@ if(isset($_POST['Create'])) {
 			<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 			<hr>
 			<?php
-				if ($_SESSION['userrole'] == '1'):
+				if ($_SESSION['userrole'] == '1') {
 					?><h2>User Management</h2>	
 					<a href="users2.php"><i class="fas fa-user-circle"></i>Users</a>
 					<a href="adduser.php"><i class="fas fa-user-circle"></i>Add A User</a>
 					<hr><?php 
-					endif;
-					
+				} else {
+					?><h2>Transactions</h2>	
+					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
+					<hr><?php
+				}	
 				?>
-			<h2>Account Management</h2>
+			<h2>Account Management</h2>	
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
-            <?php
+			<?php
 				if ($_SESSION['userrole'] == '1'):
 					?><a href="addaccount.php"><i class="fas fa-user-circle"></i>Add An Account</a>
 					<?php 
@@ -122,18 +150,58 @@ if(isset($_POST['Create'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Create New Transaction</h2>	
+			<h2>Details For Transaction Number: <?php echo "$transactionID" ?> </h2>
 			<div class="tooltip">Hover For Help
-  				<span class="tooltiptext">Make Sure All Fields Are Filled And Press Submit To Add Accounts.</span>
+  				<span class="tooltiptext">This page shows the details for a transaction.</span>
 			</div>
+			<div>
+
+				<table id="entryDetailsTable">
+						<thead>
+						<tr>
+							<th>Account Code</th>
+							<th>Account Name</th>
+							<th>Debit</th>
+							<th>Credit</th>
+						</tr>
+						</thead>
+					</table>
+
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$('#entryDetailsTable').dataTable({
+								"processing": true,
+								"ajax": {
+									url: "entryDetailsFetchData.php",
+									data: {
+										"transactionID": "<?php echo $transactionID ?>",
+									}
+								},
+								"language": {
+									"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+									"zeroRecords": "No data available in table."	//Used to display msg after filtering
+								},
+								"columns": [
+									{ data: 'accountID', sWidth: '10%' },
+									{ data: 'faccount' },
+									{ data: 'debit' },
+									{ data: 'credit' },
+								]
+							});  
+						});
+					</script>
+
+	
+            </div>
 			<div>
 				<h3> Transaction Information </h3>
 				<form action="" method="post">
                     
-
+				<input type="text" name="TransactionID" placeholder="transactionID" ><br>
+				<input type="text" name="batchID" placeholder="batchID" ><br>
 				<input type="text" name="accountID" placeholder="accountID" ><br>
-				<input type="number" name="credit" placeholder="credit" ><br>
-				<input type="number" name="debit" placeholder="debit" ><br>
+				<input type="text" name="credit" placeholder="credit" ><br>
+				<input type="text" name="debit" placeholder="debit" ><br>
 
 					<!--
 					<input type="text" name="Name" placeholder="Account Name" ><br>

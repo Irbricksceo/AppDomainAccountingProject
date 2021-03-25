@@ -91,7 +91,7 @@ INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, 
 VALUES ('180', 'Equipment', 'Cost to acquire and prepare equipment for use by the company', '0', '1', NULL, NULL, NULL, NULL, '4200', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipment's cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', NULL, NULL, NULL, NULL, '6300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipments cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', NULL, NULL, NULL, NULL, '6300', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
