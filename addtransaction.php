@@ -21,19 +21,23 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-/*
-$rowSQL = mysql_query( "SELECT MAX(transactionID) AS max FROM `transactions`;" );
-$row = mysql_fetch_array( $rowSQL );
-$largestNumber = $row['max'] + '1';
 
-$rowbSQL = mysql_query( "SELECT MAX(batchID) AS max FROM `transactions`;" );
-$rowb = mysql_fetch_array( $rowbSQL );
-$largestNumberb = $rowb['max'] + '1';
-*/
+// Pull transaction number max
 
+$gettrans = "SELECT MAX(transactionID) AS latestTransaction FROM transactions WHERE status <= 2";
+$transresult = mysqli_query($link, $gettrans); //runs the qry
+$currenttransID = mysqli_fetch_array($transresult);
+$transactionID = $currenttransID['latestTransaction'] + 1;
 
+$gettrans = "SELECT MAX(batchID) AS latestBatch FROM transactions WHERE status <= 2";
+$batchresult = mysqli_query($link, $gettrans); //runs the qry
+$currentbatchID = mysqli_fetch_array($batchresult);
+$batchID = $currentbatchID['latestBatch'] + 1;
 
-//Fires update query when form is submitted
+echo $transactionID;
+echo $batchID;
+
+//Query to add a line from the form
 if(isset($_POST['Create'])) {
     //will actually run the sql
 	$line = $_POST['lineID'];					
@@ -43,38 +47,23 @@ if(isset($_POST['Create'])) {
 	$credit = $_POST['credit'];	
 	$status = $_POST['status'];
 	$transactionID = $_POST['transactionID'];
-	$batch = $_POST['batchID'];
 
-	//This should  set $result to 0 if there is an entry in transactions where the status is 3 then set $maxtrans to either the highest transaction num or 1 higher
-	/*			
-	$result = mysqli_query($link, "SELECT transactionID FROM transactions WHERE status = '3'");
-	if(mysqli_num_rows($result) == 0) 
-		{
-			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
-			$maxtrans += 1;
-		}
-	else 
-		{
-			$maxtrans = 'SELECT MAX( transactionID ) FROM transactions';
-		}
-	*/
-
-	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `batchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
-    VALUES ('$lineID', '$transactionID', '$batch', '$account', '$submitter', $debit, '$credit', '0')";
+	$sqlupd = "INSERT INTO `transactions` (`lineID`, `transactionID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`) 
+    VALUES ('$lineID', '$transactionID', '$account', '$submitter', $debit, '$credit', '0')";
 
     $edit = mysqli_query($link, $sqlupd); //runs the qry
     if($edit) //entered if acct created successfully
     {
-        //*header("location:accounts.php"); // return to users page
-		header("location:addtransaction.php"); // return to home page
+		header("location:addtransaction.php"); //Reload page
         exit;
     }
     else
     {
         echo "Could Not Add Account, SQL Returned Error";
     }
-	//generate batch ID && transaction ID **********************************************************
 }
+
+//Add logic to post batch
  
 ?>
 <!DOCTYPE html>
@@ -132,8 +121,8 @@ if(isset($_POST['Create'])) {
 					<hr><?php 
 				} else {
 					?><h2>Transactions</h2>	
-					<a href="users2.php"><i class="fas fa-user-circle"></i>Create Batch</a>
-					<a href="adduser.php"><i class="fas fa-user-circle"></i>Review Batch</a>
+					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
 					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
 				}
