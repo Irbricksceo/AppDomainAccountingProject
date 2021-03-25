@@ -29,7 +29,7 @@ if(isset($_GET['u'])) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Account Ledger</title>
+		<title>Entry Details</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -98,9 +98,9 @@ if(isset($_GET['u'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Transaction Details For Transaction Number <?php echo "$transactionID" ?> </h2>
+			<h2>Details For Transaction Number: <?php echo "$transactionID" ?> </h2>
 			<div class="tooltip">Hover For Help
-  				<span class="tooltiptext">This page shows transactions for the selected account.</span>
+  				<span class="tooltiptext">This page shows the details for a transaction.</span>
 			</div>
 			<div>
 
@@ -125,6 +125,10 @@ if(isset($_GET['u'])) {
 										"transactionID": "<?php echo $transactionID ?>",
 									}
 								},
+								"language": {
+									"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+									"zeroRecords": "No data available in table."	//Used to display msg after filtering
+								},
 								"columns": [
 									{ data: 'accountID', sWidth: '10%' },
 									{ data: 'faccount' },
@@ -136,7 +140,7 @@ if(isset($_GET['u'])) {
 					</script>
 
                 <?php
-                    //NEED TO ADD DESCRIPTION AND SOURCE FILE
+                    //NEED TO ADD DESCRIPTION AND SOURCE FILE... eh, maybe not
                     /*
                     if ($stmt = $link->prepare('SELECT description, sourceDocument FROM transactions WHERE transactionID = ?')){
                         $stmt->bind_param('i', $transactionID);

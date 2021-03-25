@@ -98,26 +98,26 @@ if(isset($_GET['u'])) {
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Ledger For Account Number <?php echo "$acct" ?> </h2>
-			<div class="tooltip">Hover For Help
-  				<span class="tooltiptext">This page shows transactions for the selected account.</span>
-			</div>
-			<div>
-			
-				<?php
-				if ($stmt = $link->prepare('SELECT fbalance FROM faccount WHERE faccountID = ?')){
-					// In this case we can use the account ID to get the account info.
-					$stmt->bind_param('i', $_GET['u']);
+
+			<?php
+				if ($stmt = $link->prepare('SELECT fbalance, faccount FROM faccount WHERE faccountID = ?')){
+					$stmt->bind_param('i', $acct);
 					$stmt->execute();
-					$stmt->bind_result($fbalance);
+					$stmt->bind_result($fbalance, $acctName);
 					$stmt->fetch();
 					$stmt->close();
 				}
-				echo "<h3>Balance: " . $fbalance . "</h3>"
-				?>
+				
+				echo "<h2> Account Ledger: " . $acctName . " (" . $acct . ")</h2>";
+			?>
+
+			<div class="tooltip">Hover For Help
+  				<span class="tooltiptext">This page shows all transactions for the selected account.</span>
+			</div>
+			<div>
+			
+				<?php echo "<h3>Balance: " . number_format($fbalance, 2) . "</h3>" ?>
 				<hr>
-
-
 
 				<table id="ledgerTable">
 						<thead>
@@ -141,18 +141,21 @@ if(isset($_GET['u'])) {
 										"accountID": "<?php echo $acct ?>",
 									}
 								},
+								"language": {
+									"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+									"zeroRecords": "No data available in table."	//Used to display msg after filtering
+								},
 								"columns": [
-									{ data: 'datecreated' },
+									{ data: 'datecreated', 'sWidth': '15%' },
 									{ data: 'description', 'sWidth': '45%'  },
 									{ data: 'debit' },
 									{ data: 'credit' },
-									{ data: 'postReference' },
+									{ data: 'postReference', 'sWidth': '10%' },
 								]
 							});  
 						});
 					</script>
 					         
-
             </div>
 		</div>
 	</body>

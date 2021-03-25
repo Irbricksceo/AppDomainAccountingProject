@@ -30,9 +30,9 @@ if (mysqli_connect_errno()) {
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 		
         <!-- DataTables scripts and styling -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
 
         
         <style type="text/css">
@@ -125,19 +125,23 @@ if (mysqli_connect_errno()) {
                 <script type="text/javascript">
                     $(document).ready(function() {
                         $('#accountsTable').dataTable({
-                            "bProcessing": true,
-                            "sAjaxSource": "accountsFetchData.php",
-                            "aoColumns": [
-                                { mData: 'faccountID' } ,
-                                { mData: 'faccount', 'sWidth': '25%' },
-                                { mData: 'fcategory' },
-                                { mData: 'normalside' },
-                                { mData: 'fbalance' },
-                                { mData: 'active' },
-                                { mData: 'details' },
+                            "processing": true,
+                            "ajax": "accountsFetchData.php",
+							"language": {
+								"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+								"zeroRecords": "No data available in table."	//Used to display msg after filtering
+							},
+                            "columns": [
+                                { data: 'faccountID' } ,
+                                { data: 'faccount', 'sWidth': '25%' },
+                                { data: 'fcategory' },
+                                { data: 'normalside' },
+                                { data: 'fbalance' },
+                                { data: 'active' },
+                                { data: 'details' },
                                 <?php
                                 if ($_SESSION['userrole'] == 1)
-                                    echo "{ mData: 'edit'},";
+                                    echo "{ data: 'edit'},";
                                 ?>
                             ]
                         });  

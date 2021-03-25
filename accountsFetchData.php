@@ -62,14 +62,9 @@ while($row = mysqli_fetch_array($result)){
     $data[] = $row;
 }
 
-
-$results = ["sEcho" => 1,
-        	"iTotalRecords" => count($data),
-        	"iTotalDisplayRecords" => count($data),
-        	"aaData" => $data ];
-
+$results = ["draw" => 1,
+        	"recordsTotal" => count($data),
+        	"data" => $data ];
 
 echo json_encode($results);
-
-
 ?>

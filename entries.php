@@ -17,7 +17,7 @@ if ($_SESSION['userrole'] == 1) {
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Accounts</title>
+		<title>Journal Entries</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -26,11 +26,10 @@ if ($_SESSION['userrole'] == 1) {
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 		
         <!-- DataTables scripts and styling -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js" charset="utf8" type="text/javascript"></script>
 
-        
         <style type="text/css">
         .wrapper{
             width: 650px;
@@ -112,23 +111,28 @@ if ($_SESSION['userrole'] == 1) {
                 <script type="text/javascript">
                     $(document).ready(function() {
                         $('#entriesTable').dataTable({
-                            "bProcessing": true,
-                            "sAjaxSource": "entriesFetchData.php",
-                            "aoColumns": [
-                                { mData: 'transactionID' },
-                                { mData: 'batchID' },
-                                { mData: 'accountsAffected' },
-                                { mData: 'amountMoved' },
-                                { mData: 'status' },
-                                { mData: 'submitterID' },
-                                { mData: 'datecreated' },
-                                { mData: 'approverID' },
-                                { mData: 'dateassessed' },
-                                { mData: 'details' },
+                            "processing": true,
+                            "ajax": "entriesFetchData.php",
+							"language": {
+								"emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
+								"zeroRecords": "No data available in table."	//Used to display msg after filtering
+							},
+                            "columns": [
+                                { data: 'transactionID' },
+                                { data: 'batchID' },
+                                { data: 'accountsAffected' },
+                                { data: 'amountMoved' },
+                                { data: 'status' },
+                                { data: 'submitterID' },
+                                { data: 'datecreated' },
+                                { data: 'approverID' },
+                                { data: 'dateassessed' },
+                                { data: 'details' },
                             ]
                         });  
                     });
                 </script>
+				
             </div>
 		</div>
 	</body>

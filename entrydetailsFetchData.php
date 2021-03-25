@@ -10,19 +10,22 @@ if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
-//Get accountID from dataTables ajax data parameter
+//Get transactionID from dataTables ajax data parameter
 if(isset($_GET['transactionID'])) {
 	$transactionID = $_GET['transactionID'];
 } else {
 	$transactionID = 000; //defaults ID to prevent breaking when accessed without a value.
 }
 
-$transactionID = 100;
-
 $sql = "SELECT t.accountID, fa.faccount, t.debit, t.credit FROM transactions t JOIN faccount fa ON fa.faccountID = t.accountID WHERE t.transactionID = $transactionID AND t.status = 1";
 $result = mysqli_query($link, $sql);
 
+$data = [];
+
 while($row = mysqli_fetch_array($result)){
+
+    // Clicking account name brings user to ledger for account name	
+    $row['faccount'] = "<a href='ledger.php?u=".$row['accountID']."'>" . $row['faccount'] . "</a>";
 
     if ($row['debit'] == 0.00)
         $row['debit'] = "";
@@ -32,10 +35,9 @@ while($row = mysqli_fetch_array($result)){
     $data[] = $row;
 }
 
-$results = ["sEcho" => 1,
-        	"iTotalRecords" => count($data),
-        	"iTotalDisplayRecords" => count($data),
-        	"aaData" => $data ];
+$results = ["draw" => 1,
+        	"recordsTotal" => count($data),
+        	"data" => $data ];
 
 echo json_encode($results);
 ?>

@@ -22,7 +22,16 @@ $result = mysqli_query($link, $sql);
 
 while($row = mysqli_fetch_array($result)){
     
+    //Convert SQL dateTime to more concise format (ex: Jan-18-2021)
+    $datecreated = DateTime::createFromFormat("Y-m-d H:i:s", $row['datecreated']);
+    $row['datecreated'] = date_format($datecreated, 'M-d-Y');
+
     $row['description'] = "-";
+
+    if ($row['debit'] == 0.00)
+        $row['debit'] = "";
+    if ($row['credit'] == 0.00)
+        $row['credit'] = ""; 
 
     $postReferenceLink = "<a href='entrydetails.php?u=".$row['transactionID']."'>View</a>";
     $row['postReference'] = $postReferenceLink;
