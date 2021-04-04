@@ -17,7 +17,7 @@ if(isset($_GET['transactionID'])) {
 	$transactionID = 000; //defaults ID to prevent breaking when accessed without a value.
 }
 
-$sql = "SELECT t.accountID, fa.faccount, t.debit, t.credit FROM transactions t JOIN faccount fa ON fa.faccountID = t.accountID WHERE t.transactionID = $transactionID AND t.status = 1";
+$sql = "SELECT t.accountID, fa.faccount, t.debit, t.credit FROM transactions t JOIN faccount fa ON fa.faccountID = t.accountID WHERE t.transactionID = $transactionID";
 $result = mysqli_query($link, $sql);
 
 $data = [];
