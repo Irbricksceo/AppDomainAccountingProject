@@ -120,7 +120,7 @@ if(isset($_GET['u'])) {
 							$('#entryDetailsTable').dataTable({
 								"processing": true,
 								"ajax": {
-									url: "entryDetailsFetchData.php",
+									url: "entrydetailsFetchData.php",
 									data: {
 										"transactionID": "<?php echo $transactionID ?>",
 									}
