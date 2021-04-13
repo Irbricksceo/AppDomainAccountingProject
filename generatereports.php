@@ -27,10 +27,24 @@ if(isset($_POST['Generate'])) {
     $endDate = $_POST['enddate'];
     $reportType = $_POST['reporttype'];
 
-    //temp echo to verify form function.
-    echo "Generating Report type " . $reportType . " Starting on " . $startDate . " and Going to " . $endDate;
+
     //place logic for actually generating reports (or calls to functions/pages that do) here
+    switch ($reportType) {
+        case 1: 
+            header("location:trialBalance.php?sDate=". $startDate . "&eDate=" . $endDate);
+            break;
+        case 2:
+            header("location:incomeStatement.php?sDate=". $startDate . "&eDate=" . $endDate);
+            break;
+        case 3:
+            header("location:balanceSheet.php?sDate=". $startDate . "&eDate=" . $endDate);
+            break;
+        case 4:
+            header("location:retainedEarnings.php?sDate=". $startDate . "&eDate=" . $endDate);
+            break;
     }
+
+}
 ?>
 <!DOCTYPE html>
 <html>
