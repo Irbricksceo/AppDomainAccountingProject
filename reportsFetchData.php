@@ -382,15 +382,6 @@ switch ($reportType) {
                 $data[$i]['balance'] = number_format($data[$i]['balance'], 2);
             }
         }
-        /*
-        //Place formatted totals into new row and add to data[]
-            //Assigning accountID of 999 and hiding it to force total row to be last row of report
-        $newRow['accountID'] = '<b style="display:none">' . 999 . '</b>';
-        $newRow['faccount'] = "";
-        $newRow['debit'] = '<b>' . number_format($totalDebit, 2) . '</b>';
-        $newRow['credit'] = '<b>' . number_format($totalCredit, 2) .  '</b>';
-        $data[] = $newRow;
-        */
 
         //Format and add header/footer rows in data[] to match report format
         $headerRow['accountID'] = '<b style="display:none">' . 399.9 . '</b>';
@@ -408,6 +399,10 @@ switch ($reportType) {
         $headerRow['accountID'] = '<b style="display:none">' . 599.9 . '</b>';
         $headerRow['faccount'] = '<b>' . "Total Expenses" . '</b>';
         $headerRow['balance'] = '<b>' . number_format($totalExpense, 2) . '</b>';
+        $data[] = $headerRow;
+        $headerRow['accountID'] = '<b style="visibility:hidden">' . 998 . '</b>';
+        $headerRow['faccount'] = '';
+        $headerRow['balance'] = '';
         $data[] = $headerRow;
 
         //Add net income row
