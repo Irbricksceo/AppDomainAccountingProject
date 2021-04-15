@@ -141,9 +141,9 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                                 "zeroRecords": "No data available in table."	//Used to display msg after filtering
                             },
                             "paging": false,    //Shows all rows without pagination
-                            "order": [],        //Remove default ordering to force ordering from fetch script
+                            "order": [0, 'asc'],        
                             "columns": [
-                                { data: 'faccountID', width: '5%', orderable: false },
+                                { data: 'accountID', width: '5%', orderable: false },
                                 { data: 'faccount', orderable: false  },
                                 { data: 'debit', orderable: false  },
                                 { data: 'credit', orderable: false  },
