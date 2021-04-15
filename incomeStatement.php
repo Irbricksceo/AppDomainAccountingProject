@@ -37,7 +37,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Generate Reports</title>
+		<title>Income Statement</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -113,16 +113,24 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
             <h2>Income Statement For Dates: <?php echo "$f_startDate" ?> - <?php echo "$f_endDate" ?> </h2>
 
             <div>
-                <table id="trialBalanceTable" class="row-border">
-                  
+                <table id="incomeStatementTable" class="row-border">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Account Name</th>
+                        <th>Balance</th>
+                    </tr>
+                    </thead>
+                </table>
+
                 <script type="text/javascript">
                     $(document).ready(function() {
-                        $('#trialBalanceTable').dataTable({
+                        $('#incomeStatementTable').dataTable({
                             "processing": true,
                             "ajax": {
                                 url: "reportsFetchData.php",
                                 data: {
-                                    "reportID": 1,
+                                    "reportID": 2,
                                     "startDate": "<?php echo $startDate ?>",
                                     "endDate": "<?php echo $endDate ?>"
                                 }
@@ -131,13 +139,13 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                                 "emptyTable": "No data was found in the database.",	//Used if no SQL data was found 
                                 "zeroRecords": "No data available in table."	//Used to display msg after filtering
                             },
-                            "paging": false,    //Shows all rows without pagination
-                            "order": [],        //Remove default ordering to force ordering from fetch script
+                            "paging": false,            //Shows all rows without pagination
+                            "order": [0, 'asc'],        //Remove default ordering to force ordering from fetch script
                             "columns": [
                                 
-                                { data: 'faccountID', width: '5%', orderable: false },
+                                { data: 'accountID', width: '5%', orderable: false },
                                 { data: 'faccount', orderable: false  },
-                                { data: 'fbalance', orderable: false  },
+                                { data: 'balance', orderable: false  },
                                 
                             ]
                         });  
