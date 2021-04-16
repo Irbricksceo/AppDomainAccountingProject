@@ -155,7 +155,6 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                             "order": [0, 'asc'],        //Remove default ordering to force ordering from fetch script
                             "columns": [
                                 
-                                { data: 'accountID', width: '5%', orderable: false },
                                 { data: 'faccount', orderable: false  },
                                 { data: 'balance', orderable: false  },
                                 
