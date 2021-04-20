@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `faccount` (
     `fdescription` varchar(255),
     `normalside` int(1),
     `fcategory` int(1),
-    `fsubcategory` varchar(50),
+    `fsubcategory` int(1),
     `finitialbalance` double(9,2),
     `debit`  double(9,2),
     `credit` double(9,2),
@@ -106,53 +106,56 @@ TEST ACCOUNTS:
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('101', 'Cash', 'This is a cash account', '0', '1', NULL, '0', '0', '0', '2000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('101', 'Cash', 'This is a cash account', '0', '1', '0', '0', '0', '0', '2000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('120', 'Accounts Receivable', 'Amounts owed to companies for services performed', '0', '1', NULL, '0', '0', '0', '6500', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('120', 'Accounts Receivable', 'Amounts owed to companies for services performed', '0', '1', '0', '0', '0', '0', '6500', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('140', 'Merchandise Inventory', 'Cost of murchandise purchased but not sold', '0', '1', NULL, '0', '0', '0', '5000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('140', 'Merchandise Inventory', 'Cost of murchandise purchased but not sold', '0', '1', '0', '0', '0', '0', '5000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('150', 'Supplies', 'Cost of supplies that have not been used', '0', '1', NULL, '0', '0', '0', '3300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('150', 'Supplies', 'Cost of supplies that have not been used', '0', '1', '0', '0', '0', '0', '3300', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('160', 'Prepaid Insurance', 'Cost of insurance that is paid in advance', '0', '1', NULL, '0', '0', '0', '2225', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('160', 'Prepaid Insurance', 'Cost of insurance that is paid in advance', '0', '1', '0', '0', '0', '0', '2225', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('170', 'Land', 'Cost to acquire land ', '0', '1', NULL, '0', '0', '0', '4300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('170', 'Land', 'Cost to acquire land ', '0', '1', '1', '0', '0', '0', '4300', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('175', 'Buildings', 'Cost to purchase or construct buildings for use by the company', '0', '1', NULL, '0', '0', '0', '22000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('175', 'Buildings', 'Cost to purchase or construct buildings for use by the company', '0', '1', '1', '0', '0', '0', '22000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('178', 'Accumulated Depreciation- Buildings', 'Amount of buildings cost that has been allocated to Depreciation Expense since the time e building was aqcuired', '1', '1', NULL, '0', '0', '0', '5550', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('178', 'Accumulated Depreciation- Buildings', 'Amount of buildings cost that has been allocated to Depreciation Expense since the time e building was aqcuired', '1', '1', '1', '0', '0', '0', '5550', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('180', 'Equipment', 'Cost to acquire and prepare equipment for use by the company', '0', '1', NULL, '0', '0', '0', '4200', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('180', 'Equipment', 'Cost to acquire and prepare equipment for use by the company', '0', '1', '1', '0', '0', '0', '4200', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipment cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', NULL, '0', '0', '0', '6300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipment cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', '1', '0', '0', '0', '6300', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('210', 'Notes Payable', 'Loans from banks and principal due on written promises to pay', '1', '2', NULL, '0', '0', '0', '6200', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('210', 'Notes Payable', 'Loans from banks and principal due on written promises to pay', '1', '2', '0', '0', '0', '0', '6200', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', NULL, '0', '0', '0', '3350', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', '0', '0', '0', '0', '3350', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('220', 'Wages Payable', 'Money owed to employees for hours worked', '1', '2', NULL, '0', '0', '0', '10000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('220', 'Wages Payable', 'Money owed to employees for hours worked', '1', '2', '0', '0', '0', '0', '10000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('230', 'Interest Payable', 'Amount owed for interest', '1', '2', NULL, '0', '0', '0', '4400', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('230', 'Interest Payable', 'Amount owed for interest', '1', '2', '0', '0', '0', '0', '4400', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('240', 'Unearned Revenues', 'Amount received in advance of delivering goods or providing services', '1', '2', NULL, '0', '0', '0', '2150', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('240', 'Unearned Revenues', 'Amount received in advance of delivering goods or providing services', '1', '2', '0', '0', '0', '0', '2150', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('250', 'Mortgage Loan Payable', 'A formal loan that involves a lien on real estate', '1', '2', NULL, '0', '0', '0', '3150', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('250', 'Mortgage Loan Payable', 'A formal loan that involves a lien on real estate', '1', '2', '0', '0', '0', '0', '3150', current_timestamp(), '1', NULL, NULL, NULL, '1');
+
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+VALUES ('260', 'Mortgage Loan Balance', 'The remaining balance of a formal loan that involves a lien on real estate', '1', '2', '1', '0', '0', '0', '100000', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
