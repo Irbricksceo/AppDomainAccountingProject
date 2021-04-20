@@ -424,7 +424,7 @@ switch ($reportType) {
         //Exit switch statement
         break;
 
-    //Balance Sheet
+    //Balance Sheet ----------------------------------------------------------------------------------------------------------------------------------------
     case 3:
         
         $sql = "";
@@ -443,6 +443,33 @@ switch ($reportType) {
         //Add new row to data
 
 
+
+        /*psudocode central
+
+        assettotal = 0;
+        liabilitytotal = 0;
+        Equitytotal = 0;
+
+        create 3 column table headers:(code, name, amount)
+        
+        create row where 2nd column in bold text:"Assets"
+
+        if statment for if fcategory = 1
+            pull code, name, and final balance(I think this can easily be pulled as the final value)
+            create row with that information
+            assettotal += fbalance
+
+            goes through entire table
+        create row where 2nd column reads total Assets and 3rd column displays assettotal
+        create blank row
+
+        repeat using liabilities (fcategory = 2) & liabilitytotal
+
+        repeat using equity (fcategory = 3) & equitytotal
+
+        create row where 2nd column reads "total equity and liabilities"and 3rd column displays liabilitytotal+equitytotal
+        end table
+        */
         break;
 
     //Retained Earnings
