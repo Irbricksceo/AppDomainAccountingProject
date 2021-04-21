@@ -107,82 +107,82 @@ TEST ACCOUNTS:
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('101', 'Cash', 'This is a cash account', '0', '1', '0', '0', '0', '0', '2000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('101', 'Cash', 'This is a cash account', '0', '1', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('120', 'Accounts Receivable', 'Amounts owed to companies for services performed', '0', '1', '0', '0', '0', '0', '6500', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('120', 'Accounts Receivable', 'Amounts owed to companies for services performed', '0', '1', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('140', 'Merchandise Inventory', 'Cost of murchandise purchased but not sold', '0', '1', '0', '0', '0', '0', '5000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('140', 'Merchandise Inventory', 'Cost of murchandise purchased but not sold', '0', '1', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('150', 'Supplies', 'Cost of supplies that have not been used', '0', '1', '0', '0', '0', '0', '3300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('150', 'Supplies', 'Cost of supplies that have not been used', '0', '1', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('160', 'Prepaid Insurance', 'Cost of insurance that is paid in advance', '0', '1', '0', '0', '0', '0', '2225', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('160', 'Prepaid Insurance', 'Cost of insurance that is paid in advance', '0', '1', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('170', 'Land', 'Cost to acquire land ', '0', '1', '1', '0', '0', '0', '4300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('170', 'Land', 'Cost to acquire land ', '0', '1', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('175', 'Buildings', 'Cost to purchase or construct buildings for use by the company', '0', '1', '1', '0', '0', '0', '22000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('175', 'Buildings', 'Cost to purchase or construct buildings for use by the company', '0', '1', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('178', 'Accumulated Depreciation- Buildings', 'Amount of buildings cost that has been allocated to Depreciation Expense since the time e building was aqcuired', '1', '1', '1', '0', '0', '0', '5550', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('178', 'Accumulated Depreciation- Buildings', 'Amount of buildings cost that has been allocated to Depreciation Expense since the time e building was aqcuired', '1', '1', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('180', 'Equipment', 'Cost to acquire and prepare equipment for use by the company', '0', '1', '1', '0', '0', '0', '4200', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('180', 'Equipment', 'Cost to acquire and prepare equipment for use by the company', '0', '1', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`,`finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipment cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', '1', '0', '0', '0', '6300', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('188', 'Accumulated Depreciation- Equipment', 'Amount of equipment cost that has been allocated to Depreciation Expense since the time the equipment was acquired', '1', '1', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('210', 'Notes Payable', 'Loans from banks and principal due on written promises to pay', '1', '2', '0', '0', '0', '0', '6200', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('210', 'Notes Payable', 'Loans from banks and principal due on written promises to pay', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', '0', '0', '0', '0', '3350', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('215', 'Accounts Payable', 'Money to be paid out to suppliers', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('220', 'Wages Payable', 'Money owed to employees for hours worked', '1', '2', '0', '0', '0', '0', '10000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('220', 'Wages Payable', 'Money owed to employees for hours worked', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('230', 'Interest Payable', 'Amount owed for interest', '1', '2', '0', '0', '0', '0', '4400', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('230', 'Interest Payable', 'Amount owed for interest', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('240', 'Unearned Revenues', 'Amount received in advance of delivering goods or providing services', '1', '2', '0', '0', '0', '0', '2150', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('240', 'Unearned Revenues', 'Amount received in advance of delivering goods or providing services', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('250', 'Mortgage Loan Payable', 'A formal loan that involves a lien on real estate', '1', '2', '0', '0', '0', '0', '3150', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('250', 'Mortgage Loan Payable', 'A formal loan that involves a lien on real estate', '1', '2', '0', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('260', 'Mortgage Loan Balance', 'The remaining balance of a formal loan that involves a lien on real estate', '1', '2', '1', '0', '0', '0', '100000', current_timestamp(), '1', NULL, NULL, NULL, '1');
-
-
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('290', 'Mary Smith, Capital', 'Amount owner has invested into company', '1', '3', NULL, '0', '0', '0', '10000', current_timestamp(), '1', NULL, NULL, NULL, '1');
-
-INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('295', 'Mary Smith, Drawing', 'Amount owner has withdrawn for personal use', '0', '3', NULL, '0', '0', '0', '7000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('260', 'Mortgage Loan Balance', 'The remaining balance of a formal loan that involves a lien on real estate', '1', '2', '1', '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('401', 'Service Revenues', 'Amounts earned from services to clients', '1', '4', NULL, '0', '0', '0', '1250', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('290', 'Mary Smith, Capital', 'Amount owner has invested into company', '1', '3', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('500', 'Salaries Expense', 'Expenses incurred for salaried employees', '0', '5', NULL, '0', '0', '0', '30000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('295', 'Mary Smith, Drawing', 'Amount owner has withdrawn for personal use', '0', '3', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
+
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('510', 'Wages Expense', 'Expense incurred for work performed for hourly employees', '0', '5', NULL, '0', '0', N'0', '25000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('401', 'Service Revenues', 'Amounts earned from services to clients', '1', '4', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('540', 'Supplies Expense', 'Cost of supplies used up', '0', '5', NULL, '0', '0', '0', '10500', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('500', 'Salaries Expense', 'Expenses incurred for salaried employees', '0', '5', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('570', 'Telephones Expense', 'Cost for utilities', '0', '5', NULL, '0', '0', '0', '4500', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('510', 'Wages Expense', 'Expense incurred for work performed for hourly employees', '0', '5', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
-VALUES ('576', 'Advertising Expense', 'Costs of telephone usage', '0', '5', NULL, '0', '0', '0', '2000', current_timestamp(), '1', NULL, NULL, NULL, '1');
+VALUES ('540', 'Supplies Expense', 'Cost of supplies used up', '0', '5', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
+
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+VALUES ('570', 'Telephones Expense', 'Cost for utilities', '0', '5', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
+
+INSERT INTO `faccount` (`faccountID`, `faccount`, `fdescription`, `normalside`, `fcategory`, `fsubcategory`, `finitialbalance`, `debit`, `credit`, `fbalance`, `fdatecreated`, `userID`, `forder`, `statement`, `comment`, `active`) 
+VALUES ('576', 'Advertising Expense', 'Costs of telephone usage', '0', '5', NULL, '0', '0', '0', '0', current_timestamp(), '1', NULL, NULL, NULL, '1');
 
 TEST BATCHES
 
@@ -241,41 +241,41 @@ VALUES('14','7','3','101','1','1',current_timestamp(),current_timestamp(),'0','3
 
 
 INSERT INTO `transactions` (`lineID`, `transactionID`, `batchID`, `accountID`, `submitterID`, `approverID`, `datecreated`, `dateassessed`, `debit`, `credit`, `sourceDocument`, `status`, `description`) VALUES
-(15, 8, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 250.00, 0.00, NULL, 1, NULL),
-(16, 8, 4, 401, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 250.00, NULL, 1, NULL),
-(17, 9, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 300.00, 0.00, NULL, 1, NULL),
-(18, 9, 4, 290, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 300.00, NULL, 1, NULL),
-(19, 10, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 500.00, 0.00, NULL, 1, NULL),
-(20, 10, 4, 210, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 500.00, NULL, 1, NULL),
-(21, 11, 5, 180, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 700.00, 0.00, NULL, 1, NULL),
-(22, 11, 5, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 700.00, NULL, 1, NULL),
-(23, 12, 5, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 800.00, 0.00, NULL, 1, NULL),
-(24, 12, 5, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 800.00, NULL, 1, NULL),
-(25, 13, 6, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 400.00, 0.00, NULL, 1, NULL),
-(26, 13, 6, 215, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 0.00, 400.00, NULL, 1, NULL),
-(27, 14, 7, 180, 2, 2, '2021-04-20 13:11:12', '2021-04-20 13:16:12', 250.00, 0.00, NULL, 1, NULL),
-(28, 14, 7, 150, 2, 2, '2021-04-20 13:11:22', '2021-04-20 13:16:12', 500.00, 0.00, NULL, 1, NULL),
-(29, 14, 7, 101, 2, 2, '2021-04-20 13:14:50', '2021-04-20 13:16:12', 0.00, 750.00, NULL, 1, NULL),
-(30, 15, 8, 101, 2, 2, '2021-04-20 13:24:22', '2021-04-20 14:15:14', 1500.00, 0.00, NULL, 2, NULL),
-(31, 15, 8, 120, 2, 2, '2021-04-20 13:24:34', '2021-04-20 14:15:14', 0.00, 1500.00, NULL, 2, NULL),
-(32, 16, 8, 576, 2, 2, '2021-04-20 13:25:42', '2021-04-20 14:15:14', 200.00, 0.00, NULL, 1, NULL),
-(33, 16, 8, 101, 2, 2, '2021-04-20 13:25:49', '2021-04-20 14:15:14', 0.00, 200.00, NULL, 1, NULL),
-(34, 17, 8, 215, 2, 2, '2021-04-20 13:26:47', '2021-04-20 14:15:14', 300.00, 0.00, NULL, 1, NULL),
-(35, 17, 8, 101, 2, 2, '2021-04-20 13:27:05', '2021-04-20 14:15:14', 0.00, 300.00, NULL, 1, NULL),
-(36, 18, 9, 220, 2, 2, '2021-04-20 13:28:51', '2021-04-20 13:30:05', 1000.00, 0.00, NULL, 2, NULL),
-(37, 18, 9, 101, 2, 2, '2021-04-20 13:29:50', '2021-04-20 13:30:05', 0.00, 1000.00, NULL, 2, NULL),
-(38, 19, 10, 220, 2, 2, '2021-04-20 13:30:51', '2021-04-20 14:15:20', 1000.00, 0.00, NULL, 1, NULL),
-(39, 19, 10, 101, 2, 2, '2021-04-20 13:30:59', '2021-04-20 14:15:20', 0.00, 1000.00, NULL, 1, NULL),
-(40, 20, 10, 101, 2, 2, '2021-04-20 13:52:43', '2021-04-20 14:15:20', 750.00, 0.00, NULL, 1, NULL),
-(41, 20, 10, 210, 2, 2, '2021-04-20 13:53:11', '2021-04-20 14:15:20', 0.00, 750.00, NULL, 1, NULL),
-(42, 21, 11, 180, 2, 2, '2021-04-20 13:54:01', '2021-04-20 14:15:24', 250.00, 0.00, NULL, 1, NULL),
-(43, 21, 11, 101, 2, 2, '2021-04-20 13:54:10', '2021-04-20 14:15:24', 0.00, 250.00, NULL, 1, NULL),
-(44, 22, 11, 215, 2, 2, '2021-04-20 14:09:22', '2021-04-20 14:15:24', 300.00, 0.00, NULL, 1, NULL),
-(45, 22, 11, 101, 2, 2, '2021-04-20 14:09:39', '2021-04-20 14:15:24', 0.00, 300.00, NULL, 1, NULL),
-(46, 23, 12, 570, 2, 2, '2021-04-20 14:11:49', '2021-04-20 14:15:34', 400.00, 0.00, NULL, 1, NULL),
-(47, 23, 12, 101, 2, 2, '2021-04-20 14:11:56', '2021-04-20 14:15:34', 0.00, 400.00, NULL, 1, NULL),
-(48, 24, 12, 101, 2, 2, '2021-04-20 14:12:59', '2021-04-20 14:15:34', 10000.00, 0.00, NULL, 1, NULL),
-(49, 24, 12, 401, 2, 2, '2021-04-20 14:13:23', '2021-04-20 14:15:34', 0.00, 10000.00, NULL, 1, NULL);
+(15, 8, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 250.00, 0.00, NULL, 0, NULL),
+(16, 8, 4, 401, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 250.00, NULL, 0, NULL),
+(17, 9, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 300.00, 0.00, NULL, 0, NULL),
+(18, 9, 4, 290, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 300.00, NULL, 0, NULL),
+(19, 10, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 500.00, 0.00, NULL, 0, NULL),
+(20, 10, 4, 210, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 500.00, NULL, 0, NULL),
+(21, 11, 4, 180, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 700.00, 0.00, NULL, 0, NULL),
+(22, 11, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 700.00, NULL, 0, NULL),
+(23, 12, 4, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 800.00, 0.00, NULL, 0, NULL),
+(24, 12, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 800.00, NULL, 0, NULL),
+(25, 13, 4, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 400.00, 0.00, NULL, 0, NULL),
+(26, 13, 4, 215, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 0.00, 400.00, NULL, 0, NULL),
+(27, 14, 4, 180, 2, 2, '2021-04-20 13:11:12', '2021-04-20 13:16:12', 250.00, 0.00, NULL, 0, NULL),
+(28, 14, 4, 150, 2, 2, '2021-04-20 13:11:22', '2021-04-20 13:16:12', 500.00, 0.00, NULL, 0, NULL),
+(29, 14, 4, 101, 2, 2, '2021-04-20 13:14:50', '2021-04-20 13:16:12', 0.00, 750.00, NULL, 0, NULL),
+(30, 15, 4, 101, 2, 2, '2021-04-20 13:24:22', '2021-04-20 14:15:14', 1500.00, 0.00, NULL, 0, NULL),
+(31, 15, 4, 120, 2, 2, '2021-04-20 13:24:34', '2021-04-20 14:15:14', 0.00, 1500.00, NULL, 0, NULL),
+(32, 16, 4, 576, 2, 2, '2021-04-20 13:25:42', '2021-04-20 14:15:14', 200.00, 0.00, NULL, 0, NULL),
+(33, 16, 4, 101, 2, 2, '2021-04-20 13:25:49', '2021-04-20 14:15:14', 0.00, 200.00, NULL, 0, NULL),
+(34, 17, 4, 215, 2, 2, '2021-04-20 13:26:47', '2021-04-20 14:15:14', 300.00, 0.00, NULL, 0, NULL),
+(35, 17, 4, 101, 2, 2, '2021-04-20 13:27:05', '2021-04-20 14:15:14', 0.00, 300.00, NULL, 0, NULL),
+(36, 18, 4, 220, 2, 2, '2021-04-20 13:28:51', '2021-04-20 13:30:05', 1000.00, 0.00, NULL, 0, NULL),
+(37, 18, 4, 101, 2, 2, '2021-04-20 13:29:50', '2021-04-20 13:30:05', 0.00, 1000.00, NULL, 0, NULL),
+(38, 19, 4, 220, 2, 2, '2021-04-20 13:30:51', '2021-04-20 14:15:20', 1000.00, 0.00, NULL, 0, NULL),
+(39, 19, 4, 101, 2, 2, '2021-04-20 13:30:59', '2021-04-20 14:15:20', 0.00, 1000.00, NULL, 0, NULL),
+(40, 20, 4, 101, 2, 2, '2021-04-20 13:52:43', '2021-04-20 14:15:20', 750.00, 0.00, NULL, 0, NULL),
+(41, 20, 4, 210, 2, 2, '2021-04-20 13:53:11', '2021-04-20 14:15:20', 0.00, 750.00, NULL, 0, NULL),
+(42, 21, 4, 180, 2, 2, '2021-04-20 13:54:01', '2021-04-20 14:15:24', 250.00, 0.00, NULL, 0, NULL),
+(43, 21, 4, 101, 2, 2, '2021-04-20 13:54:10', '2021-04-20 14:15:24', 0.00, 250.00, NULL, 0, NULL),
+(44, 22, 4, 215, 2, 2, '2021-04-20 14:09:22', '2021-04-20 14:15:24', 300.00, 0.00, NULL, 0, NULL),
+(45, 22, 4, 101, 2, 2, '2021-04-20 14:09:39', '2021-04-20 14:15:24', 0.00, 300.00, NULL, 0, NULL),
+(46, 23, 4, 570, 2, 2, '2021-04-20 14:11:49', '2021-04-20 14:15:34', 400.00, 0.00, NULL, 0, NULL),
+(47, 23, 4, 101, 2, 2, '2021-04-20 14:11:56', '2021-04-20 14:15:34', 0.00, 400.00, NULL, 0, NULL),
+(48, 24, 4, 101, 2, 2, '2021-04-20 14:12:59', '2021-04-20 14:15:34', 10000.00, 0.00, NULL, 0, NULL),
+(49, 24, 4, 401, 2, 2, '2021-04-20 14:13:23', '2021-04-20 14:15:34', 0.00, 10000.00, NULL, 0, NULL);
 
 
 -----------------------------------
