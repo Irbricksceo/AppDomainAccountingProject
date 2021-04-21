@@ -140,21 +140,22 @@ if(isset($_GET['u'])) {
 					</script>
 
                 <?php
-                    //NEED TO ADD DESCRIPTION AND SOURCE FILE... eh, maybe not
-                    /*
-                    if ($stmt = $link->prepare('SELECT description, sourceDocument FROM transactions WHERE transactionID = ?')){
+                    //Pull description from transaction table (excluding sourceDocument for now)
+                    
+                    if ($stmt = $link->prepare('SELECT description FROM transactions WHERE transactionID = ?')){
                         $stmt->bind_param('i', $transactionID);
                         $stmt->execute();
-                        $stmt->bind_result($description, $sourceDocument);
+                        $stmt->bind_result($description);
                         $stmt->fetch();
                         $stmt->close();
-                    }*/
+                    }
 				?>
 
                     <hr>
-                    <p>Description: </th>
+                    <b>Description: </b> <?php echo $description ?>
                     <br>
-                    <p>Files Attatched: </th>         
+                    <br>
+                    <b>Files Attatched: </b>         
 
             </div>
 		</div>
