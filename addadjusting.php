@@ -44,12 +44,12 @@ if(isset($_POST['SubmitBatch'])) {
     
         $account = $_POST['Account'];		
         $submitter = $_SESSION['id'];
-        $description = $_POST['Desc'];
+        $description = "Adjusting Entry: " . $_POST['Desc'];
         $debit = $_POST['debit'];	
         $credit = $_POST['credit'];	
-    
-        $sqlupd = "INSERT INTO `transactions` (`transactionID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`, 'batchID') 
-        VALUES ('$transactionID', '$account', '$submitter', '$debit', '$credit', '0', '$batchID')";
+		
+        $sqlupd = "INSERT INTO `transactions` (`transactionID`, `batchID`, `AccountID`, `SubmitterID`, `debit`, `credit`, `status`, `description`) 
+        VALUES ('$transactionID', '$batchID', '$account', '$submitter', '$debit', '$credit', '0', '$description')";
     
         $edit = mysqli_query($link, $sqlupd); //runs the qry
         if($edit) //entered if acct created successfully
@@ -59,7 +59,7 @@ if(isset($_POST['SubmitBatch'])) {
         }
         else
         {
-            echo "Could Not Add Line, SQL Returned Error";
+            echo $batchID . " Could Not Add Line, SQL Returned Error";
         }
 }
 
