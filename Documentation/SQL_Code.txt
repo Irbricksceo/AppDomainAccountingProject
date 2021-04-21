@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
     `credit` double(9,2),
     `sourceDocument` longblob,
     `status` int(1),
+    `description` varchar(255),
     PRIMARY KEY (`lineID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -185,58 +186,97 @@ VALUES ('576', 'Advertising Expense', 'Costs of telephone usage', '0', '5', NULL
 
 TEST BATCHES
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('1','1','1','101','1','1',current_timestamp(),current_timestamp(),'250','0',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('1','1','1','101','1','1',current_timestamp(),current_timestamp(),'250','0',NULL,'0',NULL);
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('2','1','1','401','1','1',current_timestamp(),current_timestamp(),'0','250',NULL,'0');
-
-
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('3','2','1','101','1','1',current_timestamp(),current_timestamp(),'300','0',NULL,'0');
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('4','2','1','290','1','1',current_timestamp(),current_timestamp(),'0','300',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('2','1','1','401','1','1',current_timestamp(),current_timestamp(),'0','250',NULL,'0',NULL);
 
 
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('5','3','1','101','1','1',current_timestamp(),current_timestamp(),'500','0',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('3','2','1','101','1','1',current_timestamp(),current_timestamp(),'300','0',NULL,'0',NULL);
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('6','3','1','210','1','1',current_timestamp(),current_timestamp(),'0','500',NULL,'0');
-
-
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('7','4','2','180','1','1',current_timestamp(),current_timestamp(),'700','0',NULL,'0');
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('8','4','2','101','1','1',current_timestamp(),current_timestamp(),'0','700',NULL,'0');
-
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('9','5','2','540','1','1',current_timestamp(),current_timestamp(),'800','0',NULL,'0');
-
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('10','5','2','101','1','1',current_timestamp(),current_timestamp(),'0','800',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('4','2','1','290','1','1',current_timestamp(),current_timestamp(),'0','300',NULL,'0',NULL);
 
 
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('11','6','3','540','1','1',current_timestamp(),current_timestamp(),'400','0',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('5','3','1','101','1','1',current_timestamp(),current_timestamp(),'500','0',NULL,'0',NULL);
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('12','6','3','215','1','1',current_timestamp(),current_timestamp(),'0','400',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('6','3','1','210','1','1',current_timestamp(),current_timestamp(),'0','500',NULL,'0',NULL);
 
 
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('13','7','3','215','1','1',current_timestamp(),current_timestamp(),'300','0',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('7','4','2','180','1','1',current_timestamp(),current_timestamp(),'700','0',NULL,'0',NULL);
 
-INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`)
-VALUES('14','7','3','101','1','1',current_timestamp(),current_timestamp(),'0','300',NULL,'0');
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('8','4','2','101','1','1',current_timestamp(),current_timestamp(),'0','700',NULL,'0',NULL);
+
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('9','5','2','540','1','1',current_timestamp(),current_timestamp(),'800','0',NULL,'0',NULL);
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('10','5','2','101','1','1',current_timestamp(),current_timestamp(),'0','800',NULL,'0',NULL);
+
+
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('11','6','3','540','1','1',current_timestamp(),current_timestamp(),'400','0',NULL,'0',NULL);
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('12','6','3','215','1','1',current_timestamp(),current_timestamp(),'0','400',NULL,'0',NULL);
+
+
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('13','7','3','215','1','1',current_timestamp(),current_timestamp(),'300','0',NULL,'0',NULL);
+
+INSERT INTO `transactions`(`lineID`,`transactionID`,`batchID`,`accountID`,`submitterID`,`approverID`,`datecreated`, `dateassessed`, `debit`,`credit`,`sourceDocument`,`status`, `description`)
+VALUES('14','7','3','101','1','1',current_timestamp(),current_timestamp(),'0','300',NULL,'0',NULL);
+
+
+INSERT INTO `transactions` (`lineID`, `transactionID`, `batchID`, `accountID`, `submitterID`, `approverID`, `datecreated`, `dateassessed`, `debit`, `credit`, `sourceDocument`, `status`, `description`) VALUES
+(15, 8, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 250.00, 0.00, NULL, 1, NULL),
+(16, 8, 4, 401, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 250.00, NULL, 1, NULL),
+(17, 9, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 300.00, 0.00, NULL, 1, NULL),
+(18, 9, 4, 290, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 300.00, NULL, 1, NULL),
+(19, 10, 4, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 500.00, 0.00, NULL, 1, NULL),
+(20, 10, 4, 210, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:17', 0.00, 500.00, NULL, 1, NULL),
+(21, 11, 5, 180, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 700.00, 0.00, NULL, 1, NULL),
+(22, 11, 5, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 700.00, NULL, 1, NULL),
+(23, 12, 5, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 800.00, 0.00, NULL, 1, NULL),
+(24, 12, 5, 101, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:20', 0.00, 800.00, NULL, 1, NULL),
+(25, 13, 6, 540, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 400.00, 0.00, NULL, 1, NULL),
+(26, 13, 6, 215, 1, 2, '2021-04-14 18:12:52', '2021-04-14 18:13:22', 0.00, 400.00, NULL, 1, NULL),
+(27, 14, 7, 180, 2, 2, '2021-04-20 13:11:12', '2021-04-20 13:16:12', 250.00, 0.00, NULL, 1, NULL),
+(28, 14, 7, 150, 2, 2, '2021-04-20 13:11:22', '2021-04-20 13:16:12', 500.00, 0.00, NULL, 1, NULL),
+(29, 14, 7, 101, 2, 2, '2021-04-20 13:14:50', '2021-04-20 13:16:12', 0.00, 750.00, NULL, 1, NULL),
+(30, 15, 8, 101, 2, 2, '2021-04-20 13:24:22', '2021-04-20 14:15:14', 1500.00, 0.00, NULL, 2, NULL),
+(31, 15, 8, 120, 2, 2, '2021-04-20 13:24:34', '2021-04-20 14:15:14', 0.00, 1500.00, NULL, 2, NULL),
+(32, 16, 8, 576, 2, 2, '2021-04-20 13:25:42', '2021-04-20 14:15:14', 200.00, 0.00, NULL, 1, NULL),
+(33, 16, 8, 101, 2, 2, '2021-04-20 13:25:49', '2021-04-20 14:15:14', 0.00, 200.00, NULL, 1, NULL),
+(34, 17, 8, 215, 2, 2, '2021-04-20 13:26:47', '2021-04-20 14:15:14', 300.00, 0.00, NULL, 1, NULL),
+(35, 17, 8, 101, 2, 2, '2021-04-20 13:27:05', '2021-04-20 14:15:14', 0.00, 300.00, NULL, 1, NULL),
+(36, 18, 9, 220, 2, 2, '2021-04-20 13:28:51', '2021-04-20 13:30:05', 1000.00, 0.00, NULL, 2, NULL),
+(37, 18, 9, 101, 2, 2, '2021-04-20 13:29:50', '2021-04-20 13:30:05', 0.00, 1000.00, NULL, 2, NULL),
+(38, 19, 10, 220, 2, 2, '2021-04-20 13:30:51', '2021-04-20 14:15:20', 1000.00, 0.00, NULL, 1, NULL),
+(39, 19, 10, 101, 2, 2, '2021-04-20 13:30:59', '2021-04-20 14:15:20', 0.00, 1000.00, NULL, 1, NULL),
+(40, 20, 10, 101, 2, 2, '2021-04-20 13:52:43', '2021-04-20 14:15:20', 750.00, 0.00, NULL, 1, NULL),
+(41, 20, 10, 210, 2, 2, '2021-04-20 13:53:11', '2021-04-20 14:15:20', 0.00, 750.00, NULL, 1, NULL),
+(42, 21, 11, 180, 2, 2, '2021-04-20 13:54:01', '2021-04-20 14:15:24', 250.00, 0.00, NULL, 1, NULL),
+(43, 21, 11, 101, 2, 2, '2021-04-20 13:54:10', '2021-04-20 14:15:24', 0.00, 250.00, NULL, 1, NULL),
+(44, 22, 11, 215, 2, 2, '2021-04-20 14:09:22', '2021-04-20 14:15:24', 300.00, 0.00, NULL, 1, NULL),
+(45, 22, 11, 101, 2, 2, '2021-04-20 14:09:39', '2021-04-20 14:15:24', 0.00, 300.00, NULL, 1, NULL),
+(46, 23, 12, 570, 2, 2, '2021-04-20 14:11:49', '2021-04-20 14:15:34', 400.00, 0.00, NULL, 1, NULL),
+(47, 23, 12, 101, 2, 2, '2021-04-20 14:11:56', '2021-04-20 14:15:34', 0.00, 400.00, NULL, 1, NULL),
+(48, 24, 12, 101, 2, 2, '2021-04-20 14:12:59', '2021-04-20 14:15:34', 10000.00, 0.00, NULL, 1, NULL),
+(49, 24, 12, 401, 2, 2, '2021-04-20 14:13:23', '2021-04-20 14:15:34', 0.00, 10000.00, NULL, 1, NULL);
+
 
 -----------------------------------
 columns of type "date" are in the format YYYY-MM-DD
