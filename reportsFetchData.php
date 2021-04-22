@@ -262,7 +262,7 @@ switch ($reportType) {
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
         JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate' 
-        AND t.status = 1 AND fa.fcategory = 4 OR fa.fcategory = 5";
+        AND t.status = 1 AND (fa.fcategory = 4 OR fa.fcategory = 5)";
 
         $result = mysqli_query($link, $sql);
 
@@ -604,6 +604,139 @@ switch ($reportType) {
                 else { $row['fbalance'] = number_format($row['fbalance'], 2);}
                 $data[] = $row;}            
         }
+
+        $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed < '$startDate' 
+        AND t.status = 1 AND (fa.fcategory = 4 OR fa.fcategory = 5)";
+
+        $result = mysqli_query($link, $sql);
+
+        $totalRevenue = 0;
+        $totalExpense = 0;
+
+        while($row = mysqli_fetch_array($result)){
+            if($row['normalside'] == 0)
+            {
+                //Expense(debit) account is being debited (amount is increasing)
+                if($row['debit'] > 0)
+                {
+                    $totalExpense += $row['debit'];
+                }
+                //Expense(debit) account is being credited (amount is decreasing)
+                if($row['credit'] > 0)
+                {
+                    $totalExpense -= $row['credit'];
+                }
+            }
+            //Revenue(credit) account
+            if($row['normalside'] == 1)
+            {
+                //Revenue(credit) account is being credited (amount is increasing)
+                if($row['credit'] > 0)
+                {
+                    $totalRevenue += $row['credit'];
+                }
+                //Revenue(credit) account is being debited (amount is decreasing)
+                if($row['debit'] > 0)
+                {
+                    $totalRevenue -= $row['debit'];
+                }
+            }
+        }//End while loop to recieve rows from SQL query
+
+        $prevRetEarn = $totalRevenue - $totalExpense; //Row 1 
+
+        $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate'
+        AND t.status = 1 AND (fa.fcategory = 4 OR fa.fcategory = 5)";
+
+        $result = mysqli_query($link, $sql);
+
+        $totalRevenue = 0;
+        $totalExpense = 0;
+
+        while($row = mysqli_fetch_array($result)){
+            if($row['normalside'] == 0)
+            {
+                //Expense(debit) account is being debited (amount is increasing)
+                if($row['debit'] > 0)
+                {
+                    $totalExpense += $row['debit'];
+                }
+                //Expense(debit) account is being credited (amount is decreasing)
+                if($row['credit'] > 0)
+                {
+                    $totalExpense -= $row['credit'];
+                }
+            }
+            //Revenue(credit) account
+            if($row['normalside'] == 1)
+            {
+                //Revenue(credit) account is being credited (amount is increasing)
+                if($row['credit'] > 0)
+                {
+                    $totalRevenue += $row['credit'];
+                }
+                //Revenue(credit) account is being debited (amount is decreasing)
+                if($row['debit'] > 0)
+                {
+                    $totalRevenue -= $row['debit'];
+                }
+            }
+        }//End while loop to recieve rows from SQL query
+
+        $curIncome = $totalRevenue - $totalExpense; //Row 2
+
+        $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate' 
+        AND t.status = 1 AND fa.faccountID = 301";
+
+        $result = mysqli_query($link, $sql);
+
+        $totalRevenue = 0;
+        $totalExpense = 0;
+
+        while($row = mysqli_fetch_array($result)){
+            if($row['normalside'] == 0)
+            {
+                //Expense(debit) account is being debited (amount is increasing)
+                if($row['debit'] > 0)
+                {
+                    $totalExpense += $row['debit'];
+                }
+                //Expense(debit) account is being credited (amount is decreasing)
+                if($row['credit'] > 0)
+                {
+                    $totalExpense -= $row['credit'];
+                }
+            }
+            //Revenue(credit) account
+            if($row['normalside'] == 1)
+            {
+                //Revenue(credit) account is being credited (amount is increasing)
+                if($row['credit'] > 0)
+                {
+                    $totalRevenue += $row['credit'];
+                }
+                //Revenue(credit) account is being debited (amount is decreasing)
+                if($row['debit'] > 0)
+                {
+                    $totalRevenue -= $row['debit'];
+                }
+            }
+        }//End while loop to recieve rows from SQL query
+
+        $curDividend = $totalRevenue - $totalExpense; //Row 3
+
+        $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
+
+        $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>'; 
+        $row['faccount'] = "Retained Earnings";
+        $row['fbalance'] = number_format($curRetEarn, 2);
+        $TotalEquity += $curRetEarn;
+        $data[] = $row;
+
+        
 
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Equity line
         $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Equity" . '</b>';
