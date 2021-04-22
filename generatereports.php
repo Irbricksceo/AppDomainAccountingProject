@@ -37,7 +37,7 @@ if(isset($_POST['Generate'])) {
             header("location:incomeStatement.php?sDate=". $startDate . "&eDate=" . $endDate);
             break;
         case 3:
-            header("location:balanceSheet.php?sDate=". $startDate . "&eDate=" . $endDate);
+            header("location:balancesheet.php?sDate=". $startDate . "&eDate=" . $endDate);
             break;
         case 4:
             header("location:retainedEarnings.php?sDate=". $startDate . "&eDate=" . $endDate);
