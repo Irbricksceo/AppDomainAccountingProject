@@ -833,6 +833,7 @@ switch ($reportType) {
                 //Add new row into data
                 $data[] = $newRow;
             }
+        }
         $curIncome = $totalRevenue - $totalExpense; //Row 2
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
@@ -938,29 +939,13 @@ switch ($reportType) {
                 $data[] = $newRow;
             }
 
-        $curDividend = $totalRevenue - $totalExpense; //Row 3
+        }
+            $curDividend = $totalRevenue - $totalExpense; //Row 3
 
         $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
 
-        $sql = "";
-        $result = mysqli_query($link, $sql);
-
-        while($row = mysqli_fetch_array($result)){
-            //Write conversions here
-            
-            //Add row into data array
-            $data[] = $row;
-        }
-
-        //Create new row for aggregated data/totals
-
-        
-        //Add new row to data
-
-
         break;
 }
-
 //Setup DataTables variables and attach $data
 $results = ["draw" => 1,
         	"recordsTotal" => count($data),
