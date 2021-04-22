@@ -872,6 +872,7 @@ switch ($reportType) {
                 $data[] = $newRow;
             }
         }
+
         $curIncome = $totalRevenue - $totalExpense; //Row 2
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
@@ -980,7 +981,19 @@ switch ($reportType) {
         }
             $curDividend = $totalRevenue - $totalExpense; //Row 3
 
-        $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
+            $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
+
+
+            //Place formatted totals into new row and add to data[]
+            $newRow2['CurInc'] = '<b>' . number_format($prevRetEarn, 2) . '</b>';
+            $newRow2['CurDiv'] = '<b>' . number_format($curIncome, 2) . '</b>';
+            $newRow2['CurRet'] = '<b>' . number_format($curDividend, 2) .  '</b>';
+            $newRow2['PreRet'] = '<b>' . number_format($curRetEarn, 2) . '</b>';
+
+            $data = $newRow2;
+            //Exit switch statement
+            break;
+
 
         break;
 }

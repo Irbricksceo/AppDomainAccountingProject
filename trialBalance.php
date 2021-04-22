@@ -77,7 +77,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
-		<nav class="navside">
+        <nav class="navside">
 			<div>
 			<hr>
 			<h2>Navigation</h2>
@@ -93,12 +93,13 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 				} else {
 					?><h2>Transactions</h2>	
 					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="addadjusting.php"><i class="fas fa-user-circle"></i>Create Adjusting Entry</a>
 					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
 					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
-				}
+				}	
 				?>
-			<h2>Account Management</h2>	
+			<h2>Account Management</h2>	 			
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
 			<?php
 				if ($_SESSION['userrole'] == '1'):
@@ -106,9 +107,17 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 					<?php 
 					endif;	
 				?>
+			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
+			<hr>
+			<h2>Reporting</h2>
+			<?php 
+				if ($_SESSION['userrole'] == '2') { 
+					?><a href="generatereports.php"><i class="fas fa-user-circle"></i>Generate Reports</a>
+					<?php 
+				}
+				?>
 			</div>
 		</nav>
-		
         <div class="content">
             <h2>Trial Balance For Dates: <?php echo "$f_startDate" ?> - <?php echo "$f_endDate" ?> </h2>
 

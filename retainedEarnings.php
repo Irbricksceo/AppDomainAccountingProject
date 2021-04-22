@@ -77,7 +77,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 				<h4> Logged In As: <?=$_SESSION['name']?> </h4>
 			</div>
 		</nav>
-		<nav class="navside">
+        <nav class="navside">
 			<div>
 			<hr>
 			<h2>Navigation</h2>
@@ -93,12 +93,13 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 				} else {
 					?><h2>Transactions</h2>	
 					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="addadjusting.php"><i class="fas fa-user-circle"></i>Create Adjusting Entry</a>
 					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
 					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
-				}
+				}	
 				?>
-			<h2>Account Management</h2>	
+			<h2>Account Management</h2>	 			
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
 			<?php
 				if ($_SESSION['userrole'] == '1'):
@@ -106,24 +107,20 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 					<?php 
 					endif;	
 				?>
+			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
+			<hr>
+			<h2>Reporting</h2>
+			<?php 
+				if ($_SESSION['userrole'] == '2') { 
+					?><a href="generatereports.php"><i class="fas fa-user-circle"></i>Generate Reports</a>
+					<?php 
+				}
+				?>
 			</div>
 		</nav>
 		
         <div class="content">
             <h2>Retained Earnings Report For Dates: <?php echo "$f_startDate" ?> - <?php echo "$f_endDate" ?> </h2>
-
-            <!--
-                Just some notes about the table that goes here for me later: 
-                    Table design should be two columns with four "rows". These rows are: 
-                    -Retained Earnings At Sdate
-                    -Income For Period (can break down by transaction)
-                    -Dividend For Perior
-                    -RE @ Edate
-
-                    Formula for Retained is RE Start + Income - Div
-                    Need to write a script to calculate RE at the given dates and then populate the table still.
-                -->
-                    
 
             <div>
                 <table id="incomeStatementTable" class="row-border">
@@ -152,12 +149,10 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                                 "zeroRecords": "No data available in table."	//Used to display msg after filtering
                             },
                             "paging": false,            //Shows all rows without pagination
-                            "order": [0, 'asc'],        //Remove default ordering to force ordering from fetch script
+                            "order": [], 
                             "columns": [
-                                
-                                { data: 'faccount', orderable: false  },
-                                { data: 'balance', orderable: false  },
-                                
+                              
+                     
                             ]
                         });  
                     });

@@ -82,6 +82,7 @@ if(isset($_POST['sendemail'])) {
 		</nav>
 		<nav class="navside">
 			<div>
+			<hr>
 			<h2>Navigation</h2>
 			<a href="home.php"><i class="fas fa-user-circle"></i>Home</a>
 			<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
@@ -95,19 +96,28 @@ if(isset($_POST['sendemail'])) {
 				} else {
 					?><h2>Transactions</h2>	
 					<a href="addtransaction.php"><i class="fas fa-user-circle"></i>Create Batch</a>
+					<a href="addadjusting.php"><i class="fas fa-user-circle"></i>Create Adjusting Entry</a>
 					<a href="approvebatch.php"><i class="fas fa-user-circle"></i>Review Batch</a>
 					<a href="entries.php"><i class="fas fa-user-circle"></i>Journal</a>	
 					<hr><?php
 				}	
 				?>
-			<h2>Account Management</h2>	
-			<hr>
+			<h2>Account Management</h2>	 			
 			<a href="accounts.php"><i class="fas fa-user-circle"></i>Accounts</a>
 			<?php
 				if ($_SESSION['userrole'] == '1'):
 					?><a href="addaccount.php"><i class="fas fa-user-circle"></i>Add An Account</a>
 					<?php 
 					endif;	
+				?>
+			<a href="eventlog.php"><i class="fas fa-user-circle"></i>Event Log</a>
+			<hr>
+			<h2>Reporting</h2>
+			<?php 
+				if ($_SESSION['userrole'] == '2') { 
+					?><a href="generatereports.php"><i class="fas fa-user-circle"></i>Generate Reports</a>
+					<?php 
+				}
 				?>
 			</div>
 		</nav>
