@@ -9,18 +9,18 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-
+/*
 $reportType = $_GET['reportID'];
 $startDate = $_GET['startDate'];
 $endDate = $_GET['endDate'];
+*/
 
-
-/* 
+/* */
 //For testing SQL queries
 $reportType = 4;
 $startDate = "2021-01-01";
-$endDate = "2021-04-22";
-*/
+$endDate = "2021-04-23";
+/**/
 
 //Append time to date for SQL column comparison
 //Used this for debugging and found out I forgot quotes around variables, this append might not be required
@@ -425,7 +425,7 @@ switch ($reportType) {
         //Exit switch statement
         break;
 
-    //Balance Sheet ----------------------------------------------------------------------------------------------------------------------------------------
+    //Balance Sheet
     case 3:
 
         $sql = "SELECT faccountID, faccount, fbalance, fcategory, fsubcategory FROM faccount";
@@ -623,7 +623,7 @@ switch ($reportType) {
         break;
 
 
-//-----------------------------------------------------------------
+        //-----------------------------------------------------------------
 
         /*create 3 column table headers:(code, name, amount)
         
@@ -664,7 +664,7 @@ switch ($reportType) {
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
         JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed < '$startDate' 
-        AND t.status = 1";
+        AND t.status = 1 AND (fa.fcategory = 4 OR fa.fcategory = 5)";
 
         $result = mysqli_query($link, $sql);
 
@@ -705,7 +705,7 @@ switch ($reportType) {
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
         JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate'
-        AND t.status = 1 AND fa.faccountID != 301";
+        AND t.status = 1 AND (fa.fcategory = 4 OR fa.fcategory = 5)";
 
         $result = mysqli_query($link, $sql);
 
@@ -787,14 +787,29 @@ switch ($reportType) {
 
         $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
 
+        //Formatting date to be displayed in beg. & end retained earnings row
+        $f_startDate = DateTime::createFromFormat("Y-m-d H:i:s", $startDate);
+        $f_startDate = date_format($f_startDate, 'm/d/y');
+        $f_endDate = DateTime::createFromFormat("Y-m-d H:i:s", $endDate);
+        $f_endDate = date_format($f_endDate, 'm/d/y');
 
         //Place formatted totals into new row and add to data[]
-        $newRow2['CurInc'] = '<b>' . number_format($prevRetEarn, 2) . '</b>';
-        $newRow2['CurDiv'] = '<b>' . number_format($curIncome, 2) . '</b>';
-        $newRow2['CurRet'] = '<b>' . number_format($curDividend, 2) .  '</b>';
-        $newRow2['PreRet'] = '<b>' . number_format($curRetEarn, 2) . '</b>';
+        $newRow['source'] = "Beg. Retained Earnings, " . $f_startDate;
+        $newRow['amount'] = number_format($prevRetEarn, 2);
+        $data[] = $newRow;
 
-        $data = $newRow2;
+        $newRow['source'] = "Net Income";
+        $newRow['amount'] = number_format($curIncome, 2);
+        $data[] = $newRow;
+
+        $newRow['source'] = "Dividends";
+        $newRow['amount'] = number_format($curDividend, 2);
+        $data[] = $newRow;
+
+        $newRow['source'] = "End. Retained Earnings, " . $f_endDate;
+        $newRow['amount'] = '<b>' . number_format($curRetEarn, 2) . '</b>';
+        $data[] = $newRow;
+
         //Exit switch statement
         break;
 }
