@@ -18,7 +18,7 @@ if(isset($_GET['batchID'])) {
 }
 
 //Setup SQL query for data to be retrieved
-$sql = "SELECT t.transactionID, t.accountID, fa.faccount, t.debit, t.credit, t.submitterID, datecreated FROM transactions t 
+$sql = "SELECT t.transactionID, t.accountID, fa.faccount, t.debit, t.credit, t.submitterID, datecreated, description FROM transactions t 
 JOIN faccount fa ON fa.faccountID = t.accountID WHERE t.batchID = $batchID AND t.status = 0";
 $result = mysqli_query($link, $sql);
 
