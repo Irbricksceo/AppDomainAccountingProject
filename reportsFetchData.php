@@ -428,37 +428,160 @@ switch ($reportType) {
     //Balance Sheet ----------------------------------------------------------------------------------------------------------------------------------------
     case 3:
 
-        $sql = "SELECT faccountID, faccount, fcategory, fsubcategory, fbalance";
+        $sql = "SELECT faccountID, faccount, fbalance, fcategory, fsubcategory FROM faccount";
 
         $result = mysqli_query($link, $sql);
 
+        // Used for the total values for each section
         $TempAsset = 0;
         $LongTermAsset = 0;
+        $OtherAsset = 0;
         $TempLiability = 0;
         $LongTermLiability = 0;
         $TotalEquity = 0;
 
-        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        //Asset line
+
+        $headerRow['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        //Asset line
         $headerRow['faccount'] = '<b>' . "Assets" . '</b>';
-        $headerRow['balance'] = "";
+        $headerRow['fbalance'] = "";
         $data[] = $headerRow;
 
-        while($row = mysqli_fetch_array($result)){          //goes through whole table to make all rows for temp assets
-            $i = 0;
-            for ($i = 0; $i < count($data); $i++) 
-            {
-                if ($data[$i]['fcategory'] == '1' && $data[$i]['fsubcategory'] == '0')
-                {
-                    $row['faccountID'] = $data[$i]['faccountID'];
-                    $row['faccount'] = $data[$i]['faccount'];
-                    $row['fbalance'] = $data[$i]['fbalance'];
+        $headerRow['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Current Asset line
+        $headerRow['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Current Assets" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+        
+        while($row = mysqli_fetch_array($result)){                                  //adds account lines
+            if ($row['fcategory'] == '1' && $row['fsubcategory'] == '0')
+            {$TempAsset += $row['fbalance'];                        //adds to total
+                $row['fbalance'] = number_format($row['fbalance'], 2); //formats the balance to correct format
+                $data[] = $row;}                                    //adds line to the chart
+        }
 
-                    $TempAsset += $data[$i]['fbalance'];
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Current Asset Total line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Current Assets Total" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TempAsset, 2) . '</b>';
+        $data[] = $row;
 
-                    $data[] = $row;
-                }
-            }
-        }  
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Long term Asset line
+        $headerRow['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Long term Assets" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        while($row = mysqli_fetch_array($result)){
+            if ($row['fcategory'] == '1' && $row['fsubcategory'] == '1')
+            {$LongTermAsset += $row['fbalance'];
+                $data[] = $row;}            
+        }
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Long term Asset total line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Long Term Assets Total" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($LongTermAsset, 2) . '</b>';
+        $data[] = $row;
+
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Other Asset line
+        $headerRow['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Other Assets" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        while($row = mysqli_fetch_array($result)){
+            if ($row['fcategory'] == '1' && $row['fsubcategory'] == '2')
+            {$OtherAsset += $row['fbalance'];
+                $row['fbalance'] = number_format($row['fbalance'], 2);
+                $data[] = $row;}            
+        }
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // other total Asset line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Other Assets Total" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($OtherAsset, 2) . '</b>';
+        $data[] = $row;
+
+        $TempNum = $TempAsset + $LongTermAsset + $OtherAsset;   //adds all assets together
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // All Assets line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All Asset Total" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TempNum, 2) . '</b>';
+        $data[] = $row;
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Blank Line
+        $row['faccount'] = '&nbsp;';
+        $row['fbalance'] = '';
+        $data[] = $row;
+
+
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        //Liabilities line
+        $headerRow['faccount'] = '<b>' . "Liabilities" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Current Liabilities line
+        $headerRow['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Current Liabilities" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        while($row = mysqli_fetch_array($result)){
+            if ($row['fcategory'] == '2' && $row['fsubcategory'] == '0')
+            {$TempLiability += $row['fbalance'];
+                $row['fbalance'] = number_format($row['fbalance'], 2);
+                $data[] = $row;}            
+        }
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Current Liabilities line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Current Liabilities" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TempLiability, 2) . '</b>';
+        $data[] = $row;
+
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Long term Liabilities line
+        $headerRow['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Long term Liabilities" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        while($row = mysqli_fetch_array($result)){
+            if ($row['fcategory'] == '2' && $row['fsubcategory'] == '1' )
+            {$LongTermLiability += $row['fbalance'];
+                $row['fbalance'] = number_format($row['fbalance'], 2);
+                $data[] = $row;}            
+        }
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Long Term Liabilities line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Long Term Liabilities" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($LongTermLiability, 2) . '</b>';
+        $data[] = $row;
+
+        $TempNum = $TempLiability + $LongTermLiability;
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Liabilities line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Liabilities" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TempNum, 2) . '</b>';
+        $data[] = $row;
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // Blank Line
+        $row['faccount'] = '&nbsp;';
+        $row['fbalance'] = '';
+        $data[] = $row;
+
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        //Equity line
+        $headerRow['faccount'] = '<b>' . "Equity" . '</b>';
+        $headerRow['fbalance'] = "";
+        $data[] = $headerRow;
+
+        while($row = mysqli_fetch_array($result)){
+            if ($row['fcategory'] == '3')
+            {$TotalEquity += $row['fbalance'];
+                $row['fbalance'] = number_format($row['fbalance'], 2);
+                $data[] = $row;}            
+        }
+
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Equity line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Equity" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TotalEquity, 2) . '</b>';
+        $data[] = $row;
+        
+        $TempNums = $TotalEquity = $TempNum;
+        $row['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Liabilities & Equity line
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Liabilities and Equity" . '</b>';
+        $row['fbalance'] = '<b>' . number_format($TempNums, 2) . '</b>';
+        $data[] = $row;
+
         break;
 
 

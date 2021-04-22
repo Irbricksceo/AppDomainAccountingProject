@@ -37,7 +37,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Trial Balance</title>
+		<title>Balance Sheet</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
@@ -140,9 +140,9 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                                 "zeroRecords": "No data available in table."	//Used to display msg after filtering
                             },
                             "paging": false,        //Shows all rows without pagination
-                            //"order": [0, 'asc'],    //Orders accountID ascending 
+                            "order": [],    //Orders accountID ascending 
                             "columns": [
-                                { data: 'accountID', width: '5%', orderable: false },
+                                { data: 'faccountID', width: '5%', orderable: false },
                                 { data: 'faccount', orderable: false  },
                                 { data: 'fbalance', orderable: false  },
                             ]
