@@ -9,18 +9,18 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-/*
+
 $reportType = $_GET['reportID'];
 $startDate = $_GET['startDate'];
 $endDate = $_GET['endDate'];
-*/
 
-/* REMOVE LATER */
+
+/* 
 //For testing SQL queries
 $reportType = 4;
 $startDate = "2021-01-01";
 $endDate = "2021-04-22";
-/**/
+*/
 
 //Append time to date for SQL column comparison
 //Used this for debugging and found out I forgot quotes around variables, this append might not be required
