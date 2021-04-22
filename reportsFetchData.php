@@ -704,7 +704,7 @@ switch ($reportType) {
         $prevRetEarn = $totalRevenue - $totalExpense; //Row 1 
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
-        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed >BETWEEN '$startDate' AND '$endDate'
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate'
         AND t.status = 1 AND fa.faccountID != 301";
 
         $result = mysqli_query($link, $sql);
