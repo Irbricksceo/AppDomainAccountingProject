@@ -150,6 +150,7 @@ if(isset($_POST['UpdateStatus'])) {
 					<th>Credit</th>
 					<th>Submitter</th>
 					<th>Date Created</th>
+					<th>Description</th>
 				</tr>
 				</thead>
 			</table>
@@ -184,6 +185,7 @@ if(isset($_POST['UpdateStatus'])) {
 							{ data: 'credit' },
 							{ data: 'submitterID', sWidth: '10%' },
 							{ data: 'datecreated' },
+							{data: 'description'},
 						]
 					});  
 				});
