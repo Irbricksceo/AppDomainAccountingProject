@@ -496,7 +496,10 @@ switch ($reportType) {
 
     //Retained Earnings
     case 4:
-
+        //First use income statement as a base for all transactions from oldest to sDate. This becomes row 1
+        //Calculate all earnings from sDate to eDate. This is row 2
+        //Calculate Dividents from sDate to eDate. This is row 3. 
+        //Row 4 = Row 1 + Row 2 - Row 3
 
         $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
         JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed < '$startDate'
@@ -603,14 +606,217 @@ switch ($reportType) {
 
         }//End while loop to recieve rows from SQL query
 
-        //First use income statement as a base for all transactions from oldest to sDate. This becomes row 1
-        //Calculate all earnings from sDate to eDate. This is row 2
-        //Calculate Dividents from sDate to eDate. This is row 3. 
-        //Row 4 = Row 1 + Row 2 - Row 3
-
         $prevRetEarn = $totalRevenue - $totalExpense; //Row 1 
-        $curIncome; //Row 2
-        $curDividend; //Row 3
+
+        $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate'
+        AND t.status = 1 AND fa.fcategory = 4 OR fa.fcategory = 5 AND fa.faccountID != 301";
+
+        $result = mysqli_query($link, $sql);
+
+        $totalRevenue = 0;
+        $totalExpense = 0;
+
+        while($row = mysqli_fetch_array($result)){
+            //Need to declare outside for loop for if statement that makes new row with new accountID 
+            $i = 0;
+            //Search through data['accountID'] for existing accountID
+            for ($i = 0; $i < count($data); $i++) 
+            {
+                //AccountID exists in data[] and matches accountID of current row
+                if ($row['accountID'] == $data[$i]['accountID'])
+                {
+                    //Add debit/credit of transaction to debit/credit column of the row with a matching accountID in data[]
+                    //Expense(debit) account
+                    if($data[$i]['normalside'] == 0)
+                    {
+                        //Expense(debit) account is being debited (amount is increasing)
+                        if($row['debit'] > 0)
+                        {
+                            $data[$i]['balance'] += $row['debit'];
+                            $totalExpense += $row['debit'];
+                        }
+                        //Expense(debit) account is being credited (amount is decreasing)
+                        if($row['credit'] > 0)
+                        {
+                            $data[$i]['balance'] -= $row['credit'];
+                            $totalExpense -= $row['credit'];
+                        }
+                    }
+                    //Revenue(credit) account
+                    if($data[$i]['normalside'] == 1)
+                    {
+                        //Revenue(credit) account is being credited (amount is increasing)
+                        if($row['credit'] > 0)
+                        {
+                            $data[$i]['balance'] += $row['credit'];
+                            $totalRevenue += $row['credit'];
+                        }
+                        //Revenue(credit) account is being debited (amount is decreasing)
+                        if($row['debit'] > 0)
+                        {
+                            $data[$i]['balance'] -= $row['debit'];
+                            $totalRevenue -= $row['debit'];
+                        }
+                    }
+
+                    //Exit for loop
+                    break;
+                }
+            }//End for loop
+            
+            //For loop maxed out, could not find existing accountID in data[], need to create new row with new accountID 
+            if ($i == count($data))
+            {
+                //Create new row with accountID
+                $newRow['accountID'] = $row['accountID'];
+                $newRow['faccount'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $row['faccount'];
+                $newRow['normalside'] = $row['normalside'];
+                
+                //Add debit/credit of transaction to debit/credit of accountID in data[]
+                //Expense(debit) account
+                if($row['normalside'] == 0)
+                {
+                    //Expense(debit) account is being debited (amount is increasing)
+                    if($row['debit'] > 0)
+                    {
+                        $newRow['balance'] = $row['debit'];
+                        $totalExpense += $row['debit'];
+                    }
+                    //Expense(debit) account is being credited (amount is decreasing)
+                    if($row['credit'] > 0)
+                    {
+                        $newRow['balance'] = (-1 * $row['credit']);
+                        $totalExpense -= $row['credit'];
+                    }
+                }
+                //Revenue(credit) account
+                if($row['normalside'] == 1)
+                {
+                    //Revenue(credit) account is being credited (amount is increasing)
+                    if($row['credit'] > 0)
+                    {
+                        $newRow['balance'] = $row['credit'];
+                        $totalRevenue += $row['credit'];
+                    }
+                    //Revenue(credit) account is being debited (amount is decreasing)
+                    if($row['debit'] > 0)
+                    {
+                        $newRow['balance'] = (-1 * $row['debit']);
+                        $totalRevenue -= $row['debit'];
+                    }
+                }
+
+                //Add new row into data
+                $data[] = $newRow;
+            }
+        $curIncome = $totalRevenue - $totalExpense; //Row 2
+
+        $sql = "SELECT t.accountID, t.debit, t.credit, fa.faccount, fa.normalside FROM transactions t 
+        JOIN faccount fa ON t.accountID = fa.faccountID WHERE t.dateassessed BETWEEN '$startDate' AND '$endDate'
+        AND fa.faccountID = 301";
+
+        $result = mysqli_query($link, $sql);
+
+        $totalRevenue = 0;
+        $totalExpense = 0;
+
+        while($row = mysqli_fetch_array($result)){
+            //Need to declare outside for loop for if statement that makes new row with new accountID 
+            $i = 0;
+            //Search through data['accountID'] for existing accountID
+            for ($i = 0; $i < count($data); $i++) 
+            {
+                //AccountID exists in data[] and matches accountID of current row
+                if ($row['accountID'] == $data[$i]['accountID'])
+                {
+                    //Add debit/credit of transaction to debit/credit column of the row with a matching accountID in data[]
+                    //Expense(debit) account
+                    if($data[$i]['normalside'] == 0)
+                    {
+                        //Expense(debit) account is being debited (amount is increasing)
+                        if($row['debit'] > 0)
+                        {
+                            $data[$i]['balance'] += $row['debit'];
+                            $totalExpense += $row['debit'];
+                        }
+                        //Expense(debit) account is being credited (amount is decreasing)
+                        if($row['credit'] > 0)
+                        {
+                            $data[$i]['balance'] -= $row['credit'];
+                            $totalExpense -= $row['credit'];
+                        }
+                    }
+                    //Revenue(credit) account
+                    if($data[$i]['normalside'] == 1)
+                    {
+                        //Revenue(credit) account is being credited (amount is increasing)
+                        if($row['credit'] > 0)
+                        {
+                            $data[$i]['balance'] += $row['credit'];
+                            $totalRevenue += $row['credit'];
+                        }
+                        //Revenue(credit) account is being debited (amount is decreasing)
+                        if($row['debit'] > 0)
+                        {
+                            $data[$i]['balance'] -= $row['debit'];
+                            $totalRevenue -= $row['debit'];
+                        }
+                    }
+
+                    //Exit for loop
+                    break;
+                }
+            }//End for loop
+            
+            //For loop maxed out, could not find existing accountID in data[], need to create new row with new accountID 
+            if ($i == count($data))
+            {
+                //Create new row with accountID
+                $newRow['accountID'] = $row['accountID'];
+                $newRow['faccount'] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $row['faccount'];
+                $newRow['normalside'] = $row['normalside'];
+                
+                //Add debit/credit of transaction to debit/credit of accountID in data[]
+                //Expense(debit) account
+                if($row['normalside'] == 0)
+                {
+                    //Expense(debit) account is being debited (amount is increasing)
+                    if($row['debit'] > 0)
+                    {
+                        $newRow['balance'] = $row['debit'];
+                        $totalExpense += $row['debit'];
+                    }
+                    //Expense(debit) account is being credited (amount is decreasing)
+                    if($row['credit'] > 0)
+                    {
+                        $newRow['balance'] = (-1 * $row['credit']);
+                        $totalExpense -= $row['credit'];
+                    }
+                }
+                //Revenue(credit) account
+                if($row['normalside'] == 1)
+                {
+                    //Revenue(credit) account is being credited (amount is increasing)
+                    if($row['credit'] > 0)
+                    {
+                        $newRow['balance'] = $row['credit'];
+                        $totalRevenue += $row['credit'];
+                    }
+                    //Revenue(credit) account is being debited (amount is decreasing)
+                    if($row['debit'] > 0)
+                    {
+                        $newRow['balance'] = (-1 * $row['debit']);
+                        $totalRevenue -= $row['debit'];
+                    }
+                }
+
+                //Add new row into data
+                $data[] = $newRow;
+            }
+
+        $curDividend = $totalRevenue - $totalExpense; //Row 3
+
         $curRetEarn = $prevRetEarn + $curIncome - $curDividend; //Row 4
 
         $sql = "";
