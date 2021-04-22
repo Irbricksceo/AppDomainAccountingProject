@@ -139,7 +139,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                             "ajax": {
                                 url: "reportsFetchData.php",
                                 data: {
-                                    "reportID": 42,
+                                    "reportID": 4,
                                     "startDate": "<?php echo $startDate ?>",
                                     "endDate": "<?php echo $endDate ?>"
                                 }
@@ -151,8 +151,8 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                             "paging": false,            //Shows all rows without pagination
                             "order": [], 
                             "columns": [
-                              
-                     
+                                { data: 'source', orderable: false },
+                                { data: 'amount', orderable: false  },
                             ]
                         });  
                     });
