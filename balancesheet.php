@@ -140,7 +140,7 @@ $f_endDate = date_format($f_endDate, 'M d, Y');
                                 "zeroRecords": "No data available in table."	//Used to display msg after filtering
                             },
                             "paging": false,        //Shows all rows without pagination
-                            "order": [0, 'asc'],    //Orders accountID ascending 
+                            //"order": [0, 'asc'],    //Orders accountID ascending 
                             "columns": [
                                 { data: 'accountID', width: '5%', orderable: false },
                                 { data: 'faccount', orderable: false  },

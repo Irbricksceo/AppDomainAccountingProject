@@ -9,17 +9,18 @@ $link = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE
 if (mysqli_connect_errno()) {
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-
+/*
 $reportType = $_GET['reportID'];
 $startDate = $_GET['startDate'];
 $endDate = $_GET['endDate'];
-
-/*
-//For testing SQL queries
-$reportType = 2;
-$startDate = "2021-01-01";
-$endDate = "2021-04-14";
 */
+
+/* REMOVE LATER */
+//For testing SQL queries
+$reportType = 3;
+$startDate = "2021-01-01";
+$endDate = "2021-04-22";
+/**/
 
 //Append time to date for SQL column comparison
 //Used this for debugging and found out I forgot quotes around variables, this append might not be required
@@ -426,51 +427,72 @@ switch ($reportType) {
 
     //Balance Sheet ----------------------------------------------------------------------------------------------------------------------------------------
     case 3:
-        
-        $sql = "";
+
+        $sql = "SELECT faccountID, faccount, fcategory, fsubcategory, fbalance";
+
         $result = mysqli_query($link, $sql);
 
-        while($row = mysqli_fetch_array($result)){
-            //Write conversions here
-            
-            //Add row into data array
-            $data[] = $row;
-        }
+        $TempAsset = 0;
+        $LongTermAsset = 0;
+        $TempLiability = 0;
+        $LongTermLiability = 0;
+        $TotalEquity = 0;
 
-        //Create new row for aggregated data/totals
+        $headerRow['accountID'] = '<b style="display:none">' . 0.0 . '</b>';        //Asset line
+        $headerRow['faccount'] = '<b>' . "Assets" . '</b>';
+        $headerRow['balance'] = "";
+        $data[] = $headerRow;
 
-        
-        //Add new row to data
+        while($row = mysqli_fetch_array($result)){          //goes through whole table to make all rows for temp assets
+            $i = 0;
+            for ($i = 0; $i < count($data); $i++) 
+            {
+                if ($data[$i]['fcategory'] == '1' && $data[$i]['fsubcategory'] == '0')
+                {
+                    $row['faccountID'] = $data[$i]['faccountID'];
+                    $row['faccount'] = $data[$i]['faccount'];
+                    $row['fbalance'] = $data[$i]['fbalance'];
+
+                    $TempAsset += $data[$i]['fbalance'];
+
+                    $data[] = $row;
+                }
+            }
+        }  
+        break;
 
 
+//-----------------------------------------------------------------
 
-        /*psudocode central
-
-        assettotal = 0;
-        liabilitytotal = 0;
-        Equitytotal = 0;
-
-        create 3 column table headers:(code, name, amount)
+        /*create 3 column table headers:(code, name, amount)
         
         create row where 2nd column in bold text:"Assets"
 
-        if statment for if fcategory = 1
+        if statment for if fcategory = 1 && fsubcategory = 0 (current assets)
             pull code, name, and final balance(I think this can easily be pulled as the final value)
             create row with that information
             assettotal += fbalance
 
             goes through entire table
+        create blank row
+        if statment for if fcategory = 1 && fsubcategory = 1 || 2 (longterm / other assets)
+            pull code, name, and final balance(I think this can easily be pulled as the final value)
+            create row with that information
+            assettotal += fbalance
+
+            goes through entire table
+        create blank row
         create row where 2nd column reads total Assets and 3rd column displays assettotal
         create blank row
 
         repeat using liabilities (fcategory = 2) & liabilitytotal
 
-        repeat using equity (fcategory = 3) & equitytotal
+        repeat using equity (fcategory = 3) & equitytotal, no long/short term
 
         create row where 2nd column reads "total equity and liabilities"and 3rd column displays liabilitytotal+equitytotal
         end table
         */
-        break;
+        
 
     //Retained Earnings
     case 4:
