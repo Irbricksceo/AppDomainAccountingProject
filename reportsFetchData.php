@@ -17,7 +17,7 @@ $endDate = $_GET['endDate'];
 
 /* REMOVE LATER */
 //For testing SQL queries
-$reportType = 3;
+$reportType = 4;
 $startDate = "2021-01-01";
 $endDate = "2021-04-22";
 /**/
@@ -668,8 +668,8 @@ switch ($reportType) {
 
         $result = mysqli_query($link, $sql);
 
-        $totalDebit = 0;
-        $totalCredit = 0;
+        $totalRevenue = 0;
+        $totalExpense = 0;
 
         while($row = mysqli_fetch_array($result)){
             if($row['normalside'] == 0)
@@ -709,8 +709,8 @@ switch ($reportType) {
 
         $result = mysqli_query($link, $sql);
 
-        $totalDebit = 0;
-        $totalCredit = 0;
+        $totalRevenue = 0;
+        $totalExpense = 0;
 
         while($row = mysqli_fetch_array($result)){
             if($row['normalside'] == 0)
@@ -750,8 +750,8 @@ switch ($reportType) {
 
         $result = mysqli_query($link, $sql);
 
-        $totalDebit = 0;
-        $totalCredit = 0;
+        $totalRevenue = 0;
+        $totalExpense = 0;
 
         while($row = mysqli_fetch_array($result)){
             if($row['normalside'] == 0)
