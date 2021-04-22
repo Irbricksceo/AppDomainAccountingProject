@@ -549,7 +549,7 @@ switch ($reportType) {
         }
 
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Current Liabilities line
-        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Current Liabilities" . '</b>';
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Current Liabilities" . '</b>';
         if ($TempLiability < 0)
             {$row['fbalance'] = '<b>' . "(" . number_format(abs($TempLiability), 2) . ")". '</b>';}
         else { $row['fbalance'] = '<b>' . number_format($TempLiability, 2) . '</b>';}
@@ -571,7 +571,7 @@ switch ($reportType) {
         }
 
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Long Term Liabilities line
-        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Long Term Liabilities" . '</b>';
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Long Term Liabilities" . '</b>';
         if ($LongTermLiability < 0)
             {$row['fbalance'] = '<b>' . "(" . number_format(abs($LongTermLiability), 2) . ")". '</b>';}
         else { $row['fbalance'] = '<b>' . number_format($LongTermLiability, 2) . '</b>';}
@@ -579,7 +579,7 @@ switch ($reportType) {
 
         $TempNum = $TempLiability + $LongTermLiability;
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Liabilities line
-        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Liabilities" . '</b>';
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Liabilities" . '</b>';
         if ($TempNum < 0)
             {$row['fbalance'] = '<b>' . "(" . number_format(abs($TempNum), 2) . ")". '</b>';}
         else { $row['fbalance'] = '<b>' . number_format($TempNum, 2) . '</b>';}
@@ -606,7 +606,7 @@ switch ($reportType) {
         }
 
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Equity line
-        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Equity" . '</b>';
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Equity" . '</b>';
         if ($TotalEquity < 0)
             {$row['fbalance'] = '<b>' . "(" . number_format(abs($TotalEquity), 2) . ")". '</b>';}
         else { $row['fbalance'] = '<b>' . number_format($TotalEquity, 2) . '</b>';}
@@ -614,7 +614,7 @@ switch ($reportType) {
         
         $TempNums = $TotalEquity + $TempNum;
         $row['faccountID'] = '<b style="display:none">' . 0.0 . '</b>';        // total Liabilities & Equity line
-        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total Liabilities and Equity" . '</b>';
+        $row['faccount'] = '<b>' . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Liabilities and Equity" . '</b>';
         if ($TempNums < 0)
             {$row['fbalance'] = '<b>' . "(" . number_format(abs($TempNums), 2) . ")". '</b>';}
         else { $row['fbalance'] = '<b>' . number_format($TempNums, 2) . '</b>';}
